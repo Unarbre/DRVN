@@ -1,0 +1,3 @@
+utilisation des listes chainées pour la descendance : Une liste chainée est une structure possédant en dernier élément de structure un pointeur ou un tableau de pointeur (dynamique) pointant sur un nombre indéfini d'autres listes chainées. Ceci permettra le suivi des descendances pour l'ia et la base de données.
+
+Utilisation des procédures stockées : Permet de réaliser des traitements en base de données plutôt qu'avec le programme C pour le soulager-
