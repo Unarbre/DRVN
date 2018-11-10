@@ -7,20 +7,19 @@ void initiatePool(struct MU *str, int number)
     for (i = 0; i < number; i++)
     {
         str->heat = 30;
-        printf("%d,",str->heat);
+        printf("%d : %d,", i, str->heat);
         str->pressure = 30;
         str->skin = 10;
         str++;
     }
 }
 
-void addMU(struct MU *geneticPool, struct MU * newMU, int *population)
+void addMU(struct MU *geneticPool, struct MU *newMU)
 {
-    initiatePool(newMU, 1);
-    geneticPool[sizeof(geneticPool)] = *newMU;
-    (*population)++;
+    geneticPool = newMU;
+    printf("MUadded : %d\n%d\n%d\n", geneticPool->heat);
 }
 
-void braid(struct MU *dad, struct MU *mom)
+void breed(struct MU *dad, struct MU *mom)
 {
 }
