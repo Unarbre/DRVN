@@ -1,0 +1,9 @@
+Réflexion : 
+Système de gène porteur -> équivalence en point génétique (score de survie)
+REELLE fonctionnalités de l'"IA"
+
+
+
+To Implemant :
+Interface graphique
+Base de données

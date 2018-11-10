@@ -9,5 +9,5 @@ struct MU
 };
 
 void initiatePool(struct MU *str, int number);
-void addMU(struct MU *geneticPool, struct MU * newMU, int *population);
-void braid(struct MU *dad, struct MU *mom);
+void addMU(struct MU *geneticPool, struct MU * newMU);
+void breed(struct MU *dad, struct MU *mom);
