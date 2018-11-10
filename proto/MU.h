@@ -8,4 +8,6 @@ struct MU
     int heat;
 };
 
-void addMU();
+void initiatePool(struct MU *str, int number);
+void addMU(struct MU *geneticPool, struct MU * newMU, int *population);
+void braid(struct MU *dad, struct MU *mom);

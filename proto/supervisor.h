@@ -1,9 +1,17 @@
 #ifndef SUPERVISOR
 #define SUPERVISOR
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+
+
 #include "MU.h"
 
-void addMU(struct MU *geneticPool, struct MU * newMU);
-void braid(struct MU *dad, struct MU *mom);
+
+// Unusual Assets
+void printPopulation(struct MU * MUs, int population);
+
 
 #endif
