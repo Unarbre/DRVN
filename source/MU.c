@@ -1,7 +1,7 @@
 // Declaration of MU's structure
 #include "../proto/supervisor.h"
 
-void initiatePool(struct MU *str, int number)
+void initiatePopulation(struct MU *str, int number)
 {
     int i;
     for (i = 0; i < number; i++)
@@ -14,10 +14,25 @@ void initiatePool(struct MU *str, int number)
     }
 }
 
-void addMU(struct MU *geneticPool, struct MU *newMU)
+struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population)
 {
-    geneticPool = newMU;
-    printf("MUadded : %d\n%d\n%d\n", geneticPool->heat);
+    int i;
+    // Declaration of a new MUnivers that will be returned
+    struct MU *newUnivers = malloc(sizeof(struct MU) * (*population) + 1);
+
+    // Filling new Univers with previous MU
+    for (i = 0; i < (*population); i++)
+    {
+        newUnivers[i] = MUnivers[i];
+    }
+
+    // Adding of the new MU
+    newUnivers[i] = newMU;
+
+    // Incrementation of the population
+    (*population)++;
+
+    return newUnivers;
 }
 
 void breed(struct MU *dad, struct MU *mom)

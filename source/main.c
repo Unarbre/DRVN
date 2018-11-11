@@ -6,11 +6,12 @@ int main(int argc, char **argv)
     struct MU son;
     int population = 10;
     MUs = malloc(sizeof(struct MU) * population);
-    initiatePool(MUs, population);
-    initiatePool(&son, 1);
-    population++;
+    initiatePopulation(MUs, population);
+    printPopulation(MUs, population);
 
-    addMU(MUs, &son);
+    initiatePopulation(&son, 1);
+
+    MUs = addMU(MUs, son, &population);
     printPopulation(MUs, population);
 
     return 0;

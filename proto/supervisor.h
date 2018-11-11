@@ -11,7 +11,7 @@
 
 
 // Unusual Assets
-void printPopulation(struct MU * MUs, int population);
+void printPopulation(struct MU *MUs, int population);
 
 
 #endif
