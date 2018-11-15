@@ -1,19 +1,43 @@
 // Declaration of MU's structure
 #include "../proto/supervisor.h"
 
-void initiatePopulation(struct MU *str, int number)
+// Initiate the population
+void initiatePopulation(struct MU *MUs, int number, int *idMU, int squareSize, int population)
 {
     int i;
-    for (i = 0; i < number; i++)
+    for (i = 0; i < number; i++, MUs++)
     {
-        str->heat = 30;
-        printf("%d : %d,", i, str->heat);
-        str->pressure = 30;
-        str->skin = 10;
-        str++;
+        MUs->idMU = (*idMU)++;
+        MUs->position = generatePosition(squareSize, MUs, population);
     }
 }
 
+// Return random position
+int *generatePosition(int squareSize, struct MU *MUs, int population)
+{
+    int *position = malloc(sizeof(int) * 2);
+    position[0] = rand() % squareSize;
+    position[1] = rand() % squareSize;
+    if (checkPosition(squareSize, position, MUs, population))
+    {
+        return generatePosition(squareSize, MUs, population);
+    }
+    return position;
+}
+
+// Check position availability
+int checkPosition(int squareSize, int *position, struct MU *MUs, int population)
+{
+    int i;
+    // Check if maximal size is respected
+    if (position[0] > squareSize || position[1] > squareSize)
+    {
+        return 1;
+    }
+
+}
+
+// Add an MU to the already setup MU's pool
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population)
 {
     int i;

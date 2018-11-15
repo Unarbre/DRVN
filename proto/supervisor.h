@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-
+#include <time.h>
 
 #include "MU.h"
 

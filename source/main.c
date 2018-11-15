@@ -2,17 +2,11 @@
 // test
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
+    int MUCount = 0;
     struct MU *MUs;
-    struct MU son;
-    int population = 10;
+    int population = 5;
     MUs = malloc(sizeof(struct MU) * population);
-    initiatePopulation(MUs, population);
-    printPopulation(MUs, population);
-
-    initiatePopulation(&son, 1);
-
-    MUs = addMU(MUs, son, &population);
-    printPopulation(MUs, population);
 
     return 0;
 }

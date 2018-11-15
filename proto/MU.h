@@ -3,11 +3,16 @@
 */
 struct MU
 {
-    int pressure;
-    int skin;
-    int heat;
+    int idMU;
+    char **ADN;
+    int **capacity;
+    int *position;
+
+    struct MU **children;
 };
 
-void initiatePopulation(struct MU *str, int number);
+int checkPosition(int squareSize, int *position, struct MU *MUs, int population);
+int *generatePosition(int squareSize, struct MU *MUs, int population);
+void initiatePopulation(struct MU *MUs, int number, int *idMU, int squareSize, int population);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
 void breed(struct MU *dad, struct MU *mom);
