@@ -1,10 +1,14 @@
 /*
 ** Declaration of MU's structure
 */
+
+// Define type for 1 Byte numeric values
+typedef unsigned char tiny;
+
 struct MU
 {
+    tiny **ADN;
     int idMU;
-    char **ADN;
     int **capacity;
     int *position;
 
@@ -12,7 +16,8 @@ struct MU
 };
 
 int checkPosition(int squareSize, int *position, struct MU *MUs, int population);
-int *generatePosition(int squareSize, struct MU *MUs, int population);
-void initiatePopulation(struct MU *MUs, int number, int *idMU, int squareSize, int population);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
 void breed(struct MU *dad, struct MU *mom);
+void generateMu(struct MU *Mu, int *idMu, int population, int squareSize, struct MU *Mus);
+int *generatePosition(int squareSize, struct MU *MUs, int population);
+int **generateCapacity(unsigned char **ADN);
