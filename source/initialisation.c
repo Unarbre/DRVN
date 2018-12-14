@@ -11,8 +11,7 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
     int i;
     for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
     {
-        printf("in!");
-        printf("ok");
+        Mus->ADN = initialiseADN();
         Mus->idMU = (*idMu);
         Mus->position = initialisePosition(*idMu, squareSize, population);
     }
