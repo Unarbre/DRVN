@@ -1,10 +1,5 @@
 #include "../proto/supervisor.h"
 
-void initiateLand(struct Land *land, int square)
-{
-    land->size = square;
-}
-
 // Initiate the population
 void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize, int population)
 {
@@ -12,9 +7,15 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
     for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
     {
         Mus->ADN = initialiseADN();
-        Mus->idMU = (*idMu);
+        Mus->idMU = *idMu;
         Mus->position = initialisePosition(*idMu, squareSize, population);
     }
+}
+
+//  Initialise Land's parameters
+void initiateLand(struct Land *land, int square)
+{
+    land->size = square;
 }
 
 // Return an array of Strand X 2 ADN expressions
@@ -22,8 +23,9 @@ tiny **initialiseADN()
 {
     tiny **ADN = malloc(sizeof(tiny *) * 12);
     tiny expression = 'A';
+
     int i, j;
-    for (i = 0; i < 12; i++)
+    for (i = 0; i < 12; i++, expression++)
     {
         ADN[i] = malloc(sizeof(tiny) * 3);
         ADN[i][0] = expression;
@@ -31,8 +33,8 @@ tiny **initialiseADN()
         {
             ADN[i][j] = (rand() % 200);
         }
-        expression++;
     }
+    printf("Function ok");
     return ADN;
 }
 
