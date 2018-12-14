@@ -17,10 +17,11 @@ void printMu(struct MU *Mu)
     int i = 0;
     printf("Id :%d\n", Mu->idMU);
     printf("position : %d %d\n", Mu->position[0], Mu->position[1]);
-    do
+    while (Mu->ADN[i][0] <= 76)
     {
+
         printf("%c: %d %d\n", Mu->ADN[i][0], Mu->ADN[i][1], Mu->ADN[i][2]);
         i++;
-    } while (Mu->ADN[i][0] <= 'L');
+    }
     printf("be voila");
 }

@@ -2,12 +2,12 @@
 ** Declaration of MU's structure
 */
 
-// Define type for 1 Byte numeric values
+// Define type for 1 Bytes numeric values
 typedef unsigned char tiny;
 
 struct MU
 {
-    tiny **ADN;
+    tiny ** ADN;
     int idMU;
     int **capacity;
     int *position;
