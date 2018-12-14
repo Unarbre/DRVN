@@ -10,7 +10,6 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
         Mus->position = initialisePosition(*idMu, squareSize, population);
         Mus->ADN = initialiseADN();
 
-        (*idMu)++;
     }
 }
 
