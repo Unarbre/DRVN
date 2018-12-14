@@ -10,6 +10,7 @@
 #include "MU.h"
 #include "land.h"
 #include "initialisation.h"
+#include "memoryRelease.h"
 
 // Define macro Struct to contain Univers' Parameters
 struct Univers

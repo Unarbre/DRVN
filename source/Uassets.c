@@ -23,5 +23,4 @@ void printMu(struct MU *Mu)
         printf("%c: %d %d\n", Mu->ADN[i][0], Mu->ADN[i][1], Mu->ADN[i][2]);
         i++;
     }
-    printf("be voila");
 }
