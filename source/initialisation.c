@@ -6,8 +6,10 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
     int i;
     for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
     {
+        printf("In ! ");
         Mus->ADN = initialiseADN();
-        Mus->idMU = *idMu;
+        printf("out");
+        Mus->idMU = (*idMu);
         Mus->position = initialisePosition(*idMu, squareSize, population);
     }
 }
@@ -33,7 +35,7 @@ tiny **initialiseADN()
         {
             ADN[i][j] = (rand() % 200);
         }
-    }
+    }   
     printf("Function ok");
     return ADN;
 }
