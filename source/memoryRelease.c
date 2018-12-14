@@ -1,5 +1,11 @@
 #include "../proto/supervisor.h"
 
+/** Memory gestion Functionalities
+ * 
+ * 
+ * 
+*/
+
 void freeMus(struct MU *Mus, int population)
 {
     int i;
@@ -10,25 +16,29 @@ void freeMus(struct MU *Mus, int population)
         printMu(&(Mus[i]));
         freeMu(&(Mus[i]));
     }
+    free(Mu);
 }
 
 void freeMu(struct MU *Mu)
 {
-    int i = 0;
-
-    // Free ADN's array
-    while (Mu->ADN[i][0] != 'L')
+    if (MU != NULL)
     {
-        if (Mu->ADN[i] != NULL)
-            free(Mu->ADN[i]);
-        i++;
+        int i = 0;
+
+        // Free ADN's array
+        while (Mu->ADN[i][0] != 'L')
+        {
+            if (Mu->ADN[i] != NULL)
+                free(Mu->ADN[i]);
+            i++;
+        }
+
+        // Free ADN
+        if (Mu->ADN != NULL)
+            free(Mu->ADN);
+
+        // Free position
+        if (Mu->position != NULL)
+            free(Mu->position);
     }
-
-    // Free ADN
-    if (Mu->ADN != NULL)
-        free(Mu->ADN);
-
-    // Free position
-    if (Mu->position != NULL)
-        free(Mu->position);
 }

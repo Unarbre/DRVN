@@ -11,6 +11,9 @@ int main(int argc, char **argv)
     initiatePopulation(Mus, 10, &idMu, land.size, 10);
     printMu(&(Mus[4]));
 
+
+
+
     freeMus(Mus, 10);
     return 0;
 }
