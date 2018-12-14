@@ -6,15 +6,14 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
     int i;
     for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
     {
-        printf("In ! ");
         Mus->ADN = initialiseADN();
-        printf("out");
-        Mus->idMU = (*idMu);
+        Mus->idMU = *idMu;
         Mus->position = initialisePosition(*idMu, squareSize, population);
     }
 }
 
 //  Initialise Land's parameters
+
 void initiateLand(struct Land *land, int square)
 {
     land->size = square;
@@ -23,11 +22,11 @@ void initiateLand(struct Land *land, int square)
 // Return an array of Strand X 2 ADN expressions
 tiny **initialiseADN()
 {
-    tiny **ADN = malloc(sizeof(tiny *) * 12);
+    tiny **ADN = malloc(sizeof(tiny *) * 12 + 1);
     tiny expression = 'A';
 
     int i, j;
-    for (i = 0; i < 12; i++, expression++)
+    for (i = 0; i < 12 + 1; i++, expression++)
     {
         ADN[i] = malloc(sizeof(tiny) * 3);
         ADN[i][0] = expression;
@@ -35,8 +34,7 @@ tiny **initialiseADN()
         {
             ADN[i][j] = (rand() % 200);
         }
-    }   
-    printf("Function ok");
+    }
     return ADN;
 }
 
@@ -47,7 +45,6 @@ int *initialisePosition(int idMu, int squareSize, int population)
     int *position = malloc(sizeof(int) * 2);
     position[0] = 0;
     position[1] = idMu * (squareSize / population);
-    printf("ok");
 
     return position;
 }
