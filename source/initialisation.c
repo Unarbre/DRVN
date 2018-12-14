@@ -1,16 +1,20 @@
 #include "../proto/supervisor.h"
 
+void initiateLand(struct Land *land, int square)
+{
+    land->size = square;
+}
+
 // Initiate the population
 void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize, int population)
 {
     int i;
     for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
     {
-        Mus->idMU = *idMu;
+        printf("in!");
+        printf("ok");
+        Mus->idMU = (*idMu);
         Mus->position = initialisePosition(*idMu, squareSize, population);
-        Mus->ADN = initialiseADN();
-
-        (*idMu)++;
     }
 }
 
@@ -40,7 +44,7 @@ int *initialisePosition(int idMu, int squareSize, int population)
     int *position = malloc(sizeof(int) * 2);
     position[0] = 0;
     position[1] = idMu * (squareSize / population);
-    printf("%d", position[1]);
+    printf("ok");
 
     return position;
 }
