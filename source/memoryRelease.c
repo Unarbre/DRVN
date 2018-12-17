@@ -13,15 +13,14 @@ void freeMus(struct MU *Mus, int population)
     // For each MU, free them
     for (i = 0; i < population; i++)
     {
-        printMu(&(Mus[i]));
         freeMu(&(Mus[i]));
     }
-    free(Mu);
+    free(Mus);
 }
 
 void freeMu(struct MU *Mu)
 {
-    if (MU != NULL)
+    if (Mu != NULL)
     {
         int i = 0;
 

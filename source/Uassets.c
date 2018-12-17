@@ -23,4 +23,12 @@ void printMu(struct MU *Mu)
         printf("%c: %d %d\n", Mu->ADN[i][0], Mu->ADN[i][1], Mu->ADN[i][2]);
         i++;
     }
+    i = 0;
+    while (Mu->ADN[i][0] <= 76)
+    {
+        printf("Capacity %c : %d\n", Mu->ADN[i][0], Mu->capacity[i]);
+        i++;
+    }
+
+    printf("Life Points : %d", Mu->lifePoints);
 }

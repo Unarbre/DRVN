@@ -1,22 +1,20 @@
 #include "../proto/supervisor.h"
 
+// POPULATION INITIALISATION
+
 // Initiate the population
 void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize, int population)
 {
     int i;
     for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
     {
-        Mus->ADN = initialiseADN();
         Mus->idMU = *idMu;
+        Mus->ADN = initialiseADN();
+        Mus->capacity = initiateCapacity(Mus->ADN);
+        Mus->lifePoints = initiateLifePoints(Mus->capacity[0]);
         Mus->position = initialisePosition(*idMu, squareSize, population);
+        Mus->children = NULL;
     }
-}
-
-//  Initialise Land's parameters
-
-void initiateLand(struct Land *land, int square)
-{
-    land->size = square;
 }
 
 // Return an array of Strand X 2 ADN expressions
@@ -38,6 +36,34 @@ tiny **initialiseADN()
     return ADN;
 }
 
+// Return an array filled with Capacity
+int *initiateCapacity(tiny **ADN)
+{
+    int i = 0;
+    int *capacity = malloc(sizeof(int) * 12);
+    while (ADN[i][0] <= 'L')
+    {
+        // Check Dominant and recessives alleles
+        if ((ADN[i][1] > 99 && ADN[i][2] > 99) || (ADN[i][1] <= 99 && ADN[i][2] <= 99))
+        {
+            ADN[i][1] > 99 ? capacity[i] = ((ADN[i][1] - 100) + (ADN[i][2] - 100)) / 2 : (capacity[i] = (ADN[i][1] + ADN[i][2]) / 2);
+        }
+        else
+        {
+            (ADN[i][1] > 99) ? (capacity[i] = ADN[i][1] - 100) : (capacity[i] = ADN[i][2] - 100);
+        }
+        printf("capacity given : %d\n", capacity[i]);
+        i++;
+    }
+    return capacity;
+}
+
+// Calculate and return life points from gene A (first gene)
+int initiateLifePoints(int geneA)
+{
+    return 5 + (geneA / 2) / 10;
+}
+
 // Generate a position depending of the population and the space allowed.
 int *initialisePosition(int idMu, int squareSize, int population)
 {
@@ -47,4 +73,15 @@ int *initialisePosition(int idMu, int squareSize, int population)
     position[1] = idMu * (squareSize / population);
 
     return position;
+}
+
+
+
+//LAND INITIALISATION
+
+//  Initialise Land's parameters
+
+void initiateLand(struct Land *land, int square)
+{
+    land->size = square;
 }

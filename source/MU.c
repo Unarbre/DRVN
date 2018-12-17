@@ -2,6 +2,7 @@
 
 /* !!!! TEMPORARY FUNCTION !!!!! MU WILL NOT BE GENERATE BUT CREATE AS THE RESULT OF A BREED OF TWO MU !!!!! 
 Initialize an MU independently of the first initialisation */
+/*
 void generateMu(struct MU *Mu, int *idMu, int population, int squareSize, struct MU *Mus)
 {
     Mu->idMU = (*idMu)++;
@@ -10,13 +11,19 @@ void generateMu(struct MU *Mu, int *idMu, int population, int squareSize, struct
     Mu->position = generatePosition(squareSize, Mus, population);
     Mus->children = NULL;
 }
+*/
 
-
-
+/*
 int **generateCapacity(unsigned char **ADN)
 {
     int **capacity = malloc(sizeof(int) * 2);
     return capacity;
+}
+*/
+
+struct MU *breed(struct MU *dad, struct MU *mom)
+{
+    struct MU baby;
 }
 
 // Return random position
@@ -84,8 +91,4 @@ struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population)
     (*population)++;
 
     return newUnivers;
-}
-
-void breed(struct MU *dad, struct MU *mom)
-{
 }

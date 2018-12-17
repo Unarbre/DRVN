@@ -3,6 +3,7 @@
 // test
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
     struct MU *Mus;
     Mus = malloc(sizeof(struct MU) * 10);
     int idMu = 0;
@@ -10,9 +11,6 @@ int main(int argc, char **argv)
     initiateLand(&land, 50);
     initiatePopulation(Mus, 10, &idMu, land.size, 10);
     printMu(&(Mus[4]));
-
-
-
 
     freeMus(Mus, 10);
     return 0;
