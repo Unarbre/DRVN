@@ -21,9 +21,30 @@ int **generateCapacity(unsigned char **ADN)
 }
 */
 
-struct MU *breed(struct MU *dad, struct MU *mom)
+// breed 2 MU's by spliting ADN
+void breed(struct MU *dad, struct MU *mom, int *id, int *population)
 {
+
+    int i = 0;
+    tiny expression = 'A';
     struct MU baby;
+    baby.ADN = malloc(sizeof(tiny *) * 13);
+
+    while (expression <= 'L')
+    {
+        baby.ADN[i] = malloc(sizeof(tiny) * 3);
+        // Will affect to ADN version 1 or 2 from each parents
+        baby.ADN[i][0] = expression++;
+        baby.ADN[i][1] = dad->ADN[i][(rand() % 2) + 1];
+        baby.ADN[i][2] = mom->ADN[i][(rand() % 2) + 1];
+        i++;
+    }
+    baby.capacity = initiateCapacity(baby.ADN);
+    baby.position[0] = 1;
+    baby.position[1] = 1;
+    baby.idMU = (*id)++;
+    baby.lifePoints = initiateLifePoints(baby.capacity[0]);
+    printMu(&baby);
 }
 
 // Return random position

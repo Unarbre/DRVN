@@ -16,6 +16,7 @@
 struct Univers
 {
     int version;
+    int lastChild;
     struct MU **MUs;
     struct Land *Land;
 };

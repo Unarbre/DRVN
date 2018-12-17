@@ -41,7 +41,7 @@ int *initiateCapacity(tiny **ADN)
 {
     int i = 0;
     int *capacity = malloc(sizeof(int) * 12);
-    while (ADN[i][0] <= 'L')
+    while (i < 12)
     {
         // Check Dominant and recessives alleles
         if ((ADN[i][1] > 99 && ADN[i][2] > 99) || (ADN[i][1] <= 99 && ADN[i][2] <= 99))
@@ -52,7 +52,7 @@ int *initiateCapacity(tiny **ADN)
         {
             (ADN[i][1] > 99) ? (capacity[i] = ADN[i][1] - 100) : (capacity[i] = ADN[i][2] - 100);
         }
-        printf("capacity given : %d\n", capacity[i]);
+        printf("%c", ADN[i][0]);
         i++;
     }
     return capacity;
@@ -74,8 +74,6 @@ int *initialisePosition(int idMu, int squareSize, int population)
 
     return position;
 }
-
-
 
 //LAND INITIALISATION
 
