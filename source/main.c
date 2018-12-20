@@ -11,8 +11,9 @@ int main(int argc, char **argv)
     struct Land land;
     initiateLand(&land, 50);
     initiatePopulation(Mus, 10, &idMu, land.size, 10);
-    breed(&(Mus[3]), &(Mus[5]), &idMu, &population);
-
-    freeMus(Mus, 10);
+    Mus = procreate(&population, &idMu, Mus);
+    printMu(&Mus[population - 1]);
+    printf("%d", population);
+    freeMus(Mus, population);
     return 0;
 }

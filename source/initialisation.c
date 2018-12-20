@@ -52,7 +52,6 @@ int *initiateCapacity(tiny **ADN)
         {
             (ADN[i][1] > 99) ? (capacity[i] = ADN[i][1] - 100) : (capacity[i] = ADN[i][2] - 100);
         }
-        printf("%c", ADN[i][0]);
         i++;
     }
     return capacity;

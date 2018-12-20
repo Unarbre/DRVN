@@ -17,7 +17,8 @@ struct MU
 };
 
 int checkPosition(int squareSize, int *position, struct MU *MUs, int population);
+struct MU *procreate(int * population, int * lastChild, struct MU * Mus);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
-void breed(struct MU *dad, struct MU *mom, int *id, int * population);
+struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population);
 void generateMu(struct MU *Mu, int *idMu, int population, int squareSize, struct MU *Mus);
 int *generatePosition(int squareSize, struct MU *MUs, int population);
