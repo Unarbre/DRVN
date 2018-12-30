@@ -12,6 +12,7 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
         Mus->ADN = initialiseADN();
         Mus->capacity = initiateCapacity(Mus->ADN);
         Mus->lifePoints = initiateLifePoints(Mus->capacity[0]);
+        Mus->speed = Mus->capacity[1];
         Mus->position = initialisePosition(*idMu, squareSize, population);
         Mus->status = 1;
         Mus->children = NULL;
@@ -60,10 +61,11 @@ int *initiateCapacity(tiny **ADN)
 }
 
 // Calculate and return life points from gene A (first gene)
-int initiateLifePoints(int geneA)
+int initiateLifePoints(tiny geneA)
 {
     return 5 + (geneA / 2) / 10;
 }
+
 
 // Generate a position depending of the population and the space allowed.
 int *initialisePosition(int idMu, int squareSize, int population)
@@ -75,4 +77,3 @@ int *initialisePosition(int idMu, int squareSize, int population)
 
     return position;
 }
-

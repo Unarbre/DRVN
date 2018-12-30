@@ -13,6 +13,7 @@ int main(int argc, char **argv)
     initiateLand(&land, size);
     initiatePopulation(Mus, 10, &idMu, land.size, 10);
     Mus = procreate(&population, &idMu, Mus);
+    printMu(&(Mus[population - 1]));
     printf("out");
 
     freeMus(Mus, population);

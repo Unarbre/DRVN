@@ -17,8 +17,9 @@
 struct Univers
 {
     int version;
-    int lastChild;
+    int lastChildId;
     int population;
+    int * idTurn;
     struct MU **MUs;
     struct Land *Land;
 };
@@ -26,5 +27,4 @@ struct Univers
 // Unusual Assets
 void printPopulation(struct MU *MUs, int population);
 void printMu(struct MU *Mu);
-int initiateLifePoints(int geneA);
 #endif

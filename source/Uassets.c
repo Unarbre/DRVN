@@ -19,5 +19,6 @@ void printMu(struct MU *Mu)
     }
 
     printf("Life Points : %d\n", Mu->lifePoints);
+    printf("speed : %d", Mu->speed);
     printf("status : %d", Mu->status);
 }

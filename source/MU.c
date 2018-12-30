@@ -45,5 +45,7 @@ struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population)
     baby->idMU = (*id)++;
     baby->status = 1;
     baby->lifePoints = initiateLifePoints(baby->capacity[0]);
+    baby->speed = baby->capacity[1];
+    
     return baby;
 }

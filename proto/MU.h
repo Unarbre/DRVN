@@ -10,6 +10,7 @@ struct MU
     int idMU;
     int status;
     int lifePoints;
+    int speed;
     tiny **ADN;
     int *capacity;
     int *position;
