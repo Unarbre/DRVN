@@ -13,6 +13,7 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
         Mus->capacity = initiateCapacity(Mus->ADN);
         Mus->lifePoints = initiateLifePoints(Mus->capacity[0]);
         Mus->position = initialisePosition(*idMu, squareSize, population);
+        Mus->status = 1;
         Mus->children = NULL;
     }
 }
@@ -26,6 +27,7 @@ tiny **initialiseADN()
     int i, j;
     for (i = 0; i < 12 + 1; i++, expression++)
     {
+        // 3 Elements. 1 -> ADN letter. 2 -> First Allele. 3-> 2nd Allele
         ADN[i] = malloc(sizeof(tiny) * 3);
         ADN[i][0] = expression;
         for (j = 1; j < 3; j++)
@@ -36,7 +38,7 @@ tiny **initialiseADN()
     return ADN;
 }
 
-// Return an array filled with Capacity
+// Return an array filled with Capacity, by interpreting  ADN
 int *initiateCapacity(tiny **ADN)
 {
     int i = 0;
@@ -74,11 +76,3 @@ int *initialisePosition(int idMu, int squareSize, int population)
     return position;
 }
 
-//LAND INITIALISATION
-
-//  Initialise Land's parameters
-
-void initiateLand(struct Land *land, int square)
-{
-    land->size = square;
-}

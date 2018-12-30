@@ -1,8 +1,7 @@
 
-
 struct Land
 {
-    int *pressures;
+    tiny *pressures;
     int size;
-    int **singularity;
+    tiny ***tiles;
 };

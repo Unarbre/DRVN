@@ -9,14 +9,16 @@
 
 #include "MU.h"
 #include "land.h"
-#include "initialisation.h"
+#include "populationInit.h"
 #include "memoryRelease.h"
+#include "landInitialisation.h"
 
 // Define macro Struct to contain Univers' Parameters
 struct Univers
 {
     int version;
     int lastChild;
+    int population;
     struct MU **MUs;
     struct Land *Land;
 };
