@@ -7,22 +7,16 @@
 #include <string.h>
 #include <time.h>
 
+// Define type for 1 Bytes numeric values before any custom include, so functions do recognize custom type
+typedef unsigned char tiny;
+
 #include "MU.h"
 #include "land.h"
 #include "populationInit.h"
+#include "landInit.h"
+#include "univers.h"
+// Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"
-#include "landInitialisation.h"
-
-// Define macro Struct to contain Univers' Parameters
-struct Univers
-{
-    int version;
-    int lastChildId;
-    int population;
-    int * idTurn;
-    struct MU **MUs;
-    struct Land *Land;
-};
 
 // Unusual Assets
 void printPopulation(struct MU *MUs, int population);

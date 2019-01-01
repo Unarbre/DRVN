@@ -3,7 +3,7 @@
 void printMu(struct MU *Mu)
 {
     int i = 0;
-    printf("Id :%d\n", Mu->idMU);
+    printf("\nId :%d\n", Mu->idMU);
     printf("position : %d %d\n", Mu->position[0], Mu->position[1]);
     while (i <= 11)
     {
@@ -19,6 +19,12 @@ void printMu(struct MU *Mu)
     }
 
     printf("Life Points : %d\n", Mu->lifePoints);
-    printf("speed : %d", Mu->speed);
-    printf("status : %d", Mu->status);
+    printf("speed : %d\n", Mu->speed);
+    printf("status : %d\n", Mu->status);
+    printf("Languor : %d\n", Mu->languor);
+    i = 0;
+    while (Mu->children[i] != 0)
+    {
+        printf("Children %d : %d\n", i, Mu->children[i++]);
+    }
 }

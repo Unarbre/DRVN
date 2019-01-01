@@ -6,5 +6,6 @@
         "supervisor.h\u0000pervisor.h": "c",
         "supervisor.h\u0000rvisor.h": "c",
         "supervisor.h\u0000visor.h": "c"
-    }
+    },
+    "cmake.configureOnOpen": true
 }

@@ -1,23 +1,36 @@
+#include "supervisor.h"
+
 /*
 ** Declaration of MU's structure
 */
 
-// Define type for 1 Bytes numeric values
-typedef unsigned char tiny;
-
 struct MU
 {
+    // Mu's unique ID
     int idMU;
+    // MU's status : 0 dying state, 1 neutral state, 2 lively state.
     int status;
+    // MU's longevity and stamina
     int lifePoints;
+    // Mu's speed, determining the order of Mu's actions in turn
     int speed;
+    // "Boolean" determining if Mu can procreate or note
+    int languor;
+    // Turn in whome Mu has been generated
+    int birthDate;
+    // ADN of MU, in format [X] [tiny] [tiny]
     tiny **ADN;
+    // Interpretation of ADN
     int *capacity;
+    // Position of MU on map
     int *position;
 
-    struct MU **children;
+    // Array of Mu's ID filled with children of Mu
+    int *children;
 };
 
-struct MU *procreate(int *population, int *lastChild, struct MU *Mus);
+struct MU *procreate(int *population, int *lastChild, struct MU *Mus, int date);
+tiny **shareADN(struct MU *baby, struct MU *dad, struct MU *mom);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
 struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population);
+void affectChildren(int idChildren, struct MU *parent);

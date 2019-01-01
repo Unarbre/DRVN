@@ -12,10 +12,12 @@ void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize
         Mus->ADN = initialiseADN();
         Mus->capacity = initiateCapacity(Mus->ADN);
         Mus->lifePoints = initiateLifePoints(Mus->capacity[0]);
+        Mus->languor = 1;
+        Mus->birthDate = 0;
         Mus->speed = Mus->capacity[1];
         Mus->position = initialisePosition(*idMu, squareSize, population);
         Mus->status = 1;
-        Mus->children = NULL;
+        Mus->children = calloc(50, sizeof(int));
     }
 }
 
@@ -66,14 +68,15 @@ int initiateLifePoints(tiny geneA)
     return 5 + (geneA / 2) / 10;
 }
 
-
 // Generate a position depending of the population and the space allowed.
 int *initialisePosition(int idMu, int squareSize, int population)
 {
 
     int *position = malloc(sizeof(int) * 2);
+
     position[0] = 0;
-    position[1] = idMu * (squareSize / population);
+
+    position[1] = (squareSize % 10 == 0 ? idMu * (squareSize / population) : idMu);
 
     return position;
 }

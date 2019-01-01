@@ -1,5 +1,6 @@
 #include "supervisor.h"
 
+void initiateLand(struct Land *land, int square);
 tiny *initialisePressures();
 tiny ***initiateTiles(int square, tiny *naturePressures);
 tiny ***generatePressureForms(int square);

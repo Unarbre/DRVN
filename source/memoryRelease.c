@@ -6,6 +6,12 @@
  * 
 */
 
+void freeUnivers(struct Univers *univers)
+{
+    freeLand(univers->Land);
+    freeMus(univers->MUs, univers->population);
+}
+
 void freeMus(struct MU *Mus, int population)
 {
     int i;
@@ -39,6 +45,9 @@ void freeMu(struct MU *Mu)
         // Free position
         if (Mu->position != NULL)
             free(Mu->position);
+
+        if (Mu->children != NULL)
+            free(Mu->children);
     }
 }
 
