@@ -9,7 +9,7 @@
 
 // Define type for 1 Bytes numeric values before any custom include, so functions do recognize custom type
 typedef unsigned char tiny;
-
+#include <SDL.h>
 #include "MU.h"
 #include "land.h"
 #include "populationInit.h"
@@ -19,6 +19,6 @@ typedef unsigned char tiny;
 #include "memoryRelease.h"
 
 // Unusual Assets
-void printPopulation(struct MU *MUs, int population);
 void printMu(struct MU *Mu);
+void printTile(struct Tile tile);
 #endif

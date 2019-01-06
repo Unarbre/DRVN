@@ -25,6 +25,21 @@ void printMu(struct MU *Mu)
     i = 0;
     while (Mu->children[i] != 0)
     {
-        printf("Children %d : %d\n", i, Mu->children[i++]);
+        printf("Children %d : %d\n", i, Mu->children[i]);
+        i++;
+    }
+}
+
+void printTile(struct Tile tile)
+{
+    int i;
+    printf("Position : %d %d\n", tile.x, tile.y);
+    for (i = 0; i < 8; i++)
+    {
+        printf("Pression %d: %d\n", i, tile.pressures[i]);
+    }
+    if (tile.Mu != NULL)
+    {
+        printMu(tile.Mu);
     }
 }

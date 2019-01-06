@@ -4,11 +4,44 @@
 
 //  Initialise Land's parameters
 
-void initiateLand(struct Land *land, int square)
+void initiateLand(struct Land * land, int square)
 {
+    int i, j;
+    // Affect World Pressures
+    land->worldPressure = initialisePressures();
     land->size = square;
-    land->pressures = initialisePressures();
-    land->tiles = initiateTiles(land->size, land->pressures);
+    tiny ***pressureForms = generatePressureForms(square);
+    struct Tile **tiles = malloc(sizeof(struct Tile *) * 50);
+    for (i = 0; i < 50 ; i++)
+    {
+        tiles[i] = malloc(sizeof(struct Tile) * 50);
+        for (j = 0; j < 50; j++)
+        {
+            tiles[i][j].x = i;
+            tiles[i][j].y = j;
+            tiles[i][j].pressures = affectPressure(pressureForms, land->worldPressure, i, j);
+            tiles[i][j].Mu = NULL;
+        }
+    }
+
+    freePressureForms(pressureForms);
+    land->tiles = tiles;
+}
+
+tiny *affectPressure(tiny ***pressureForms, tiny *worldPressures, int x, int y)
+{
+    int i;
+    tiny *geoPressure = initiateGeoPressures();
+    // TEMPORARY  -> Number of 8 pressures is arbitrary
+    tiny *pressures = malloc(sizeof(tiny) * 8);
+
+    for (i = 0; i < 8; i++)
+    {
+        pressures[i] = worldPressures[i];
+        pressures[i] += pOnTile(pressureForms[i], geoPressure[i], x, y);
+    }
+    free(geoPressure);
+    return pressures;
 }
 
 // Initialise natural pressure on the Land
@@ -19,22 +52,10 @@ tiny *initialisePressures()
     for (i = 0; i < 8; i++)
     {
         pressures[i] = (rand() % 10) + 3;
-        printf("%d\n", pressures[i]);
     }
     return pressures;
 }
 
-// Initialize each tiles.
-tiny ***initiateTiles(int square, tiny *naturePressures)
-{
-    tiny ***tiles;
-    tiny ***pressureForms = generatePressureForms(square);
-    int i, j;
-
-    tiles = affectTilesPressures(square, naturePressures, pressureForms);
-    freePressureForms(pressureForms);
-    return tiles;
-}
 
 // Generating arrays of pressure. First size is pressure ID (8 pressures), second size is
 // all four peaks of the generated square, third size is coordonate of those peaks
@@ -149,36 +170,7 @@ int guessLeftRight(int square, tiny *firstPeak, int edge)
     return -1;
 }
 
-// Return an array of square X square X pressures size, filled with all pressures value affected to tiles.
-tiny ***affectTilesPressures(int square, tiny *naturePressures, tiny ***pressureForms)
-{
-    int i, j, k;
-    tiny *geoPressures = initiateGeoPressures();
-    tiny ***tiles = malloc(sizeof(tiny **) * square);
-    for (i = 0; i < 50; i++)
-    {
-        tiles[i] = malloc(sizeof(tiny *) * square);
-        for (j = 0; j < 50; j++)
-        {
-            //TEMPORARY -> 8 is the arbitrary choiced number of pressures. It may be changed
-            tiles[i][j] = malloc(sizeof(tiny) * 8);
-            for (k = 0; k < 8; k++)
-            {
-                tiles[i][j][k] = naturePressures[k];
-                tiles[i][j][k] += pOnTile(pressureForms[k], geoPressures[k], i, j);
-            }
-        }
-    }
-
-    if (geoPressures != NULL)
-        free(geoPressures);
-
-    for (int i = 0; i < 8; i++)
-        printf("pression %d : %d\n", i, tiles[0][0][i]);
-
-    return tiles;
-}
-
+// Return the 8 local Pressure (value, not coordonates)
 tiny *initiateGeoPressures()
 {
     tiny *geoPressures = malloc(sizeof(tiny) * 8);
@@ -190,6 +182,7 @@ tiny *initiateGeoPressures()
     return geoPressures;
 }
 
+// Return 0 or the pressure applied by local singularity
 tiny pOnTile(tiny **peaks, tiny pressure, int x, int y)
 {
     int firstPeak = fPeaks(peaks);
@@ -201,16 +194,9 @@ tiny pOnTile(tiny **peaks, tiny pressure, int x, int y)
     return 0;
 }
 
+// Check if Tile on the the pressure square
 int isOnSquare(tiny **peaks, int firstPeak, int edge, int x, int y)
 {
-    if (x == 35 && y == 20)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            printf("peak %d : %d %d", i, peaks[i][0], peaks[i][1]);
-        }
-        printf("firstPeak: %d\n", firstPeak);
-    }
     // Check if X coordonate of tile is in Pressure square
     if (x > peaks[firstPeak][0] && x < (peaks[firstPeak][0] + edge))
     {
@@ -222,7 +208,7 @@ int isOnSquare(tiny **peaks, int firstPeak, int edge, int x, int y)
     return 0;
 }
 
-// Return the topper left Peaks
+// Return the topper left Peak
 int fPeaks(tiny **peaks)
 {
     if (peaks[0][0] < peaks[2][0])

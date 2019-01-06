@@ -1,8 +1,8 @@
 #include "supervisor.h"
 
 void initiateLand(struct Land *land, int square);
+tiny *affectPressure(tiny ***pressurePeaks, tiny *worldPressures, int x, int y);
 tiny *initialisePressures();
-tiny ***initiateTiles(int square, tiny *naturePressures);
 tiny ***generatePressureForms(int square);
 tiny **generatePressurePeaks(int square);
 
@@ -12,7 +12,6 @@ tiny *generateVPeak(tiny *initialePeak, int edge, int leftRight);
 int generateEdge(int square);
 int guessTopBot(int square, tiny *firstPeak, int edge);
 int guessLeftRight(int square, tiny *firstPeak, int edge);
-tiny ***affectTilesPressures(int square, tiny *naturePressures, tiny ***pressureForms);
 tiny pOnTile(tiny **peaks, tiny pressure, int x, int y);
 int fPeaks(tiny **peaks);
 tiny *initiateGeoPressures();

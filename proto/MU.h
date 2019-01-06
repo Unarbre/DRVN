@@ -30,7 +30,7 @@ struct MU
 };
 
 struct MU *procreate(int *population, int *lastChild, struct MU *Mus, int date);
-tiny **shareADN(struct MU *baby, struct MU *dad, struct MU *mom);
+void shareADN(struct MU *baby, struct MU *dad, struct MU *mom);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
 struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population);
 void affectChildren(int idChildren, struct MU *parent);

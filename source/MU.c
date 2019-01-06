@@ -46,7 +46,7 @@ struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population)
     return baby;
 }
 
-tiny **shareADN(struct MU *baby, struct MU *dad, struct MU *mom)
+void shareADN(struct MU *baby, struct MU *dad, struct MU *mom)
 {
     int i = 0;
     tiny expression = 'A';

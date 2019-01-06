@@ -1,7 +1,14 @@
+struct Tile
+{
+    int x;
+    int y;
+    tiny *pressures;
+    struct MU *Mu;
+};
 
 struct Land
 {
-    tiny *pressures;
     int size;
-    tiny ***tiles;
+    tiny *worldPressure;
+    struct Tile **tiles;
 };

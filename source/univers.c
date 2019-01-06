@@ -7,6 +7,6 @@ void initiateUnivers(struct Univers *univers, int version, int lastChildId, int 
     univers->population = population;
     univers->age = 0;
     univers->perenity = 100;
-    univers->Land = land;
-    univers->MUs = Mus;
+    univers->land = land;
+    univers->mus = Mus;
 }
