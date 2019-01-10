@@ -11,11 +11,11 @@ void initiateLand(struct Land * land, int square)
     land->worldPressure = initialisePressures();
     land->size = square;
     tiny ***pressureForms = generatePressureForms(square);
-    struct Tile **tiles = malloc(sizeof(struct Tile *) * 50);
-    for (i = 0; i < 50 ; i++)
+    struct Tile **tiles = malloc(sizeof(struct Tile *) * square);
+    for (i = 0; i < square ; i++)
     {
-        tiles[i] = malloc(sizeof(struct Tile) * 50);
-        for (j = 0; j < 50; j++)
+        tiles[i] = malloc(sizeof(struct Tile) * square);
+        for (j = 0; j < square; j++)
         {
             tiles[i][j].x = i;
             tiles[i][j].y = j;
@@ -28,6 +28,7 @@ void initiateLand(struct Land * land, int square)
     land->tiles = tiles;
 }
 
+// Return the 8 pressures applied on the passed Tile (by coordonates)
 tiny *affectPressure(tiny ***pressureForms, tiny *worldPressures, int x, int y)
 {
     int i;
@@ -44,7 +45,7 @@ tiny *affectPressure(tiny ***pressureForms, tiny *worldPressures, int x, int y)
     return pressures;
 }
 
-// Initialise natural pressure on the Land
+// Initialise natural pressure applied on the whole Land
 tiny *initialisePressures()
 {
     int i;
@@ -57,7 +58,7 @@ tiny *initialisePressures()
 }
 
 
-// Generating arrays of pressure. First size is pressure ID (8 pressures), second size is
+// Generating 8 X 4 peaks symbolizing square of pressures. The returned array is : First size pressure ID (8 pressures), second size is
 // all four peaks of the generated square, third size is coordonate of those peaks
 tiny ***generatePressureForms(int square)
 {

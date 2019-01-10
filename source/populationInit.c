@@ -76,7 +76,7 @@ int *initialisePosition(int idMu, int squareSize, int population)
 
     position[0] = 0;
 
-    position[1] = (squareSize % 10 == 0 ? idMu * (squareSize / population) : idMu);
+    position[1] = (squareSize % population == 0 ? idMu * (squareSize / population) : idMu);
 
     return position;
 }

@@ -5,20 +5,29 @@ int main(int argc, char **argv)
 {
     srand(time(NULL));
     int idMu = 0;
+
+    // population is modulable
     int population = 10;
-    int size = 50;
+    // Size is modulable
+    int size = 20;
+
+    // GENERATION OF UNIVERS
     struct Land land;
     struct MU *Mus = malloc(sizeof(struct MU) * 10);
     initiateLand(&land, size);
-    initiatePopulation(Mus, 10, &idMu, land.size, 10);
+    initiatePopulation(Mus, population, &idMu, land.size, population);
     struct Univers univers;
     initiateUnivers(&univers, 1, idMu, population, Mus, &land);
 
+
+    // Test of procreation out of an automatic loop
     univers.mus = procreate(&(univers.population), &(univers.lastChildId), univers.mus, univers.age);
-    printMu(&(univers.mus[univers.population - 1]));
-    printTile(land.tiles[30][30]);
+
+    printMu(&(univers.mus[3]));
+    printTile(land.tiles[15][15]);
     freeUnivers(&univers);
     printf("outiout!");
+    
 
     // if (SDL_Init(SDL_INIT_VIDEO) != 0)
     // {
