@@ -34,7 +34,7 @@ struct MU
 struct Population
 {
     struct MU *startPopulation;
-
+    // Amount on MU in the startPopulation chained list
     int density;
 };
 void procreateRound(struct Univers **univers);

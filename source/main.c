@@ -4,7 +4,7 @@
 int main(int argc, char **argv)
 {
     srand(time(NULL));
-    int idMu = 0;
+    int idMu = 1;
 
     // Size is modulable
     int size = 20;
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     // Test of procreation out of an automatic loop
     
 
-    printMu(population->startPopulation);
+    printMu(univers->population->startPopulation);
     printTile(land.tiles[15][15]);
     freeUnivers(univers);
     printf("outiout!");
