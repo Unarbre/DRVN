@@ -11,6 +11,9 @@ void initiateLand(struct Land * land, int square)
     land->worldPressure = initialisePressures();
     land->size = square;
     tiny ***pressureForms = generatePressureForms(square);
+
+
+
     struct Tile **tiles = malloc(sizeof(struct Tile *) * square);
     for (i = 0; i < square ; i++)
     {
@@ -88,7 +91,7 @@ tiny **generatePressurePeaks(int square)
     // First Tile must not be on the very ledge of the field
     peaks[0] = generateFirstPeak(square);
 
-    // Generate distance between two peak to calculate square
+    // Generate distance between two peak to calculate square of pressure
     edge = generateEdge(square);
     topBot = guessTopBot(square, peaks[0], edge);
     peaks[1] = generateSecondPeak(peaks[0], edge, topBot);
@@ -178,7 +181,7 @@ tiny *initiateGeoPressures()
     int i;
     for (i = 0; i < 8; i++)
     {
-        geoPressures[i] = (rand() % 59);
+        geoPressures[i] = (rand() % 59) + 10;
     }
     return geoPressures;
 }

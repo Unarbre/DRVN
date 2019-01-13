@@ -1,6 +1,6 @@
 #include "supervisor.h"
 
-void freeMus(struct MU *Mus, int population);
+void freePopulation(struct Population *population);
 void freeMu(struct MU *Mu);
 void freePressureForms(tiny ***pressureForms);
 void freeLand(struct Land *land);

@@ -10,11 +10,12 @@
 // Define type for 1 Bytes numeric values before any custom include, so functions do recognize custom type
 typedef unsigned char tiny;
 #include <SDL.h>
+
+#include "univers.h"
 #include "MU.h"
 #include "land.h"
 #include "populationInit.h"
 #include "landInit.h"
-#include "univers.h"
 // Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"
 

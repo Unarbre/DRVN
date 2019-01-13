@@ -27,19 +27,26 @@ void freePressureForms(tiny ***pressureForms)
 void freeUnivers(struct Univers *univers)
 {
     freeLand(univers->land);
-    freeMus(univers->mus, univers->population);
+    freePopulation(univers->population);
+    free(univers);
 }
 
-void freeMus(struct MU *Mus, int population)
+// Population FREE
+void freePopulation(struct Population *population)
 {
-    int i;
-
-    // For each MU, free them
-    for (i = 0; i < population; i++)
+    struct MU *inter;
+    while (population->startPopulation != NULL)
     {
-        freeMu(&(Mus[i]));
+        inter = population->startPopulation;
+        population->startPopulation = population->startPopulation->next;
+        if (inter->ADN != NULL && inter->ADN[0] != NULL)
+        {
+            freeMu(inter);
+            free(inter);
+        }
     }
-    free(Mus);
+    free(population->startPopulation);
+    free(population);
 }
 
 void freeMu(struct MU *Mu)
@@ -49,16 +56,18 @@ void freeMu(struct MU *Mu)
         int i = 0;
 
         // Free ADN's array
-        while (Mu->ADN[i][0] != 'L')
+        while (Mu->ADN[i][0] <= 'L')
         {
-            if (Mu->ADN[i] != NULL)
-                free(Mu->ADN[i]);
+            free(Mu->ADN[i]);
             i++;
         }
 
         // Free ADN
         if (Mu->ADN != NULL)
             free(Mu->ADN);
+
+        if (Mu->capacity != NULL)
+            free(Mu->capacity);
 
         // Free position
         if (Mu->position != NULL)
@@ -69,6 +78,7 @@ void freeMu(struct MU *Mu)
     }
 }
 
+// Land FREE
 void freeLand(struct Land *land)
 {
     free(land->worldPressure);

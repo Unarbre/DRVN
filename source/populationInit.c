@@ -2,23 +2,45 @@
 
 // POPULATION INITIALISATION
 
-// Initiate the population
-void initiatePopulation(struct MU *Mus, int MusAmount, int *idMu, int squareSize, int population)
+struct Population *initiatePopulation(int MusAmount, int *idMu, int squareSize)
+{
+    struct Population *population = malloc(sizeof(struct Population));
+    population->startPopulation = generatePopulation(MusAmount, idMu, squareSize);
+    population->density = MusAmount;
+    return population;
+}
+
+// generate MU in the population
+struct MU *generatePopulation(int MusAmount, int *idMu, int squareSize)
 {
     int i;
-    for (i = 0; i < MusAmount; i++, Mus++, (*idMu)++)
+    struct MU *startPopulation = malloc(sizeof(struct MU));
+    for (i = 0; i < MusAmount; i++)
     {
-        Mus->idMU = *idMu;
-        Mus->ADN = initialiseADN();
-        Mus->capacity = initiateCapacity(Mus->ADN);
-        Mus->lifePoints = initiateLifePoints(Mus->capacity[0]);
-        Mus->languor = 1;
-        Mus->birthDate = 0;
-        Mus->speed = Mus->capacity[1];
-        Mus->position = initialisePosition(*idMu, squareSize, population);
-        Mus->status = 1;
-        Mus->children = calloc(50, sizeof(int));
+        addElderChild(&startPopulation, idMu, MusAmount, squareSize);
     }
+    return startPopulation;
+}
+
+void addElderChild(struct MU **startPopulation, int *idMu, int MusAmount, int squareSize)
+{
+    struct MU *newChild = malloc(sizeof(struct MU));
+
+    // Child Initialisation
+    newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
+    newChild->idMu = (*idMu)++;
+    newChild->status = 1;
+    newChild->ADN = initialiseADN();
+    newChild->capacity = initiateCapacity(newChild->ADN);
+    newChild->lifePoints = initiateLifePoints(newChild->capacity[0]);
+    newChild->speed = newChild->capacity[1];
+    newChild->languor = 0;
+    newChild->birthDate = 0;
+    newChild->children = calloc(50, sizeof(int));
+
+    // Child inserted at the begining
+    newChild->next = *(startPopulation);
+    *startPopulation = newChild;
 }
 
 // Return an array of Strand X 2 ADN expressions

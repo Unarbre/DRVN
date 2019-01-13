@@ -1,9 +1,12 @@
 #include "../proto/supervisor.h"
 
+/*
+ * This function print an MU and all its caracteristics
+*/
 void printMu(struct MU *Mu)
 {
     int i = 0;
-    printf("\nId :%d\n", Mu->idMU);
+    printf("\nId :%d\n", Mu->idMu);
     printf("position : %d %d\n", Mu->position[0], Mu->position[1]);
     while (i <= 11)
     {
@@ -22,6 +25,7 @@ void printMu(struct MU *Mu)
     printf("speed : %d\n", Mu->speed);
     printf("status : %d\n", Mu->status);
     printf("Languor : %d\n", Mu->languor);
+
     i = 0;
     while (Mu->children[i] != 0)
     {
@@ -38,6 +42,7 @@ void printTile(struct Tile tile)
     {
         printf("Pression %d: %d\n", i, tile.pressures[i]);
     }
+
     if (tile.Mu != NULL)
     {
         printMu(tile.Mu);

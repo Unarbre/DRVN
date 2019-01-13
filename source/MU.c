@@ -2,22 +2,25 @@
 
 // Reproduce 2 lucky MUs
 // TEMPORARY -> Procreate will be refactored in the futur, when Turn will be implemented
-struct MU *procreate(int *population, int *lastChild, struct MU *Mus, int date)
-{
+void procreateRound(struct Univers **univers)
+{/*
     // TEMPORARY -> No check for languor status
     // TEMPORARY -> No position check for reproduction (proximity)
-    int i;
-
-    struct MU *baby = breed(&(Mus[5]), &(Mus[3]), lastChild, population);
-    struct MU *newPopulation = malloc(sizeof(struct MU) * ((*population) + 1));
-    for (i = 0; i < (*population); i++)
+    struct MU *inter = univers->population->startPopulation;
+    while (inter != NULL)
     {
-        newPopulation[i] = Mus[i];
-    }
-    newPopulation[*(population)] = *baby;
-    (*population)++;
 
-    return newPopulation;
+    }
+    //struct MU *baby = breed(&(Mus[5]), &(Mus[3]), lastChild, population);
+    //struct MU *newPopulation = malloc(sizeof(struct MU) * ((*population) + 1));
+    //for (i = 0; i < (*population); i++)
+    //{
+    //    newPopulation[i] = Mus[i];
+    //}
+    //newPopulation[*(population)] = *baby;
+    //(*population)++;
+
+    //return newPopulation;*/
 }
 
 // breed 2 MU's by spliting ADN and return the baby of this epic reproduction
@@ -34,13 +37,13 @@ struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population)
     baby->position[0] = 1;
     baby->position[1] = 1;
 
-    baby->idMU = (*id)++;
+    baby->idMu = (*id)++;
     baby->status = 1;
     baby->lifePoints = initiateLifePoints(baby->capacity[0]);
     baby->speed = baby->capacity[1];
     baby->children = calloc(50, sizeof(int));
-    affectChildren(baby->idMU, dad);
-    affectChildren(baby->idMU, mom);
+    affectChildren(baby->idMu, dad);
+    affectChildren(baby->idMu, mom);
     dad->languor = 0;
     mom->languor = 0;
     return baby;
