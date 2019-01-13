@@ -1,6 +1,6 @@
 #include "../proto/supervisor.h"
 
-// test
+// papillon
 int main(int argc, char **argv)
 {
     srand(time(NULL));
