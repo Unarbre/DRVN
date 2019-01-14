@@ -1,4 +1,4 @@
-#include "../proto/supervisor.h"
+#include "../../proto/supervisor.h"
 
 // POPULATION INITIALISATION
 
@@ -17,6 +17,7 @@ struct MU *generatePopulation(int MusAmount, int *idMu, int squareSize)
     struct MU *startPopulation = malloc(sizeof(struct MU));
     for (i = 0; i < MusAmount; i++)
     {
+        // initialise next MU in the startPopulation
         addElderChild(&startPopulation, idMu, MusAmount, squareSize);
     }
     return startPopulation;
@@ -30,14 +31,17 @@ void addElderChild(struct MU **startPopulation, int *idMu, int MusAmount, int sq
     newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
     newChild->idMu = (*idMu)++;
     newChild->status = 1;
+    // generate random DNA
     newChild->ADN = initialiseADN();
+    // transform DNA to usable values
     newChild->capacity = initiateCapacity(newChild->ADN);
     newChild->lifePoints = initiateLifePoints(newChild->capacity[0]);
     newChild->speed = newChild->capacity[1];
     newChild->languor = 0;
     newChild->birthDate = 0;
+    // set nuber of possible childrens to 50
     newChild->children = calloc(50, sizeof(int));
-
+    
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
