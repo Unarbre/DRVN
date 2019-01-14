@@ -79,7 +79,7 @@ tiny ***generatePressureForms(int square)
         pressureForms[i] = generatePressurePeaks(square);
         for (j = 0; j < 4; j++)
         {
-            printf("pression %d, peak %d : %d %d\n", i, j, pressureForms[i][j][0], pressureForms[i][j][1]);
+            // printf("pression %d, peak %d : %d %d\n", i, j, pressureForms[i][j][0], pressureForms[i][j][1]);
         }
     }
 

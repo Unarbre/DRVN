@@ -10,7 +10,7 @@ void freePressureForms(tiny ***pressureForms)
         {
             if (pressureForms[i][j] != NULL)
                 free(pressureForms[i][j]);
-            printf(" ok!");
+            // printf(" ok!");
         }
         if (pressureForms[i] != NULL)
             free(pressureForms[i]);
