@@ -39,7 +39,7 @@ void freePopulation(struct Population *population)
     {
         inter = population->startPopulation;
         population->startPopulation = population->startPopulation->next;
-        if (inter->ADN != NULL && inter->ADN[0] != NULL)
+        if (inter->DNA != NULL && inter->DNA[0] != NULL)
         {
             freeMu(inter);
             free(inter);
@@ -55,16 +55,16 @@ void freeMu(struct MU *Mu)
     {
         int i = 0;
 
-        // Free ADN's array
-        while (Mu->ADN[i][0] <= 'L')
+        // Free DNA's array
+        while (Mu->DNA[i][0] <= 'L')
         {
-            free(Mu->ADN[i]);
+            free(Mu->DNA[i]);
             i++;
         }
 
-        // Free ADN
-        if (Mu->ADN != NULL)
-            free(Mu->ADN);
+        // Free DNA
+        if (Mu->DNA != NULL)
+            free(Mu->DNA);
 
         if (Mu->capacity != NULL)
             free(Mu->capacity);
