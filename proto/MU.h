@@ -18,9 +18,9 @@ struct MU
     int languor;
     // Turn when Mu has been generated
     int birthDate;
-    // ADN of MU, in format [X] [tiny] [tiny]
-    tiny **ADN;
-    // Interpretation of ADN
+    // DNA of MU, in format [X] [tiny] [tiny]
+    tiny **DNA;
+    // Interpretation of DNA
     int *capacity;
     // Position of MU on map
     int *position;
@@ -39,7 +39,7 @@ struct Population
     int density;
 };
 void procreateRound(struct Univers **univers);
-void shareADN(struct MU *baby, struct MU *dad, struct MU *mom);
+void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
 struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population);
 void affectChildren(int idChildren, struct MU *parent);

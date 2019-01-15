@@ -1,4 +1,4 @@
-#include "../proto/supervisor.h"
+#include "../../proto/supervisor.h"
 
 void initiateUnivers(struct Univers *univers, int version, int lastChildId, struct Population *population, struct Land *land)
 {

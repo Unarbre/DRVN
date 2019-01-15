@@ -1,4 +1,4 @@
-#include "../proto/supervisor.h"
+#include "../../proto/supervisor.h"
 
 // POPULATION INITIALISATION
 
@@ -17,6 +17,7 @@ struct MU *generatePopulation(int MusAmount, int *idMu, int squareSize)
     struct MU *startPopulation = malloc(sizeof(struct MU));
     for (i = 0; i < MusAmount; i++)
     {
+        // initialise next MU in the startPopulation
         addElderChild(&startPopulation, idMu, MusAmount, squareSize);
     }
     return startPopulation;
@@ -30,54 +31,57 @@ void addElderChild(struct MU **startPopulation, int *idMu, int MusAmount, int sq
     newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
     newChild->idMu = (*idMu)++;
     newChild->status = 1;
-    newChild->ADN = initialiseADN();
-    newChild->capacity = initiateCapacity(newChild->ADN);
+    // generate random DNA
+    newChild->DNA = initialiseDNA();
+    // transform DNA to usable values
+    newChild->capacity = initiateCapacity(newChild->DNA);
     newChild->lifePoints = initiateLifePoints(newChild->capacity[0]);
     newChild->speed = newChild->capacity[1];
     newChild->languor = 0;
     newChild->birthDate = 0;
+    // set nuber of possible childrens to 50
     newChild->children = calloc(50, sizeof(int));
-
+    
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
 }
 
-// Return an array of Strand X 2 ADN expressions
-tiny **initialiseADN()
+// Return an array of Strand X 2 DNA expressions
+tiny **initialiseDNA()
 {
-    tiny **ADN = malloc(sizeof(tiny *) * 12 + 1);
+    tiny **DNA = malloc(sizeof(tiny *) * 12 + 1);
     tiny expression = 'A';
 
     int i, j;
     for (i = 0; i < 12 + 1; i++, expression++)
     {
-        // 3 Elements. 1 -> ADN letter. 2 -> First Allele. 3-> 2nd Allele
-        ADN[i] = malloc(sizeof(tiny) * 3);
-        ADN[i][0] = expression;
+        // 3 Elements. 1 -> DNA letter. 2 -> First Allele. 3-> 2nd Allele
+        DNA[i] = malloc(sizeof(tiny) * 3);
+        DNA[i][0] = expression;
         for (j = 1; j < 3; j++)
         {
-            ADN[i][j] = (rand() % 200);
+            DNA[i][j] = (rand() % 200);
         }
     }
-    return ADN;
+    return DNA;
 }
 
-// Return an array filled with Capacity, by interpreting  ADN
-int *initiateCapacity(tiny **ADN)
+// Return an array filled with Capacity, by interpreting  DNA
+int *initiateCapacity(tiny **DNA)
 {
     int i = 0;
     int *capacity = malloc(sizeof(int) * 12);
     while (i < 12)
     {
         // Check Dominant and recessives alleles
-        if ((ADN[i][1] > 99 && ADN[i][2] > 99) || (ADN[i][1] <= 99 && ADN[i][2] <= 99))
+        if ((DNA[i][1] > 99 && DNA[i][2] > 99) || (DNA[i][1] <= 99 && DNA[i][2] <= 99))
         {
-            ADN[i][1] > 99 ? capacity[i] = ((ADN[i][1] - 100) + (ADN[i][2] - 100)) / 2 : (capacity[i] = (ADN[i][1] + ADN[i][2]) / 2);
+            DNA[i][1] > 99 ? capacity[i] = ((DNA[i][1] - 100) + (DNA[i][2] - 100)) / 2 : (capacity[i] = (DNA[i][1] + DNA[i][2]) / 2);
         }
         else
         {
-            (ADN[i][1] > 99) ? (capacity[i] = ADN[i][1] - 100) : (capacity[i] = ADN[i][2] - 100);
+            (DNA[i][1] > 99) ? (capacity[i] = DNA[i][1] - 100) : (capacity[i] = DNA[i][2] - 100);
         }
         i++;
     }

@@ -1,4 +1,4 @@
-#include "../proto/supervisor.h"
+#include "../../proto/supervisor.h"
 
 //LAND INITIALISATION
 
@@ -7,9 +7,10 @@
 void initiateLand(struct Land * land, int square)
 {
     int i, j;
-    // Affect World Pressures
+    // Affect World Pressures unifom to all tiles
     land->worldPressure = initialisePressures();
     land->size = square;
+    // Generate  8 zones where one particular pressure is enchanced
     tiny ***pressureForms = generatePressureForms(square);
 
 
@@ -22,6 +23,7 @@ void initiateLand(struct Land * land, int square)
         {
             tiles[i][j].x = i;
             tiles[i][j].y = j;
+            // calculate pressures values depending on worldPressure and PressureForms
             tiles[i][j].pressures = affectPressure(pressureForms, land->worldPressure, i, j);
             tiles[i][j].Mu = NULL;
         }
@@ -35,6 +37,7 @@ void initiateLand(struct Land * land, int square)
 tiny *affectPressure(tiny ***pressureForms, tiny *worldPressures, int x, int y)
 {
     int i;
+    // calcule a pressure random in the forms
     tiny *geoPressure = initiateGeoPressures();
     // TEMPORARY  -> Number of 8 pressures is arbitrary
     tiny *pressures = malloc(sizeof(tiny) * 8);
@@ -48,13 +51,14 @@ tiny *affectPressure(tiny ***pressureForms, tiny *worldPressures, int x, int y)
     return pressures;
 }
 
-// Initialise natural pressure applied on the whole Land
+// Initialise 8 naturals pressures applied on the whole Land
 tiny *initialisePressures()
 {
     int i;
     tiny *pressures = malloc(sizeof(tiny) * 8);
     for (i = 0; i < 8; i++)
     {
+        // pressures value between 3 and 13
         pressures[i] = (rand() % 10) + 3;
     }
     return pressures;
@@ -71,10 +75,11 @@ tiny ***generatePressureForms(int square)
 
     for (i = 0; i < 8; i++)
     {
+        //set the coordinates of 8 pressureForms
         pressureForms[i] = generatePressurePeaks(square);
         for (j = 0; j < 4; j++)
         {
-            printf("pression %d, peak %d : %d %d\n", i, j, pressureForms[i][j][0], pressureForms[i][j][1]);
+            // printf("pression %d, peak %d : %d %d\n", i, j, pressureForms[i][j][0], pressureForms[i][j][1]);
         }
     }
 

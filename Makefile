@@ -18,6 +18,10 @@ $(EXEC): $(OBJECTS)
 	$(CC) -c $(CC_FLAGS) $(LIBS_FLAGS) $< -o $@
 
 # To remove generated files
+# %.o : $(EXEC)
+# 	rm -f $(OBJECTS)
+
 .PHONY: clean
 clean:
-	rm -f $(EXEC) $(OBJECTS)
+	# rm -f $(EXEC)
+	rm -f $(OBJECTS)
