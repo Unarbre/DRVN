@@ -59,7 +59,7 @@ tiny *initialisePressures()
     for (i = 0; i < 8; i++)
     {
         // pressures value between 3 and 13
-        pressures[i] = (rand() % 10) + 3;
+        pressures[i] = (rand() % 50) + 15;
     }
     return pressures;
 }
