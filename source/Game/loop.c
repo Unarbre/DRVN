@@ -14,11 +14,19 @@ int startGame(struct Univers *univers, struct Population *population, struct Lan
     {
         for(int i = 0; i < population->density; i++)
         {
-            
+            printf("%d\n", currentMu->idMu);
+            currentMu = currentMu->next;
+            // if(!testStatus(univers, population, &land, i))
+            //     return 1;
         }
         univers->age += 1;
-        
     }
     printf("test\n");
+    return 0;
+}
+
+int testStatus(struct Univers *univers, struct Population *population, struct Land *land, int idMu)
+{
+
     return 0;
 }
