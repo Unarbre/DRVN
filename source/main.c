@@ -11,9 +11,9 @@ int main(int argc, char **argv)
 
     // GENERATION OF UNIVERS
     struct Land land;
-    struct Population *population = initiatePopulation(30, &idMu, size);
-    // printf("%d\n", population->startPopulation->idMu);
     initiateLand(&land, size);
+    struct Population *population = initiatePopulation(&land, 5, &idMu, size);
+    // printf("%d\n", population->startPopulation->idMu);
     struct Univers *univers = malloc(sizeof(struct Univers));
     initiateUnivers(univers, 1, idMu, population, &land);
     
@@ -26,6 +26,7 @@ int main(int argc, char **argv)
         // printMu(population->startPopulation);
         // printTile(land.tiles[15][15]);
         freeUnivers(univers);
+        
 
         // printf("outiout!");
 

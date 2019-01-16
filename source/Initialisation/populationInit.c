@@ -2,34 +2,36 @@
 
 // POPULATION INITIALISATION
 
-struct Population *initiatePopulation(int MusAmount, int *idMu, int squareSize)
+struct Population *initiatePopulation(struct Land *land, int MusAmount, int *idMu, int squareSize)
 {
     struct Population *population = malloc(sizeof(struct Population));
-    population->startPopulation = generatePopulation(MusAmount, idMu, squareSize);
+    population->startPopulation = generatePopulation(land, MusAmount, idMu, squareSize);
     population->density = MusAmount;
     return population;
 }
 
 // generate MU in the population
-struct MU *generatePopulation(int MusAmount, int *idMu, int squareSize)
+struct MU *generatePopulation(struct Land *land, int MusAmount, int *idMu, int squareSize)
 {
     int i;
-    struct MU *startPopulation = malloc(sizeof(struct MU));
+    struct MU *startPopulation = NULL;
     for (i = 0; i < MusAmount; i++)
     {
         // initialise next MU in the startPopulation
-        addElderChild(&startPopulation, idMu, MusAmount, squareSize);
+        addElderChild(land, &startPopulation, idMu, MusAmount, squareSize);
     }
     return startPopulation;
 }
 
-void addElderChild(struct MU **startPopulation, int *idMu, int MusAmount, int squareSize)
+void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, int MusAmount, int squareSize)
 {
     struct MU *newChild = malloc(sizeof(struct MU));
 
     // Child Initialisation
     newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
     newChild->idMu = (*idMu)++;
+    // link Mu andit's tile
+    land->tiles[newChild->position[0]][newChild->position[1]].Mu = newChild;
     newChild->status = 1;
     // generate random DNA
     newChild->DNA = initialiseDNA();
@@ -100,9 +102,10 @@ int *initialisePosition(int idMu, int squareSize, int population)
 
     int *position = malloc(sizeof(int) * 2);
 
-    position[0] = 0;
+    position[0] = idMu /squareSize;
 
-    position[1] = (squareSize % population == 0 ? (idMu * (squareSize / population)) % squareSize : idMu % squareSize);
+    position[1] = idMu % squareSize;
+    // position[1] = (squareSize % population == 0 ? (idMu * (squareSize / population)) % squareSize : idMu % squareSize);
 
     return position;
 }

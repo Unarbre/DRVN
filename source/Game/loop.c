@@ -6,10 +6,23 @@ int startGame(struct Univers *univers, struct Population *population, struct Lan
     struct MU *currentMu;
 
     currentMu = population->startPopulation;
+
+    for(int i = 0;i < population->density;i++)
+    {
+        printf("\n idMu : %d  ", currentMu->idMu);
+        printf(" position %d  ", currentMu->position[0]);
+        printf(" %d ", currentMu->position[1]);
+        currentMu = currentMu->next;
+    }
     printf("s pour commencer\n");
     fgets(command, 2, stdin);
     while (command[0] == 's' && univers->age < 3)
     {
+        //move Mu
+        if(movement(univers, population, land, currentMu))
+           printf("error movement");
+
+        // change status and lifePoints of each Mu
         if(survival(univers, population, land, currentMu))
            printf("error Survival"); 
         univers->age += 1;

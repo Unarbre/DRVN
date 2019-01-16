@@ -35,15 +35,17 @@ void freeUnivers(struct Univers *univers)
 void freePopulation(struct Population *population)
 {
     struct MU *inter;
+    int i =0;
     while (population->startPopulation != NULL)
     {
         inter = population->startPopulation;
         population->startPopulation = population->startPopulation->next;
-        if (inter->DNA != NULL && inter->DNA[0] != NULL)
+        if (inter != NULL && inter->DNA != NULL && inter->DNA[0] != NULL)
         {
             freeMu(inter);
-            free(inter);
+            // free(inter);
         }
+        i++;
     }
     free(population->startPopulation);
     free(population);
@@ -58,10 +60,11 @@ void freeMu(struct MU *Mu)
         // Free DNA's array
         while (Mu->DNA[i][0] <= 'L')
         {
-            free(Mu->DNA[i]);
+            if(Mu->DNA[i] != NULL)
+                free(Mu->DNA[i]);
             i++;
         }
-
+        
         // Free DNA
         if (Mu->DNA != NULL)
             free(Mu->DNA);

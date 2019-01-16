@@ -18,9 +18,7 @@ int changePv(struct Univers *univers, struct Population *population, struct Land
 {
     if(PcurrentMu[0]->status == 0)
         PcurrentMu[0]->lifePoints -= 2;
-    printf("\n idMu : %d  ", PcurrentMu[0]->idMu);
-    printf(" status : %d  ", PcurrentMu[0]->status);
-    printf(" pv = %d", PcurrentMu[0]->lifePoints);
+    // printf(" pv = %d", PcurrentMu[0]->lifePoints);
     return 0;
 }
 
@@ -44,7 +42,7 @@ int resistance(struct Univers *univers, struct MU * mu)
         resistance = mu->capacity[i] - univers->land->tiles[mu->position[0]][mu->position[1]].pressures[i-4];
         if( resistance < -50)
         {
-            printf(" résistance : %d", resistance);
+            // printf(" résistance : %d", resistance);
             return 0;
         }
         average += resistance;
