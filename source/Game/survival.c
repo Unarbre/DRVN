@@ -1,22 +1,22 @@
 #include "../../proto/supervisor.h"
 
-int survival(struct Univers *univers, struct Population *population, struct Land *land, struct MU *currentMu)
+int survival(struct Univers *univers, struct MU *currentMu)
 {
     currentMu = univers->population->startPopulation;
-    for (int i = 0; i < population->density && currentMu->next != NULL; i++)
+    for (int i = 0; i < univers->population->density && currentMu->next != NULL; i++)
     {
         // add or remove pv depending on current status
-        if(changePv(univers, population, land, &currentMu))
+        if(changePv(univers, &currentMu))
             printf("error changePv");
         // change status according capacity and pressures
-        currentMu->status = testStatus(univers, population, land, &currentMu);
+        currentMu->status = testStatus(univers, &currentMu);
         currentMu = currentMu->next;
     }
     return 0;
 }
 
 //status 0 -> -2pv          status 1 or 2-> -1pv
-int changePv(struct Univers *univers, struct Population *population, struct Land *land, struct MU ** PcurrentMu)
+int changePv(struct Univers *univers, struct MU ** PcurrentMu)
 {
     if(PcurrentMu[0]->status == 0)
         PcurrentMu[0]->lifePoints -= 2;
@@ -26,7 +26,7 @@ int changePv(struct Univers *univers, struct Population *population, struct Land
 }
 
 // change status
-int testStatus(struct Univers *univers, struct Population *population, struct Land *land, struct MU ** PcurrentMu)
+int testStatus(struct Univers *univers, struct MU ** PcurrentMu)
 {
     int average = 1;
 

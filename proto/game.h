@@ -1,17 +1,17 @@
 #include "supervisor.h"
 
 // loop.c
-int startGame(struct Univers *univers, struct Population *population, struct Land *land);
+int startGame(struct Univers *univers);
 
 
 // survival.c
-int survival(struct Univers *univers, struct Population *population, struct Land *land, struct MU *currentMu);
-    int changePv(struct Univers *univers, struct Population *population, struct Land *land, struct MU ** PcurrentMu);
-    int testStatus(struct Univers *univers, struct Population *population, struct Land *land, struct MU ** currentMu);
+int survival(struct Univers *univers, struct MU *currentMu);
+    int changePv(struct Univers *univers, struct MU ** PcurrentMu);
+    int testStatus(struct Univers *univers, struct MU ** currentMu);
         int resistance(struct Univers *univers, struct MU * mu);
 
 // move.c
-int movement(struct Univers *univers, struct Population *population, struct Land *land, struct MU *currentMu);
+int movement(struct Univers *univers, struct MU *currentMu);
     int canMove(struct MU * currentMu);
     int moveToSurvive(struct MU * currentMu, struct Land *land);
     int searchSurrounding(struct MU * currentMu, struct Land *land);

@@ -1,10 +1,10 @@
 #include "../../proto/supervisor.h"
 
-int movement(struct Univers *univers, struct Population *population, struct Land *land, struct MU *currentMu)
+int movement(struct Univers *univers, struct MU *currentMu)
 {
     int surrounding, i;
     currentMu = univers->population->startPopulation;
-    for ( i = 0; i < population->density; i++)
+    for ( i = 0; i < univers->population->density; i++)
     {
         printf("\n idMu : %d  ", currentMu->idMu);
         printf(" position %d  ", currentMu->position[0]);
@@ -12,8 +12,8 @@ int movement(struct Univers *univers, struct Population *population, struct Land
         if(!canMove(currentMu))
         {
             if(1)//currentMu->status == 0)
-                moveToSurvive(currentMu, land);
-            surrounding = searchSurrounding(currentMu, land);
+                moveToSurvive(currentMu, univers->land);
+            surrounding = searchSurrounding(currentMu, univers->land);
             // else if(surrounding < 0)
                 printf("errorSurrounding\n");
             // else if(surrounding == 1)
@@ -27,6 +27,8 @@ int movement(struct Univers *univers, struct Population *population, struct Land
     }
     return 0;
 }
+
+// int moveToSaferPlace()
 
 // move to breed
 

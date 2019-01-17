@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     struct Univers *univers = malloc(sizeof(struct Univers));
     initiateUnivers(univers, 1, idMu, population, &land);
     
-    if(!startGame(univers, population, &land))
+    if(!startGame(univers))
     {
             // printf("\n%d\n", univers->age);
 
