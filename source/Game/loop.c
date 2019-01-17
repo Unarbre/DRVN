@@ -1,5 +1,6 @@
 #include "../../proto/supervisor.h"
 
+// loop for the game
 int startGame(struct Univers *univers, struct Population *population, struct Land *land)
 {
     char command[2];

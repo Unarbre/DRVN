@@ -2,9 +2,9 @@
 
 int movement(struct Univers *univers, struct Population *population, struct Land *land, struct MU *currentMu)
 {
-    // int surrounding;
+    int surrounding, i;
     currentMu = univers->population->startPopulation;
-    for (int i = 0; i < population->density; i++)
+    for ( i = 0; i < population->density; i++)
     {
         printf("\n idMu : %d  ", currentMu->idMu);
         printf(" position %d  ", currentMu->position[0]);
@@ -13,8 +13,10 @@ int movement(struct Univers *univers, struct Population *population, struct Land
         {
             if(1)//currentMu->status == 0)
                 moveToSurvive(currentMu, land);
-        //     surrounding = surrounding(currentMu, land);
-        //     else if(surrounding == 1)
+            surrounding = searchSurrounding(currentMu, land);
+            // else if(surrounding < 0)
+                printf("errorSurrounding\n");
+            // else if(surrounding == 1)
         //         moveToBreed();
         //     else 
         //         moveToSearch();
@@ -26,30 +28,13 @@ int movement(struct Univers *univers, struct Population *population, struct Land
     return 0;
 }
 
-// check if Mu can move TEMPORARY : always can
-int canMove(struct MU * currentMu)
-{
-    // if it can move
-    return 0;
-    //if it can't
-    return 1;
-}
-
-// move to survive -> search a greater place
-
-int moveToSurvive(struct MU * currentMu, struct Land *land)
-{
-    
-    return MoveLogic(currentMu, land);
-}
-
 // move to breed
 
     // shearch if Mu are in range to breed (tiles + 2)
-int surrounding(struct MU * currentMu, struct Land *land)
+int searchSurrounding(struct MU * currentMu, struct Land *land)
 {
     // if there is Mu in direct range
-    return 0;
+    return directRange(currentMu, land);
 
     // if there is no Mu in direct range but one in indirect
     return 1;
@@ -58,6 +43,28 @@ int surrounding(struct MU * currentMu, struct Land *land)
     return 2;
 
 }
+
+        //check if there is one in idrect range
+int directRange(struct MU * currentMu, struct Land *land)
+{
+    int i, j;
+    int x = currentMu->position[0];
+    int y = currentMu->position[1];
+
+    for(i = x - 1; i < x + 2; i++)
+    {
+        for(j = y - 1; j < y + 2;j++)
+        {
+            if(!checkIsntMu(i, j, land) && !(x == i && y ==j))
+            {
+                
+                return 0;
+            }
+        }
+    }
+    return -1;
+} 
+
 
     // move to breedable mu
 int moveToBreed(struct MU * currentMu, struct Land *land)
@@ -73,11 +80,12 @@ int moveToSearch(struct MU * currentMu, struct Land *land)
 
 int MoveLogic(struct MU * currentMu, struct Land *land)
 {
+    int i, j;
     int x = currentMu->position[0];
     int y = currentMu->position[1];
-    for(int i = x - 1; i < x + 2; i++)
+    for(i = x - 1; i < x + 2; i++)
     {
-        for(int j = y - 1; j < y + 2;j++)
+        for(j = y - 1; j < y + 2;j++)
         {
             if(!checkInLand(i, j, land) && !checkIsntMu(i, j, land) && !(x == i && y ==j))
             {
@@ -108,4 +116,21 @@ int checkInLand(int x, int y, struct Land *land)
         return 0;
     // if coordinates isn't in land
     return 1;
+}
+
+// check if Mu can move TEMPORARY : always can
+int canMove(struct MU * currentMu)
+{
+    // if it can move
+    return 0;
+    //if it can't
+    return 1;
+}
+
+// move to survive -> search a greater place
+
+int moveToSurvive(struct MU * currentMu, struct Land *land)
+{
+    
+    return MoveLogic(currentMu, land);
 }

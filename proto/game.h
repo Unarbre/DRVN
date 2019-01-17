@@ -14,9 +14,10 @@ int survival(struct Univers *univers, struct Population *population, struct Land
 int movement(struct Univers *univers, struct Population *population, struct Land *land, struct MU *currentMu);
     int canMove(struct MU * currentMu);
     int moveToSurvive(struct MU * currentMu, struct Land *land);
-    int surrounding(struct MU * currentMu, struct Land *land);
+    int searchSurrounding(struct MU * currentMu, struct Land *land);
         int moveToBreed(struct MU * currentMu, struct Land *land);
         int moveToSearch(struct MU * currentMu, struct Land *land);
+        int directRange(struct MU * currentMu, struct Land *land);
     
     // basic use functions
     int MoveLogic(struct MU * currentMu, struct Land *land);

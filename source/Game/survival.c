@@ -5,52 +5,52 @@ int survival(struct Univers *univers, struct Population *population, struct Land
     currentMu = univers->population->startPopulation;
     for (int i = 0; i < population->density && currentMu->next != NULL; i++)
     {
+        // add or remove pv depending on current status
         if(changePv(univers, population, land, &currentMu))
             printf("error changePv");
-        if(testStatus(univers, population, land, &currentMu))
-            printf("error testStatus");
+        // change status according capacity and pressures
+        currentMu->status = testStatus(univers, population, land, &currentMu);
         currentMu = currentMu->next;
     }
     return 0;
 }
 
+//status 0 -> -2pv          status 1 or 2-> -1pv
 int changePv(struct Univers *univers, struct Population *population, struct Land *land, struct MU ** PcurrentMu)
 {
     if(PcurrentMu[0]->status == 0)
         PcurrentMu[0]->lifePoints -= 2;
-    // printf(" pv = %d", PcurrentMu[0]->lifePoints);
+    else if(PcurrentMu[0]->status == 1 || PcurrentMu[0]->status == 2)
+        PcurrentMu[0]->lifePoints -= 1;
     return 0;
 }
 
+// change status
 int testStatus(struct Univers *univers, struct Population *population, struct Land *land, struct MU ** PcurrentMu)
 {
-    int newStatus = 1;
+    int average = 1;
 
-    newStatus = resistance(univers, PcurrentMu[0]);
-        // printf("\n");
-        // printf("   Capacity %d", PcurrentMu[0]->capacity[i]);
-    PcurrentMu[0]->status = newStatus;
-    return 0;
+    average = resistance(univers, PcurrentMu[0]);
+    if(average < -25 || average == 4242)
+        return 0;
+    if(average < 25)
+        return 1;
+    return 2;
 }
 
+// calculate average resistance of the Mu
 int resistance(struct Univers *univers, struct MU * mu)
 {
     int average, resistance;
     average = 0;
     for(int i = 4; i <12; i++)
     {
+        // calculate resistance for each pressure
         resistance = mu->capacity[i] - univers->land->tiles[mu->position[0]][mu->position[1]].pressures[i-4];
         if( resistance < -50)
-        {
-            // printf(" résistance : %d", resistance);
-            return 0;
-        }
+            return 4242;
         average += resistance;
     }
     average /= 8;
-    if(average < -25)
-        return 0;
-    if(average < 25)
-        return 1;
-    return 2;
+    return average;
 }
