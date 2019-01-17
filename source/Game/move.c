@@ -2,7 +2,7 @@
 
 int movement(struct Univers *univers, struct MU *currentMu)
 {
-    int surrounding, i;
+    int i;//, surrounding;
     currentMu = univers->population->startPopulation;
     for ( i = 0; i < univers->population->density; i++)
     {
@@ -13,9 +13,9 @@ int movement(struct Univers *univers, struct MU *currentMu)
         {
             if(1)//currentMu->status == 0)
                 moveToSurvive(currentMu, univers->land);
-            surrounding = searchSurrounding(currentMu, univers->land);
+            // surrounding = searchSurrounding(currentMu, univers->land);
             // else if(surrounding < 0)
-                printf("errorSurrounding\n");
+                // printf("errorSurrounding\n");
             // else if(surrounding == 1)
         //         moveToBreed();
         //     else 
@@ -28,7 +28,29 @@ int movement(struct Univers *univers, struct MU *currentMu)
     return 0;
 }
 
-// int moveToSaferPlace()
+int moveToSafestPlace(struct Land *land, struct MU *currentMu)
+{
+    int i, j;
+    int x = currentMu->position[0];
+    int y = currentMu->position[1];
+    int *capacityMu = currentMu->capacity;
+    int average, averageMax = resistance(land, capacityMu, x, y);
+    
+
+    for(i = x - 1; i < x + 2; i++)
+    {
+        for(j = y - 1; j < y + 2;j++)
+        {
+            if(!checkIsntMu(i, j, land) && !(x == i && y ==j))
+            {
+                average = resistance(land, capacityMu, i, j);
+                if(average > averageMax)
+                    averageMax = average;
+            }
+        }
+    }
+    return 0;
+}
 
 // move to breed
 

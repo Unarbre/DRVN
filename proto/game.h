@@ -7,13 +7,14 @@ int startGame(struct Univers *univers);
 // survival.c
 int survival(struct Univers *univers, struct MU *currentMu);
     int changePv(struct Univers *univers, struct MU ** PcurrentMu);
-    int testStatus(struct Univers *univers, struct MU ** currentMu);
-        int resistance(struct Univers *univers, struct MU * mu);
+    int testStatus(struct Land *land, struct MU ** currentMu);
+        int resistance(struct Land *land, int *capacityMu, int x, int y);
 
 // move.c
 int movement(struct Univers *univers, struct MU *currentMu);
     int canMove(struct MU * currentMu);
     int moveToSurvive(struct MU * currentMu, struct Land *land);
+        int moveToSafestPlace(struct Land *land, struct MU *currentMu);
     int searchSurrounding(struct MU * currentMu, struct Land *land);
         int moveToBreed(struct MU * currentMu, struct Land *land);
         int moveToSearch(struct MU * currentMu, struct Land *land);

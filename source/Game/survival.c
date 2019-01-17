@@ -3,13 +3,13 @@
 int survival(struct Univers *univers, struct MU *currentMu)
 {
     currentMu = univers->population->startPopulation;
-    for (int i = 0; i < univers->population->density && currentMu->next != NULL; i++)
+    for (int i = 0; i < univers->population->density; i++)
     {
         // add or remove pv depending on current status
         if(changePv(univers, &currentMu))
             printf("error changePv");
         // change status according capacity and pressures
-        currentMu->status = testStatus(univers, &currentMu);
+        currentMu->status = testStatus(univers->land, &currentMu);
         currentMu = currentMu->next;
     }
     return 0;
@@ -26,11 +26,14 @@ int changePv(struct Univers *univers, struct MU ** PcurrentMu)
 }
 
 // change status
-int testStatus(struct Univers *univers, struct MU ** PcurrentMu)
+int testStatus(struct Land *land, struct MU ** PcurrentMu)
 {
     int average = 1;
+    int x = PcurrentMu[0]->position[0];
+    int y = PcurrentMu[0]->position[1];
+    int *capacityMu = PcurrentMu[0]->capacity;
 
-    average = resistance(univers, PcurrentMu[0]);
+    average = resistance(land, capacityMu, x, y);
     if(average < -25 || average == 4242)
         return 0;
     if(average < 25)
@@ -39,18 +42,19 @@ int testStatus(struct Univers *univers, struct MU ** PcurrentMu)
 }
 
 // calculate average resistance of the Mu
-int resistance(struct Univers *univers, struct MU * mu)
+int resistance(struct Land *land, int *capacityMu, int x, int y)
 {
     int average, resistance;
     average = 0;
     for(int i = 4; i <12; i++)
     {
         // calculate resistance for each pressure
-        resistance = mu->capacity[i] - univers->land->tiles[mu->position[0]][mu->position[1]].pressures[i-4];
+        resistance = capacityMu[i] - land->tiles[x][y].pressures[i-4];
         if( resistance < -50)
             return 4242;
         average += resistance;
     }
     average /= 8;
+    printf(" average %d  ", resistance);
     return average;
 }
