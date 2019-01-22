@@ -12,7 +12,7 @@ int main(int argc, char **argv)
     // GENERATION OF UNIVERS
     struct Land land;
     initiateLand(&land, size);
-    struct Population *population = initiatePopulation(&land, 5, &idMu, size);
+    struct Population *population = initiatePopulation(&land, 1, &idMu, size);
     // printf("%d\n", population->startPopulation->idMu);
     struct Univers *univers = malloc(sizeof(struct Univers));
     initiateUnivers(univers, 1, idMu, population, &land);

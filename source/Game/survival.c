@@ -55,6 +55,5 @@ int resistance(struct Land *land, int *capacityMu, int x, int y)
         average += resistance;
     }
     average /= 8;
-    printf(" average %d  ", resistance);
     return average;
 }
