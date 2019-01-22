@@ -17,15 +17,16 @@ int startGame(struct Univers *univers)
     }
     printf("s pour commencer\n");
     fgets(command, 2, stdin);
-    while (command[0] == 's' && univers->age < 3)
+
+
+    while (command[0] == 's' && univers->age < 4)
     {
         //move Mu
-        if(movement(univers, currentMu))
-           printf("error movement");
+        movement(univers);
 
         // change status and lifePoints of each Mu
-        if(survival(univers, currentMu))
-           printf("error Survival"); 
+        survival(univers);
+        // death();
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
     }

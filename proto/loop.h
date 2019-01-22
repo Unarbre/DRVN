@@ -5,13 +5,13 @@ int startGame(struct Univers *univers);
 
 
 // survival.c
-int survival(struct Univers *univers, struct MU *currentMu);
+int survival(struct Univers *univers);
     int changePv(struct Univers *univers, struct MU ** PcurrentMu);
     int testStatus(struct Land *land, struct MU ** currentMu);
         int resistance(struct Land *land, int *capacityMu, int x, int y);
 
 // move.c
-int movement(struct Univers *univers, struct MU *currentMu);
+int movement(struct Univers *univers);
     int canMove(struct MU * currentMu);
     int moveToSurvive(struct MU * currentMu, struct Land *land);
         int moveToSafestPlace(struct Land *land, struct MU *currentMu);

@@ -1,16 +1,16 @@
 #include "../../proto/supervisor.h"
 
-int movement(struct Univers *univers, struct MU *currentMu)
+int movement(struct Univers *univers)
 {
     int i, surrounding;
-    currentMu = univers->population->startPopulation;
+    struct MU * currentMu = univers->population->startPopulation;
     for ( i = 0; i < univers->population->density; i++)
     {
         if(canMove(currentMu))
         {
             surrounding = searchSurrounding(currentMu, univers->land);
-            printf("\n idMu : %d  ", currentMu->idMu);
-            printf("position : %d %d   ", currentMu->position[0], currentMu->position[1]);
+            // printf("\n idMu : %d  ", currentMu->idMu);
+            // printf("position : %d %d   ", currentMu->position[0], currentMu->position[1]);
             // if it's in dying state, mofe to a safer place
             if(currentMu->status == 0)
                 moveToSurvive(currentMu, univers->land);
@@ -23,12 +23,12 @@ int movement(struct Univers *univers, struct MU *currentMu)
             else 
                 moveAlea(currentMu, univers->land);
         }
-        printf(" new position : %d ", currentMu->position[0]);
-        printf(" %d  ", currentMu->position[1]);
-        printf(" surrounding : %d ", surrounding);
+        // printf(" new position : %d ", currentMu->position[0]);
+        // printf(" %d  ", currentMu->position[1]);
+        // printf(" surrounding : %d ", surrounding);
         currentMu = currentMu->next;
     }
-    return 0;
+    return 1;
 }
 
 
