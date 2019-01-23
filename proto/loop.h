@@ -2,7 +2,9 @@
 
 // loop.c
 int startGame(struct Univers *univers);
-
+    int death(struct Univers *univers);
+        int removeMu(struct MU * startPopulation, int indexMu);
+            int removeFirst(struct MU * startPopulation);
 
 // survival.c
 int survival(struct Univers *univers);

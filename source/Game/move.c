@@ -4,6 +4,7 @@ int movement(struct Univers *univers)
 {
     int i, surrounding;
     struct MU * currentMu = univers->population->startPopulation;
+    
     for ( i = 0; i < univers->population->density; i++)
     {
         if(canMove(currentMu))
