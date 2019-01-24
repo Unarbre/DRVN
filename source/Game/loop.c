@@ -8,7 +8,7 @@ int startGame(struct Univers *univers)
 
     currentMu = univers->population->startPopulation;
 
-    for (int i = 0; i < population->density; i++)
+    for (int i = 0; i < univers->population->density; i++)
     {
         printf("\n idMu : %d  ", currentMu->idMu);
         printf(" position %d  ", currentMu->position[0]);
@@ -24,11 +24,11 @@ int startGame(struct Univers *univers)
     while (command[0] == 's' && univers->age < 3)
     {
         //move Mu
-        if (movement(univers, population, land, currentMu))
+        if (movement(univers))
             printf("error movement");
 
         // change status and lifePoints of each Mu
-        if (survival(univers, population, land, currentMu))
+        if (survival(univers))
             printf("error Survival");
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
@@ -47,37 +47,35 @@ int startGame(struct Univers *univers)
 int death(struct Univers *univers)
 {
     int i, baseDensity = univers->population->density;
-    struct MU * currentMu = univers->population->startPopulation;
+    struct MU *currentMu = univers->population->startPopulation;
 
-    for(i = 0; i < univers->population->density; i++)
+    for (i = 0; i < univers->population->density; i++)
     {
         printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
-        if(currentMu->lifePoints <= 0)
+        if (currentMu->lifePoints <= 0)
         {
-            removeMu(univers->population->startPopulation, baseDensity -1 - currentMu->idMu);
-            univers->population->density --;
+            removeMu(univers->population->startPopulation, baseDensity - 1 - currentMu->idMu);
+            univers->population->density--;
         }
-        if(currentMu->next != NULL)
+        if (currentMu->next != NULL)
             currentMu = currentMu->next;
     }
     return 0;
 }
-<<<<<<< HEAD
-=======
 
-int removeMu(struct MU * startPopulation, int indexMu)
+int removeMu(struct MU *startPopulation, int indexMu)
 {
     int i;
-    struct MU * currentMu = startPopulation;
-    struct MU * restChain;
+    struct MU *currentMu = startPopulation;
+    struct MU *restChain;
     printf(" indexmu = %d ", indexMu);
-    if(indexMu < 0)
+    if (indexMu < 0)
         return -1;
-    if(indexMu == 0)
+    if (indexMu == 0)
         return removeFirst(startPopulation);
-    for(i = 0; i < indexMu - 1; i++)
+    for (i = 0; i < indexMu - 1; i++)
     {
-        if(currentMu->next == NULL)
+        if (currentMu->next == NULL)
             return -1;
         currentMu = currentMu->next;
     }
@@ -89,12 +87,12 @@ int removeMu(struct MU * startPopulation, int indexMu)
     return 0;
 }
 
-int removeFirst(struct MU * startPopulation)
+int removeFirst(struct MU *startPopulation)
 {
-    struct MU * newFirst;
+    struct MU *newFirst;
 
     printf("  test ");
-    if(startPopulation ==  NULL || startPopulation->next == NULL)
+    if (startPopulation == NULL || startPopulation->next == NULL)
         return -1;
     newFirst = startPopulation->next;
     free(startPopulation);
@@ -103,4 +101,3 @@ int removeFirst(struct MU * startPopulation)
     printf(" removed ");
     return 0;
 }
->>>>>>> 6bfa23d9498c49e195dc3cd2b97f79e818e4897e
