@@ -13,7 +13,7 @@ int movement(struct Univers *univers, struct Population *population, struct Land
         {
             if(1)//currentMu->status == 0)
                 moveToSurvive(currentMu, land);
-            surrounding = searchSurrounding(currentMu, land);
+            // surrounding = searchSurrounding(currentMu, land);
             // else if(surrounding < 0)
                 printf("errorSurrounding\n");
             // else if(surrounding == 1)

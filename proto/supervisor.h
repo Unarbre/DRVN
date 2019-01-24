@@ -17,6 +17,7 @@ typedef unsigned char tiny;
 #include "populationInit.h"
 #include "landInit.h"
 #include "game.h"
+#include "graphFunctions.h"
 
 // Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"

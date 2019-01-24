@@ -11,9 +11,10 @@ int main(int argc, char **argv)
 
     // GENERATION OF UNIVERS
     struct Land land;
-    struct Population *population = initiatePopulation(10, &idMu, size);
     // printf("%d\n", population->startPopulation->idMu);
     initiateLand(&land, size);
+    struct Population *population = initiatePopulation(&land, 10, &idMu, size);
+
     struct Univers *univers = malloc(sizeof(struct Univers));
     initiateUnivers(univers, 1, idMu, population, &land);
 
