@@ -18,18 +18,14 @@ int startGame(struct Univers *univers)
     printf("s pour commencer\n");
     fgets(command, 2, stdin);
 
-    //Position of the world generation (temporary)
-    graphGenerateWorld(univers);
-
-    while (command[0] == 's' && univers->age < 3)
+    while (command[0] == 's' && univers->age < 15)
     {
         //move Mu
-        if (movement(univers))
-            printf("error movement");
+        movement(univers);
 
         // change status and lifePoints of each Mu
-        if (survival(univers))
-            printf("error Survival");
+        survival(univers);
+        death(univers);
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
         // for(int i = 0; i < univers->population->density; i++)
