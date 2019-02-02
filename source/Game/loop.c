@@ -18,6 +18,8 @@ int startGame(struct Univers *univers)
     printf("s pour commencer\n");
     fgets(command, 2, stdin);
 
+    graphGenerateWorld(univers);
+
     while (command[0] == 's' && univers->age < 15)
     {
         //move Mu

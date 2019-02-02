@@ -2,6 +2,9 @@
 
 int graphGenerateWorld(struct Univers *univers)
 {
+    int i, j;
+    int pX = 0, pY = 0;
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         fprintf(stdout, "Échec de l'initialisation de la SDL (%s)\n", SDL_GetError());
@@ -9,7 +12,7 @@ int graphGenerateWorld(struct Univers *univers)
     }
 
     {
-        //Création de la fenêtre
+        // Window generation
         SDL_Window *pWindow = SDL_CreateWindow("Don't Riot Versus Nature", SDL_WINDOWPOS_UNDEFINED,
                                                SDL_WINDOWPOS_UNDEFINED,
                                                640,
@@ -21,26 +24,45 @@ int graphGenerateWorld(struct Univers *univers)
             SDL_Renderer *pRenderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED); // Création d'un SDL_Renderer utilisant l'accélération matérielle
             if (pRenderer)
             {
-                SDL_Surface *pSprite = SDL_LoadBMP("./gw.bmp");
-                if (pSprite)
+                SDL_Surface *sTile = SDL_LoadBMP("assets/ground.bmp");
+                SDL_Surface *sMu = SDL_LoadBMP("assets/mu.bmp");
+                if (sTile && sMu)
                 {
-                    SDL_Texture *pTexture = SDL_CreateTextureFromSurface(pRenderer, pSprite); // Préparation du sprite
-                    if (pTexture)
+                    SDL_Texture *TileTexture = SDL_CreateTextureFromSurface(pRenderer, sTile); // Préparation du sprite
+                    SDL_Texture *MuTexture = SDL_CreateTextureFromSurface(pRenderer, sMu); // Préparation du sprite
+
+                    if (TileTexture && MuTexture)
                     {
-                        SDL_Rect dest = {640 / 2 - pSprite->w / 2, 480 / 2 - pSprite->h / 2, pSprite->w, pSprite->h};
-                        SDL_RenderCopy(pRenderer, pTexture, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
-                        printf("ca y va !");
+                        for (i = 0; i < univers->population->density; i++)
+                        {
+                            pX = 0;
+                            for (j = 0; j < univers->population->density; j++)
+                            {
+                                SDL_Rect dest = {pX, pY, TSIZE, TSIZE};
+                                SDL_RenderCopy(pRenderer, TileTexture, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
+                                if (univers->land->tiles[i][j].Mu != NULL)
+                                {
+                                    SDL_Rect dest2 = {pX, pY, TSIZE, TSIZE};
+                                    SDL_RenderCopy(pRenderer, MuTexture, NULL, &dest2); // Copie du sprite grâce au SDL_Renderer
+                                }
+                                pX += TSIZE;
+                            }
+                            pY += TSIZE;
+                        }
                         SDL_RenderPresent(pRenderer); // Affichage
                         SDL_Delay(3000);              /* Attendre trois secondes, que l'utilisateur voit la fenêtre */
 
-                        SDL_DestroyTexture(pTexture); // Libération de la mémoire associée à la texture
+                        SDL_DestroyTexture(TileTexture); // Libération de la mémoire associée à la texture
+                        SDL_DestroyTexture(MuTexture);
                     }
                     else
                     {
                         fprintf(stdout, "Échec de création de la texture (%s)\n", SDL_GetError());
                     }
 
-                    SDL_FreeSurface(pSprite); // Libération de la ressource occupée par le sprite
+                    SDL_FreeSurface(sTile); // Libération de la ressource occupée par le sprite
+                    SDL_FreeSurface(sMu); // Libération de la ressource occupée par le sprite
+
                 }
                 else
                 {
@@ -59,4 +81,5 @@ int graphGenerateWorld(struct Univers *univers)
             fprintf(stderr, "Erreur de création de la fenêtre: %s\n", SDL_GetError());
         }
     }
+    return 1;
 }
