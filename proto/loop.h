@@ -3,7 +3,7 @@
 // loop.c
 int startGame(struct Univers *univers);
     int death(struct Univers *univers);
-        int removeMu(struct MU * startPopulation, int indexMu);
+        int removeMu(struct MU * startPopulation, struct MU *currentMu);
             int removeFirst(struct MU * startPopulation);
 
 // survival.c
@@ -22,7 +22,7 @@ int movement(struct Univers *univers);
     int moveToBreed(struct MU * currentMu, struct Land *land);
     int moveAlea(struct MU * currentMu, struct Land *land);
     int directRange(struct MU * currentMu, struct Land *land);
-    
+
     // basic use functions
     int MoveLogic(struct MU * currentMu, struct Land *land);
     int checkInLand(int x, int y, struct Land *land);
