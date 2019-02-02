@@ -69,7 +69,9 @@ int removeMu(struct MU *startPopulation, int indexMu)
         return -1;
     if (indexMu == 0)
         return removeFirst(startPopulation);
-    for (i = 0; i < indexMu - 1; i++)
+    
+
+    for (i = 0; i < indexMu; i++)
     {
         if (currentMu->next == NULL)
             return -1;

@@ -29,7 +29,7 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
 
     // Child Initialisation
     newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
-    newChild->idMu = (*idMu)++;
+    newChild->idMu = (MusAmount + 1) - (*idMu)++;
     // link Mu andit's tile
     land->tiles[newChild->position[0]][newChild->position[1]].Mu = newChild;
     newChild->status = 1;
@@ -43,7 +43,7 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     newChild->birthDate = 0;
     // set nuber of possible childrens to 50
     newChild->children = calloc(50, sizeof(int));
-    
+
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
@@ -102,7 +102,7 @@ int *initialisePosition(int idMu, int squareSize, int population)
 
     int *position = malloc(sizeof(int) * 2);
 
-    position[0] = idMu /squareSize;
+    position[0] = idMu / squareSize;
 
     position[1] = idMu % squareSize;
     // position[1] = (squareSize % population == 0 ? (idMu * (squareSize / population)) % squareSize : idMu % squareSize);
