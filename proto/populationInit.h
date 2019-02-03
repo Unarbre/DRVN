@@ -6,3 +6,4 @@ int *initialisePosition(int idMu, int squareSize, int population);
 tiny **initialiseDNA();
 int *initiateCapacity(tiny **DNA);
 int initiateLifePoints(tiny geneA);
+int *initialiseChildren();

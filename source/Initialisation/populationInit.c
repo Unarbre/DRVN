@@ -29,7 +29,7 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
 
     // Child Initialisation
     newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
-    newChild->idMu = (MusAmount + 1) - (*idMu)++;
+    newChild->idMu = MusAmount - (*idMu)++;
     // link Mu andit's tile
     land->tiles[newChild->position[0]][newChild->position[1]].Mu = newChild;
     newChild->status = 1;
@@ -42,11 +42,21 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     newChild->languor = 0;
     newChild->birthDate = 0;
     // set nuber of possible childrens to 50
-    newChild->children = calloc(50, sizeof(int));
-
+    newChild->children = initialiseChildren();    
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
+}
+int *initialiseChildren()
+{
+    int *childArray = malloc(sizeof(int) * 50);
+    int i;
+    
+    for(i = 0; i < 50; i++)
+    {
+        childArray[i] = -1;
+    }
+    return childArray;
 }
 
 // Return an array of Strand X 2 DNA expressions
