@@ -3,7 +3,6 @@
 // loop for the game
 int startGame(struct Univers *univers)
 {
-    int c = 1;
     char command[2];
     struct MU *currentMu;
 
@@ -21,88 +20,19 @@ int startGame(struct Univers *univers)
 
     // graphGenerateWorld(univers);
 
-    while (univers->population->startPopulation != NULL)
+    while (command[0] == 's' && univers->age < 15 && univers->population->startPopulation != NULL)
     {
-        // checkEvent();
-
         printf("pap %d\n", univers->population->startPopulation->idMu);
         //move Mu
-        // movement(univers);
+        movement(univers);
+        reproduction(univers);
 
         // change status and lifePoints of each Mu
-        // SDL_Delay(1000);
-        // if (univers->population->startPopulation->idMu == 0)
-            survival(univers);
+        survival(univers);
         death(univers);
-        // SDL_Delay(1000);
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
-        // for(int i = 0; i < univers->population->density; i++)
-        // {
-        //     printf("\n idMu : %d  ", currentMu->idMu);
-        //     printf(" life %d  ", currentMu->lifePoints);
-        //     currentMu = currentMu->next;
-        // }
-        // printf("test\n");
+        currentMu = univers->population->startPopulation;
     }
-    return 0;
-}
-
-
-//deltete mu, free positions, clean land
-int death(struct Univers *univers)
-{
-    struct MU *currentMu = univers->population->startPopulation;
-
-    printf("startPopulation %d\n", currentMu->idMu);
-    while (currentMu != NULL)
-    {
-        printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
-        if (currentMu->lifePoints <= 0)
-        {
-            removeMu(univers, currentMu);
-            univers->population->density--;
-        }
-        currentMu = currentMu->next;
-    }
-    return 0;
-}
-
-int removeMu(struct Univers *univers, struct MU *currentMu)
-{
-    struct MU *startPopulation = univers->population->startPopulation;
-    struct MU *population = startPopulation;
-    if (currentMu != NULL)
-    {
-        printf(" indexmu = %d ", currentMu->idMu);
-        if (currentMu->idMu < 0)
-            return -1;
-        if (currentMu == startPopulation)
-            return removeFirst(univers);
-        while (population->next->idMu != currentMu->idMu)
-        {
-            population = population->next;
-        }
-        population->next = currentMu->next;
-        freeMu(currentMu);
-        printf(" removed ");
-    }
-
-    return 0;
-}
-
-int removeFirst(struct Univers *univers)
-{
-    struct MU *tmp;
-    struct MU *startPopulation = univers->population->startPopulation;
-
-    if (startPopulation == NULL || startPopulation->next == NULL)
-        return -1;
-    printf("  test ");
-    tmp = startPopulation->next;
-    freeMu(startPopulation);
-    univers->population->startPopulation = tmp;
-    printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
-    printf(" removed ");
     return 0;
 }
