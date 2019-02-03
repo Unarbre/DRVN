@@ -9,6 +9,7 @@ struct Univers
     int perenity;
     struct Population *population;
     struct Land *land;
+    struct GraphData *graphData;
 };
 
 void initiateUnivers(struct Univers *univers, int version, int lastChildId, struct Population *population, struct Land *land);

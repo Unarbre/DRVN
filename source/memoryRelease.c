@@ -26,9 +26,36 @@ void freePressureForms(tiny ***pressureForms)
 
 void freeUnivers(struct Univers *univers)
 {
+    freeGraph(univers->graphData);
     freeLand(univers->land);
     freePopulation(univers->population);
     free(univers);
+}
+
+void freeGraph(struct GraphData* graphData)
+{
+    freeGraphTexture(graphData);
+    freeGraphSprite(graphData);
+    freeGraphRenderer(graphData);
+    free(graphData);
+    SDL_Quit();
+}
+
+void freeGraphRenderer(struct GraphData* graphData)
+{
+    SDL_DestroyRenderer(graphData->pRenderer); // Libération de la mémoire du SDL_Renderer
+}
+
+void freeGraphTexture(struct GraphData* graphData)
+{
+    SDL_DestroyTexture(graphData->TileTexture); // Libération de la mémoire associée à la texture
+    SDL_DestroyTexture(graphData->MuTexture);
+}
+
+void freeGraphSprite(struct GraphData* graphData)
+{
+    SDL_FreeSurface(graphData->sTile); // Libération de la ressource occupée par le sprite
+    SDL_FreeSurface(graphData->sMu);   // Libération de la ressource occupée par le sprite
 }
 
 // Population FREE

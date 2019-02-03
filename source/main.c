@@ -7,13 +7,13 @@ int main(int argc, char **argv)
     int idMu = 1;
 
     // Size is modulable
-    int size = 20;
+    int size = 10;
 
     // GENERATION OF UNIVERS
     struct Land land;
     // printf("%d\n", population->startPopulation->idMu);
     initiateLand(&land, size);
-    struct Population *population = initiatePopulation(&land, 10, &idMu, size);
+    struct Population *population = initiatePopulation(&land, 11, &idMu, size);
 
     struct Univers *univers = malloc(sizeof(struct Univers));
     initiateUnivers(univers, 1, idMu, population, &land);
@@ -29,8 +29,6 @@ int main(int argc, char **argv)
         freeUnivers(univers);
 
         // printf("outiout!");
-
-        SDL_Quit();
         return 0;
     }
     return 1;
