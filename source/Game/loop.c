@@ -31,7 +31,6 @@ int startGame(struct Univers *univers)
         death(univers);
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
-        currentMu = univers->population->startPopulation;
     }
     return 0;
 }
@@ -42,7 +41,7 @@ int death(struct Univers *univers)
     struct MU * currentMu = univers->population->startPopulation;
     
     printf("startPopulation %d\n", currentMu->idMu);
-    while(currentMu->next != NULL)
+    while(currentMu != NULL)
     {
         printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
         if (currentMu->lifePoints <= 0)
@@ -80,14 +79,13 @@ int removeFirst(struct Univers * univers)
     struct MU * tmp;
     struct MU * startPopulation = univers->population->startPopulation;
 
-    if (startPopulation == NULL || startPopulation->next == NULL)
+    if (startPopulation == NULL)
         return -1;
     printf("  test ");
     tmp = startPopulation->next;
     freeMu(startPopulation);
     univers->population->startPopulation = tmp;
 
-    // printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
     printf(" removed ");
     return 0;
 }

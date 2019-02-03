@@ -2,10 +2,10 @@
 
 int movement(struct Univers *univers)
 {
-    int i, surrounding;
+    int surrounding;
     struct MU * currentMu = univers->population->startPopulation;
     
-    for ( i = 0; i < univers->population->density; i++)
+    while(currentMu->next != NULL)
     {
         if(canMove(currentMu))
         {
