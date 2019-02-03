@@ -30,7 +30,7 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     // Child Initialisation
     newChild->position = initialisePosition(*idMu, squareSize, MusAmount);
     newChild->idMu = MusAmount - (*idMu)++;
-    // link Mu andit's tile
+    // link Mu and its tile
     land->tiles[newChild->position[0]][newChild->position[1]].Mu = newChild;
     newChild->status = 1;
     // generate random DNA
@@ -38,15 +38,16 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     // transform DNA to usable values
     newChild->capacity = initiateCapacity(newChild->DNA);
     newChild->lifePoints = initiateLifePoints(newChild->capacity[0]);
-    newChild->speed = newChild->capacity[1];
+    newChild->sexAppeal = newChild->capacity[1];
     newChild->languor = 0;
     newChild->birthDate = 0;
-    // set nuber of possible childrens to 50
+    // set nuùber of possible childrens to 50
     newChild->children = initialiseChildren();    
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
 }
+
 int *initialiseChildren()
 {
     int *childArray = malloc(sizeof(int) * 50);

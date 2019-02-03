@@ -12,8 +12,8 @@ struct MU
     int status;
     // MU's longevity and stamina
     int lifePoints;
-    // Mu's speed, determining the order of Mu's actions in turn
-    int speed;
+    // Mu's sex Appeal, determining the choice of reproductive partner
+    int sexAppeal;
     // "Boolean" determining if Mu can procreate or note
     int languor;
     // Turn when Mu has been generated
@@ -39,7 +39,4 @@ struct Population
     int density;
 };
 void procreateRound(struct Univers **univers);
-void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom);
 struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);
-struct MU *breed(struct MU *dad, struct MU *mom, int *id, int *population);
-void affectChildren(int idChildren, struct MU *parent);

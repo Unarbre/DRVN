@@ -2,7 +2,7 @@
 
 int movement(struct Univers *univers)
 {
-    int i, surrounding;
+    int surrounding;
     struct MU *currentMu = univers->population->startPopulation;
 
     while (currentMu != NULL)

@@ -11,6 +11,7 @@ int death(struct Univers *univers)
         printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
         if (currentMu->lifePoints <= 0)
         {
+            univers->land->tiles[currentMu->position[0]][currentMu->position[1]].Mu = NULL;
             removeMu(univers, currentMu);
             univers->population->density--;
         }
@@ -48,7 +49,9 @@ int removeFirst(struct Univers *univers)
         return -1;
     printf("  test ");
     tmp = startPopulation->next;
+
     freeMu(startPopulation);
+
     univers->population->startPopulation = tmp;
 
     // printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
