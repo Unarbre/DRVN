@@ -29,7 +29,7 @@ int graphGenerateWorld(struct Univers *univers)
                 if (sTile && sMu)
                 {
                     SDL_Texture *TileTexture = SDL_CreateTextureFromSurface(pRenderer, sTile); // Préparation du sprite
-                    SDL_Texture *MuTexture = SDL_CreateTextureFromSurface(pRenderer, sMu); // Préparation du sprite
+                    SDL_Texture *MuTexture = SDL_CreateTextureFromSurface(pRenderer, sMu);     // Préparation du sprite
 
                     if (TileTexture && MuTexture)
                     {
@@ -50,7 +50,7 @@ int graphGenerateWorld(struct Univers *univers)
                             pY += TSIZE;
                         }
                         SDL_RenderPresent(pRenderer); // Affichage
-                        SDL_Delay(3000);              /* Attendre trois secondes, que l'utilisateur voit la fenêtre */
+                        SDL_Delay(5000);              /* Attendre trois secondes, que l'utilisateur voit la fenêtre */
 
                         SDL_DestroyTexture(TileTexture); // Libération de la mémoire associée à la texture
                         SDL_DestroyTexture(MuTexture);
@@ -61,20 +61,18 @@ int graphGenerateWorld(struct Univers *univers)
                     }
 
                     SDL_FreeSurface(sTile); // Libération de la ressource occupée par le sprite
-                    SDL_FreeSurface(sMu); // Libération de la ressource occupée par le sprite
-
+                    SDL_FreeSurface(sMu);   // Libération de la ressource occupée par le sprite
                 }
                 else
                 {
                     fprintf(stdout, "Échec de chargement du sprite (%s)\n", SDL_GetError());
                 }
-
-                SDL_DestroyRenderer(pRenderer); // Libération de la mémoire du SDL_Renderer
             }
             else
             {
                 fprintf(stdout, "Échec de création du renderer (%s)\n", SDL_GetError());
             }
+            SDL_DestroyRenderer(pRenderer); // Libération de la mémoire du SDL_Renderer
         }
         else
         {

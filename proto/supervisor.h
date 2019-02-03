@@ -10,6 +10,9 @@
 // Define type for 1 Bytes numeric values before any custom include, so functions do recognize custom type
 typedef unsigned char tiny;
 #define TSIZE 50
+#define XStop 700
+#define YStop 900
+ 
 #include <SDL.h>
 
 #include "univers.h"

@@ -3,6 +3,7 @@
 // loop for the game
 int startGame(struct Univers *univers)
 {
+    int c = 1;
     char command[2];
     struct MU *currentMu;
 
@@ -20,14 +21,18 @@ int startGame(struct Univers *univers)
 
     graphGenerateWorld(univers);
 
-    while (command[0] == 's' && univers->age < 15)
+    while (c || univers->age == 10)
     {
+        checkEvent();
+        
         //move Mu
         movement(univers);
 
         // change status and lifePoints of each Mu
+        SDL_Delay(1000);
         survival(univers);
         death(univers);
+        SDL_Delay(1000);
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
         // for(int i = 0; i < univers->population->density; i++)
@@ -71,7 +76,6 @@ int removeMu(struct MU *startPopulation, int indexMu)
         return -1;
     if (indexMu == 0)
         return removeFirst(startPopulation);
-    
 
     for (i = 0; i < indexMu; i++)
     {
