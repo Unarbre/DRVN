@@ -20,7 +20,7 @@ int startGame(struct Univers *univers)
 
     // graphGenerateWorld(univers);
 
-    while (command[0] == 's' && univers->age < 15)
+    while (command[0] == 's' && univers->age < 15 && univers->population->startPopulation != NULL)
     {
         printf("pap %d\n", univers->population->startPopulation->idMu);
         //move Mu
@@ -31,13 +31,7 @@ int startGame(struct Univers *univers)
         death(univers);
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
-        // for(int i = 0; i < univers->population->density; i++)
-        // {
-        //     printf("\n idMu : %d  ", currentMu->idMu);
-        //     printf(" life %d  ", currentMu->lifePoints);
-        //     currentMu = currentMu->next;
-        // }
-        // printf("test\n");
+        currentMu = univers->population->startPopulation;
     }
     return 0;
 }
@@ -45,11 +39,10 @@ int startGame(struct Univers *univers)
 // deltete mu, free positions, clean land
 int death(struct Univers *univers)
 {
-    int i;
     struct MU * currentMu = univers->population->startPopulation;
     
     printf("startPopulation %d\n", currentMu->idMu);
-    for(i = 0; i < univers->population->density; i++)
+    while(currentMu->next != NULL)
     {
         printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
         if (currentMu->lifePoints <= 0)
@@ -57,8 +50,7 @@ int death(struct Univers *univers)
             removeMu(univers, currentMu);
             univers->population->density --;
         }
-        if (currentMu->next != NULL)
-            currentMu = currentMu->next;
+        currentMu = currentMu->next;
     }
     return 0;
 }
@@ -71,7 +63,7 @@ int removeMu(struct Univers * univers, struct MU *currentMu)
     printf(" indexmu = %d ", currentMu->idMu);
     if(currentMu->idMu < 0)
         return -1;
-    if(currentMu->idMu == 0)
+    if(currentMu->idMu == startPopulation->idMu)
         return removeFirst(univers);
     while(population->next->idMu != currentMu->idMu)
     {
@@ -94,7 +86,8 @@ int removeFirst(struct Univers * univers)
     tmp = startPopulation->next;
     freeMu(startPopulation);
     univers->population->startPopulation = tmp;
-    printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
+
+    // printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
     printf(" removed ");
     return 0;
 }

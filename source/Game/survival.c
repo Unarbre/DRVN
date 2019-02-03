@@ -2,10 +2,9 @@
 
 int survival(struct Univers *univers)
 {
-    int i;
     struct MU *currentMu = univers->population->startPopulation;
 
-    for (i = 0; i < univers->population->density; i++)
+    while(currentMu->next != NULL)
     {
         // add or remove pv depending on current status
         changePv(univers, &currentMu);
