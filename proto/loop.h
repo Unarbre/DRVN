@@ -3,8 +3,8 @@
 // loop.c
 int startGame(struct Univers *univers);
     int death(struct Univers *univers);
-        int removeMu(struct MU * startPopulation, struct MU *currentMu);
-            int removeFirst(struct MU * startPopulation);
+        int removeMu(struct Univers * univers, struct MU *currentMu);
+            int removeFirst(struct Univers * univers);
 
 // survival.c
 int survival(struct Univers *univers);

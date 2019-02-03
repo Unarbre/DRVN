@@ -54,7 +54,7 @@ int death(struct Univers *univers)
         printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
         if (currentMu->lifePoints <= 0)
         {
-            removeMu(univers->population->startPopulation, currentMu);
+            removeMu(univers, currentMu);
             univers->population->density --;
         }
         if (currentMu->next != NULL)
@@ -63,15 +63,16 @@ int death(struct Univers *univers)
     return 0;
 }
 
-int removeMu(struct MU * startPopulation, struct MU *currentMu)
+int removeMu(struct Univers * univers, struct MU *currentMu)
 {
+    struct MU * startPopulation = univers->population->startPopulation;
     struct MU *population = startPopulation;
 
     printf(" indexmu = %d ", currentMu->idMu);
     if(currentMu->idMu < 0)
         return -1;
     if(currentMu->idMu == 0)
-        return removeFirst(startPopulation);
+        return removeFirst(univers);
     while(population->next->idMu != currentMu->idMu)
     {
         population = population->next;
@@ -82,17 +83,18 @@ int removeMu(struct MU * startPopulation, struct MU *currentMu)
     return 0;
 }
 
-int removeFirst(struct MU *startPopulation)
+int removeFirst(struct Univers * univers)
 {
     struct MU * tmp;
+    struct MU * startPopulation = univers->population->startPopulation;
 
     if (startPopulation == NULL || startPopulation->next == NULL)
         return -1;
     printf("  test ");
     tmp = startPopulation->next;
     freeMu(startPopulation);
-    startPopulation = tmp;
-    printf(" %d %d", startPopulation->idMu, startPopulation->next->idMu);
+    univers->population->startPopulation = tmp;
+    printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
     printf(" removed ");
     return 0;
 }
