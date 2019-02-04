@@ -2,6 +2,7 @@
 
 struct GraphData
 {
+    SDL_Window *pWindow;
     SDL_Renderer *pRenderer;
 
     SDL_Surface *sTile;
@@ -10,4 +11,8 @@ struct GraphData
     SDL_Texture *TileTexture;
     SDL_Texture *MuTexture;
 };
+
 int graphGenerateWorld(struct Univers *univers);
+    int graphFillWorld(struct Univers *univers);
+
+int sdlMenu();

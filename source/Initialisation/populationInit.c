@@ -109,9 +109,9 @@ int initiateLifePoints(tiny geneA)
 // Generate a position depending of the population and the space allowed.
 int *initialisePosition(int idMu, int squareSize, int population)
 {
-
+    printf("%d\n", idMu);
     int *position = malloc(sizeof(int) * 2);
-
+    
     position[0] = idMu / squareSize;
 
     position[1] = idMu % squareSize;
