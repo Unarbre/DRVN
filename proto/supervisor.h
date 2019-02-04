@@ -22,11 +22,12 @@ typedef unsigned char tiny;
 #include "landInit.h"
 #include "graphFunctions.h"
 #include "loop.h"
-#include "death.h"
 #include "reproduction.h"
 
 // Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"
+
+int menu(struct Univers *univers);
 
 // Unusual Assets
 void printMu(struct MU *Mu);

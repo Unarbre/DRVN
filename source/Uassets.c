@@ -27,11 +27,11 @@ void printMu(struct MU *Mu)
     printf("Languor : %d\n", Mu->languor);
 
     i = 0;
-    while (Mu->children[i] != -1)
-    {
-        printf("Children %d : %d\n", i, Mu->children[i]);
-        i++;
-    }
+    // while (Mu->children[i] != -1)
+    // {
+    //     printf("Children %d : %d\n", i, Mu->children[i]);
+    //     i++;
+    // }
 }
 
 void printTile(struct Tile tile)

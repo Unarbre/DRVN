@@ -2,9 +2,6 @@
 
 // loop.c
 int startGame(struct Univers *univers);
-    int death(struct Univers *univers);
-        int removeMu(struct Univers * univers, struct MU *currentMu);
-            int removeFirst(struct Univers * univers);
 
 // survival.c
 int survival(struct Univers *univers);
@@ -27,3 +24,8 @@ int movement(struct Univers *univers);
     int MoveLogic(struct MU * currentMu, struct Land *land);
     int checkInLand(int x, int y, struct Land *land);
     int checkIsntMu(int x, int y, struct Land *land);
+
+//death.c
+int death(struct Univers *univers);
+    int removeMu(struct Univers * univers, struct MU *currentMu);
+        int removeFirst(struct Univers * univers);
