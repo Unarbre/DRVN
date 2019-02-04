@@ -18,8 +18,7 @@ int main(int argc, char **argv)
     struct Population *population = initiatePopulation(&land, 11, &idMu, size);
 
     struct Univers *univers = malloc(sizeof(struct Univers));
-    initiateUnivers(univers, 1, idMu, population, &land);
-
+    initiateUnivers(univers, idMu, population, &land);
     graphGenerateWorld(univers);
 
 //Menu
@@ -84,5 +83,6 @@ int menu(struct Univers *univers)
                 fprintf(stdout,"\n");
     }
     freeUnivers(univers);
+
     return wait;
 }

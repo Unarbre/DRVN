@@ -12,4 +12,4 @@ struct Univers
     struct GraphData *graphData;
 };
 
-void initiateUnivers(struct Univers *univers, int version, int lastChildId, struct Population *population, struct Land *land);
+void initiateUnivers(struct Univers *univers, int lastChildId, struct Population *population, struct Land *land);
