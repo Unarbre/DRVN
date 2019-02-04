@@ -22,16 +22,16 @@ void printMu(struct MU *Mu)
     }
 
     printf("Life Points : %d\n", Mu->lifePoints);
-    printf("speed : %d\n", Mu->speed);
+    printf("sex Appeal : %d\n", Mu->sexAppeal);
     printf("status : %d\n", Mu->status);
     printf("Languor : %d\n", Mu->languor);
 
     i = 0;
-    while (Mu->children[i] != 0)
-    {
-        printf("Children %d : %d\n", i, Mu->children[i]);
-        i++;
-    }
+    // while (Mu->children[i] != -1)
+    // {
+    //     printf("Children %d : %d\n", i, Mu->children[i]);
+    //     i++;
+    // }
 }
 
 void printTile(struct Tile tile)

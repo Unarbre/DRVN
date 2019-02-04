@@ -34,8 +34,12 @@ int removeMu(struct Univers *univers, struct MU *currentMu)
     {
         population = population->next;
     }
+
     population->next = currentMu->next;
+    puts("don't kill me :(");
+
     freeMu(currentMu);
+
     printf(" removed ");
     return 0;
 }
@@ -49,7 +53,9 @@ int removeFirst(struct Univers *univers)
         return -1;
     printf("  test ");
     tmp = startPopulation->next;
+
     freeMu(startPopulation);
+
     univers->population->startPopulation = tmp;
 
     // printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);

@@ -22,10 +22,12 @@ int startGame(struct Univers *univers)
         printf("pap %d\n", univers->population->startPopulation->idMu);
         //move Mu
         movement(univers);
-        // reproduction(univers);
+        reproduction(univers);
+        
 
         // change status and lifePoints of each Mu
         survival(univers);
+        puts("chien");
         //kill Mu who need to be killed
         death(univers);
         univers->age += 1;
