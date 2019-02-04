@@ -12,7 +12,7 @@ int luckBreedTest(int round);
 void breed(struct MU *dad, struct MU *mom, struct Univers *univers);
 void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom);
 void affectChildren(int idChildren, struct MU *parent);
-struct MU *insertChild(struct MU **child, struct Univers *univers);
+struct MU *insertChild(struct MU *child, struct Univers *univers);
 int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *univers);
 
-void freeBreedPartner(int numPartner, struct MU **sexPartners);
+void freeBreedPartner(struct MU **sexPartners, int numPartner);

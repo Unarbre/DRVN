@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 //Initialisation 
 
     // Size is modulable
-    int size = 10;
+    int size = 15;
 
     // GENERATION OF UNIVERS
     struct Land land;

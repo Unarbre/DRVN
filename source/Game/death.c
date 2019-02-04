@@ -34,9 +34,7 @@ int removeMu(struct Univers *univers, struct MU *currentMu)
     {
         population = population->next;
     }
-
     population->next = currentMu->next;
-    puts("don't kill me :(");
 
     freeMu(currentMu);
 

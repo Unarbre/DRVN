@@ -85,7 +85,7 @@ void freeMu(struct MU *Mu)
         int i = 0;
 
         // Free DNA's array
-        while (Mu->DNA[i][0] <= 'L')
+        while (Mu->DNA[i][0] <= 12)
         {
             if(Mu->DNA[i] != NULL)
                 free(Mu->DNA[i]);
