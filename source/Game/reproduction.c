@@ -146,9 +146,10 @@ void breed(struct MU *dad, struct MU *mom, struct Univers *univers)
     puts("going in");
 
     // TEMPORARY -> Will need a function to determine child's position
-    baby->position = malloc(sizeof(int) * 2);
-    baby->position[0] = 1;
-    baby->position[1] = 1;
+    if (!(checkAffectPosition(mom, &baby, univers)))
+    {
+        return;
+    }
 
     baby->idMu = (univers->lastChildId)++;
     baby->status = 1;
@@ -159,7 +160,8 @@ void breed(struct MU *dad, struct MU *mom, struct Univers *univers)
     affectChildren(baby->idMu, mom);
     dad->languor = 1;
     mom->languor = 1;
-    insertChild(&baby, univers);
+    univers->population->startPopulation = insertChild(&baby, univers);
+    univers->land->tiles[baby->position[0]][baby->position[1]].Mu = baby;
     puts("enfant inséré\n");
     printMu(baby);
 }
@@ -191,16 +193,41 @@ void affectChildren(int idChildren, struct MU *parent)
     parent->children[i] = idChildren;
 }
 
-void insertChild(struct MU **child, struct Univers *univers)
+struct MU *insertChild(struct MU **child, struct Univers *univers)
 {
-    struct MU *inter = univers->population->startPopulation;
-    while (inter != NULL)
+    struct MU *startPopulation = univers->population->startPopulation;
+    struct MU *inter = startPopulation;
+    while (inter->next != NULL)
     {
         inter = inter->next;
     }
-    inter = (*child);
+    inter->next = (*child);
     (*child)->next = NULL;
     univers->population->density++;
+    return startPopulation;
+}
+
+int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *univers)
+{
+    int x = parent->position[0] - 1, y = parent->position[1] - 1;
+    int *childPosition = malloc(sizeof(int) * 2);
+    int xs[3] = {x, x + 1, x + 2};
+    int ys[3] = {y, y + 1, y + 2};
+    for (; x <= xs[2]; x++)
+    {
+        y = ys[0];
+        for (; y <= ys[2]; y++)
+        {
+            if ((x != xs[1] || y != ys[1]) && ((x >= 0 && x < univers->land->size) && (y >= 0 && y < univers->land->size)) && univers->land->tiles[x][y].Mu == NULL)
+            {
+                childPosition[0] = x;
+                childPosition[0] = y;
+                (*child)->position = childPosition;
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 void freeBreedPartner(int numPartner, struct MU **sexPartners)
