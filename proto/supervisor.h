@@ -30,7 +30,7 @@ typedef unsigned char tiny;
 // Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"
 
-int menu(struct Univers *univers);
+int simulation();
 
 // Unusual Assets
 void printMu(struct MU *Mu);

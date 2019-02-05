@@ -37,8 +37,8 @@ void freeGraph(struct GraphData* graphData)
     freeGraphTexture(graphData);
     freeGraphSprite(graphData);
     freeGraphRenderer(graphData);
+    SDL_DestroyWindow(graphData->pWindow);
     free(graphData);
-    SDL_Quit();
 }
 
 void freeGraphRenderer(struct GraphData* graphData)

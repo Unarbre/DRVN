@@ -1,5 +1,60 @@
 #include "../../proto/supervisor.h"
 
+int graphGenerateMenu()
+{
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    {
+        fprintf(stdout, "Échec de l'initialisation de la SDL (%s)\n", SDL_GetError());
+        return -1;
+    }
+
+    {
+        // Window generation
+        SDL_Window *pWindowMenu = SDL_CreateWindow("Menu - Don't Riot Versus Nature", SDL_WINDOWPOS_CENTERED,
+                                               SDL_WINDOWPOS_CENTERED,
+                                               640,
+                                               480,
+                                               SDL_WINDOW_SHOWN);
+
+        if (pWindowMenu)
+        {
+            SDL_Renderer *pRendererMenu = SDL_CreateRenderer(pWindowMenu, -1, SDL_RENDERER_ACCELERATED); // Création d'un SDL_Renderer utilisant l'accélération matérielle
+            if (pRendererMenu)
+            {
+                SDL_Surface *sTiles = SDL_LoadBMP("assets/ground.bmp");
+                SDL_Surface *sMus = SDL_LoadBMP("assets/mu.bmp");
+                if (sTiles && sMus)
+                {
+                    SDL_Texture *TileTextures = SDL_CreateTextureFromSurface(pRendererMenu, sTiles); // Préparation du sprite
+                    SDL_Texture *MuTextures = SDL_CreateTextureFromSurface(pRendererMenu, sMus);     // Préparation du sprite
+
+                    if (TileTextures && MuTextures)
+                    {
+                        // SDL_Delay(5000);              /* Attendre cinq secondes, que l'utilisateur voit la fenêtre */
+                    }
+                    else
+                    {
+                        fprintf(stdout, "Échec de création de la texture (%s)\n", SDL_GetError());
+                    }
+                }
+                else
+                {
+                    fprintf(stdout, "Échec de chargement du sprite (%s)\n", SDL_GetError());
+                }
+            }
+            else
+            {
+                fprintf(stdout, "Échec de création du renderer (%s)\n", SDL_GetError());
+            }
+        }
+        else
+        {
+            fprintf(stderr, "Erreur de création de la fenêtre: %s\n", SDL_GetError());
+        }
+    }
+    return 1;
+}
+
 int graphGenerateWorld(struct Univers *univers)
 {
     struct GraphData *graphData = malloc(sizeof(struct GraphData));
