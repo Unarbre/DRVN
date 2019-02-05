@@ -35,7 +35,7 @@ int removeMu(struct Univers *univers, struct MU *currentMu)
         population = population->next;
     }
     population->next = currentMu->next;
-
+    toPosterity(currentMu, univers);
     freeMu(currentMu);
 
     printf(" removed ");

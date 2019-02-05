@@ -6,7 +6,7 @@ int main(int argc, char **argv)
     srand(time(NULL));
     int idMu = 1;
 
-//Initialisation 
+    //Initialisation
 
     // Size is modulable
     int size = 15;
@@ -21,13 +21,12 @@ int main(int argc, char **argv)
     initiateUnivers(univers, idMu, population, &land);
     graphGenerateWorld(univers);
 
-//Menu
+    //Menu
 
-    if(menu(univers) == 0)
+    if (menu(univers) == 0)
         return 0;
 
-
-//Game
+    //Game
 
     // if (!startGame(univers))
     // {
@@ -49,39 +48,40 @@ int menu(struct Univers *univers)
 {
     int wait = 1;
 
-    
-    while(wait == 1)
+    while (wait == 1)
     {
         // SDL_Delay(1000);
         // wait = sdlMenu();
         SDL_PumpEvents();
         {
-            const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
-            if ( pKeyStates[SDL_SCANCODE_ESCAPE] )
+            const Uint8 *pKeyStates = SDL_GetKeyboardState(NULL);
+            if (pKeyStates[SDL_SCANCODE_ESCAPE])
             {
                 wait = 0;
             }
-            if(pKeyStates[SDL_SCANCODE_RETURN])
+            if (pKeyStates[SDL_SCANCODE_RETURN])
             {
                 printf("play\n");
                 startGame(univers);
             }
         }
-        fprintf(stdout,"\n");
-                // Souris
-                {
-                    int x=0;
-                    int y=0;
-                    // Uint32 boutons = SDL_GetMouseState(&x,&y);
+        fprintf(stdout, "\n");
+        // Souris
+        {
+            int x = 0;
+            int y = 0;
+            // Uint32 boutons = SDL_GetMouseState(&x,&y);
 
-                    // fprintf(stdout, "Position de la souris : %d;%d\n",x,y);
-                    // fprintf(stdout, "Bouton de la souris : %d\n",boutons);
+            // fprintf(stdout, "Position de la souris : %d;%d\n",x,y);
+            // fprintf(stdout, "Bouton de la souris : %d\n",boutons);
 
-                    SDL_GetRelativeMouseState(&x,&y);
-                    // fprintf(stdout, "Déplacement de la souris : %d;%d\n",x,y);
-                }
-                fprintf(stdout,"\n");
+            SDL_GetRelativeMouseState(&x, &y);
+            // fprintf(stdout, "Déplacement de la souris : %d;%d\n",x,y);
+        }
+        fprintf(stdout, "\n");
     }
+    printf("%s", univers->universFilePath);
+
     freeUnivers(univers);
 
     return wait;

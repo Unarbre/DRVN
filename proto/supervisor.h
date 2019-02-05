@@ -6,6 +6,7 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
+#include <dirent.h>
 
 // Define type for 1 Bytes numeric values before any custom include, so functions do recognize custom type
 typedef unsigned char tiny;
@@ -23,6 +24,7 @@ typedef unsigned char tiny;
 #include "graphFunctions.h"
 #include "loop.h"
 #include "reproduction.h"
+#include "posterity.h"
 
 // Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"

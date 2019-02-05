@@ -63,11 +63,11 @@ int *initialiseChildren()
 // Return an array of Strand X 2 DNA expressions
 tiny **initialiseDNA()
 {
-    tiny **DNA = malloc(sizeof(tiny *) * 12 + 1);
+    tiny **DNA = malloc(sizeof(tiny *) * 12);
     tiny expression = 'A';
 
     int i, j;
-    for (i = 0; i < 12 + 1; i++, expression++)
+    for (i = 0; i < 12; i++, expression++)
     {
         // 3 Elements. 1 -> DNA letter. 2 -> First Allele. 3-> 2nd Allele
         DNA[i] = malloc(sizeof(tiny) * 3);
