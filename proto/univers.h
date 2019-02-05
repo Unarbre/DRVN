@@ -8,6 +8,7 @@ struct Univers
     int age;
     int perenity;
     char *universFilePath;
+    struct Rules * rules;
     struct Population *population;
     struct Land *land;
     struct GraphData *graphData;

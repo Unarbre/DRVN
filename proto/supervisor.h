@@ -25,6 +25,7 @@ typedef unsigned char tiny;
 #include "loop.h"
 #include "reproduction.h"
 #include "posterity.h"
+#include "think.h"
 
 // Memory release HAS TO BE the last include, as it is the last thing to do, and receive specific elements from others .h (custom types)
 #include "memoryRelease.h"
