@@ -9,4 +9,5 @@ struct Rules *initiateRules();
 
 // Eugenism functions
 tiny *fetchBestDna();
-tiny *eugenism(int multiversSlection);
+tiny *foundFile(int multiversSelection);
+tiny *eugenism(struct dirent *dir);

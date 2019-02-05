@@ -60,6 +60,7 @@ int simulation()
 
     printf("play\n");
     startGame(univers);
+    genocide(univers);
     freeUnivers(univers);
     return 42;
 }

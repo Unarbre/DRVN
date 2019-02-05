@@ -9,7 +9,7 @@ void initiateUnivers(struct Univers *univers, int lastChildId, struct Population
     univers->universFilePath = createUniversFile(univers->version);
     univers->land = land;
     univers->population = population;
-    univers->rules = NULL;
+    univers->rules = initiateRules();
     FILE *fileCreator = fopen(univers->universFilePath, "w");
     fclose(fileCreator);
 }
