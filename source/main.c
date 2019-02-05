@@ -81,7 +81,7 @@ int menu(struct Univers *univers)
         fprintf(stdout, "\n");
     }
     printf("%s", univers->universFilePath);
-
+    genocide(univers);
     freeUnivers(univers);
 
     return wait;

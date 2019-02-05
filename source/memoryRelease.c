@@ -82,6 +82,7 @@ void freeMu(struct MU *Mu)
 {
     if (Mu != NULL)
     {
+        
         int i = 0;
 
         // Free DNA's array
