@@ -22,7 +22,7 @@ int startGame(struct Univers *univers)
         printf("pap %d\n", univers->population->startPopulation->idMu);
         //move Mu
         movement(univers);
-        reproduction(univers);
+        // reproduction(univers);
         
 
         // change status and lifePoints of each Mu
