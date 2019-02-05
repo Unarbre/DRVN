@@ -21,14 +21,14 @@ int reproduction(struct Univers *univers)
                 {
                     if (breedPartner[i]->languor == 0 && currentMu->languor == 0)
                     {
-                        printf("reproduction time !\n");
                         breed(currentMu, breedPartner[i], univers);
                     }
                 }
             }
-            else
+
+            if (breedPartner != NULL)
             {
-                // Free 8 element from breedPArtner;
+                freeBreedPartner(breedPartner, partnerAmount);
             }
         }
 
@@ -42,11 +42,11 @@ int tryBreed(struct MU *mu)
     switch (mu->status)
     {
     case 0:
-        if (luckBreedTest(3))
+        if (!luckBreedTest(15))
             return 0;
         break;
     case 1:
-        if (luckBreedTest(2))
+        if (!luckBreedTest(4))
             return 0;
         break;
     default:;
@@ -90,6 +90,7 @@ struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int
             i++;
         }
     }
+
     return closePartner;
 }
 
@@ -97,7 +98,7 @@ struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner)
 {
     struct MU **orderedSexP = malloc(sizeof(struct MU *) * numPartner);
     int i, j = 0;
-    for (i = 0; i < 8; i++)
+    for (i = 0; i < 9; i++)
     {
         if (sexPartner[i] != NULL)
         {
@@ -105,8 +106,8 @@ struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner)
             sexPartner[i] = NULL;
             j++;
         }
-        free(sexPartner[i]);
     }
+    free(sexPartner);
     orderedSexP = orderSexAppeal(orderedSexP, numPartner);
     return orderedSexP;
 }
@@ -143,27 +144,26 @@ void breed(struct MU *dad, struct MU *mom, struct Univers *univers)
     // Share DNA from Dad and Mom
     shareDNA(baby, dad, mom);
     baby->capacity = initiateCapacity(baby->DNA);
-    puts("going in");
 
-    // TEMPORARY -> Will need a function to determine child's position
+    // Will determine child's position and if there is place to pop the baby
     if (!(checkAffectPosition(mom, &baby, univers)))
     {
         return;
     }
-
-    baby->idMu = (univers->lastChildId)++;
+    baby->languor = 1;
+    baby->birthDate = univers->age;
+    baby->idMu = univers->lastChildId++;
     baby->status = 1;
     baby->lifePoints = initiateLifePoints(baby->capacity[0]);
+    // baby->lifePoints = 1;
     baby->sexAppeal = baby->capacity[1];
     baby->children = initialiseChildren();
     affectChildren(baby->idMu, dad);
     affectChildren(baby->idMu, mom);
     dad->languor = 1;
     mom->languor = 1;
-    univers->population->startPopulation = insertChild(&baby, univers);
-    univers->land->tiles[baby->position[0]][baby->position[1]].Mu = baby;
-    puts("enfant inséré\n");
-    printMu(baby);
+    univers->population->startPopulation = insertChild(baby, univers);
+    univers->population->density++;
 }
 
 // Affect DNA to baby by randomly sliting mom and dad's DNA
@@ -193,20 +193,23 @@ void affectChildren(int idChildren, struct MU *parent)
     parent->children[i] = idChildren;
 }
 
-struct MU *insertChild(struct MU **child, struct Univers *univers)
+struct MU *insertChild(struct MU *child, struct Univers *univers)
 {
     struct MU *startPopulation = univers->population->startPopulation;
     struct MU *inter = startPopulation;
+    child->next = NULL;
+    if (inter == NULL)
+        return child;
+
     while (inter->next != NULL)
     {
         inter = inter->next;
     }
-    inter->next = (*child);
-    (*child)->next = NULL;
-    univers->population->density++;
+    inter->next = child;
     return startPopulation;
 }
 
+// This function check
 int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *univers)
 {
     int x = parent->position[0] - 1, y = parent->position[1] - 1;
@@ -221,8 +224,9 @@ int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *un
             if ((x != xs[1] || y != ys[1]) && ((x >= 0 && x < univers->land->size) && (y >= 0 && y < univers->land->size)) && univers->land->tiles[x][y].Mu == NULL)
             {
                 childPosition[0] = x;
-                childPosition[0] = y;
+                childPosition[1] = y;
                 (*child)->position = childPosition;
+                univers->land->tiles[x][y].Mu = (*child);
                 return 1;
             }
         }
@@ -230,6 +234,12 @@ int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *un
     return 0;
 }
 
-void freeBreedPartner(int numPartner, struct MU **sexPartners)
+void freeBreedPartner(struct MU **sexPartners, int numPartner)
 {
+    int i;
+    for (i = 0; i < numPartner; i++)
+    {
+        sexPartners[i] = NULL;
+        free(sexPartners[i]);
+    }
 }

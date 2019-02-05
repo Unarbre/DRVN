@@ -13,6 +13,6 @@ struct GraphData
 };
 
 int graphGenerateWorld(struct Univers *univers);
-    int graphFillWorld(struct Univers *univers);
+int graphFillWorld(struct Univers *univers);
 
 int sdlMenu();
