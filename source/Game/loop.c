@@ -18,27 +18,53 @@ int startGame(struct Univers *univers)
 
     while (loop && (univers->age < 15 && univers->population->startPopulation != NULL))
     {
-        // Reinitialize MUs Languor
+// Reinitialize MUs Languor
         languorTime(univers);
         printf("\nloop : %d \n\n", loop);
         printf("pap %d\n", univers->population->startPopulation->idMu);
-        //move Mu
+//move Mu
         movement(univers);
         reproduction(univers);
 
-        // change status and lifePoints of each Mu
+// change status and lifePoints of each Mu
         survival(univers);
         puts("chien");
-        //kill Mu who need to be killed
+//kill Mu who need to be killed
         death(univers);
         univers->age += 1;
         printf("\nageUnivers : %d\n\n", univers->age);
 
         graphFillWorld(univers);
-        // loop = sdlEvent(univers);
-        SDL_Delay(1000);
+//events
+        if(loopEvent(univers) == 0)
+            return 0;
+        SDL_Delay(500);
     }
     return 0;
+}
+
+int loopEvent(struct Univers *univers)
+{
+    int wait = 1;
+
+    
+    if(wait == 1)
+    {
+        SDL_PumpEvents();
+        {
+            const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
+            if ( pKeyStates[SDL_SCANCODE_SPACE] )
+            {
+                wait = 0;
+            }
+            if ( pKeyStates[SDL_SCANCODE_P] )
+            {
+                wait = 2;
+                // while(1){}
+            }
+        }
+    }
+    return wait;
 }
 
 void languorTime(struct Univers *univers)
