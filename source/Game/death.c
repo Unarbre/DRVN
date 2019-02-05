@@ -35,7 +35,7 @@ int removeMu(struct Univers *univers, struct MU *currentMu)
         population = population->next;
     }
     population->next = currentMu->next;
-
+    toPosterity(currentMu, univers);
     freeMu(currentMu);
 
     printf(" removed ");
@@ -51,6 +51,7 @@ int removeFirst(struct Univers *univers)
         return -1;
     printf("  test ");
     tmp = startPopulation->next;
+    toPosterity(startPopulation, univers);
 
     freeMu(startPopulation);
 
@@ -59,4 +60,14 @@ int removeFirst(struct Univers *univers)
     // printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
     printf(" removed ");
     return 0;
+}
+
+void genocide(struct Univers *univers)
+{
+    struct MU *startPopulation = univers->population->startPopulation;
+    while (startPopulation != NULL)
+    {
+        removeMu(univers, startPopulation);
+        startPopulation = startPopulation->next;
+    }
 }

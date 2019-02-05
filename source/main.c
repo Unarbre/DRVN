@@ -22,20 +22,20 @@ int main(int argc, char **argv)
                 wait = simulation();
             }
         }
-        fprintf(stdout,"\n");
-                // Souris
-                {
-                    int x=0;
-                    int y=0;
-                    // Uint32 boutons = SDL_GetMouseState(&x,&y);
+        fprintf(stdout, "\n");
+        // Souris
+        {
+            int x = 0;
+            int y = 0;
+            // Uint32 boutons = SDL_GetMouseState(&x,&y);
 
-                    // fprintf(stdout, "Position de la souris : %d;%d\n",x,y);
-                    // fprintf(stdout, "Bouton de la souris : %d\n",boutons);
+            // fprintf(stdout, "Position de la souris : %d;%d\n",x,y);
+            // fprintf(stdout, "Bouton de la souris : %d\n",boutons);
 
-                    SDL_GetRelativeMouseState(&x,&y);
-                    // fprintf(stdout, "Déplacement de la souris : %d;%d\n",x,y);
-                }
-                fprintf(stdout,"\n");
+            SDL_GetRelativeMouseState(&x, &y);
+            // fprintf(stdout, "Déplacement de la souris : %d;%d\n",x,y);
+        }
+        fprintf(stdout, "\n");
     }
     // SDL_Quit();
     return wait;

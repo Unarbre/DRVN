@@ -29,6 +29,7 @@ int checkIsntMu(int x, int y, struct Land *land);
 int death(struct Univers *univers);
 int removeMu(struct Univers *univers, struct MU *currentMu);
 int removeFirst(struct Univers *univers);
+void genocide(struct Univers *univers);
 
 // Languor reinitialisation
 void languorTime(struct Univers *univers);
