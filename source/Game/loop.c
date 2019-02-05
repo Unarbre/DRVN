@@ -7,7 +7,6 @@ int startGame(struct Univers *univers)
     int loop = 1;
 
     currentMu = univers->population->startPopulation;
-
     for (int i = 0; i < univers->population->density; i++)
     {
         printf("\n idMu : %d  ", currentMu->idMu);
@@ -16,7 +15,7 @@ int startGame(struct Univers *univers)
         currentMu = currentMu->next;
     }
 
-    while (loop && (univers->age < 15 && univers->population->startPopulation != NULL))
+    while (loop && (univers->age < 5 && univers->population->startPopulation != NULL))
     {
 // Reinitialize MUs Languor
         languorTime(univers);

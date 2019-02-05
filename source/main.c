@@ -60,9 +60,7 @@ int simulation()
 
     printf("play\n");
     startGame(univers);
-    
     freeUnivers(univers);
-
     return 42;
 }
 

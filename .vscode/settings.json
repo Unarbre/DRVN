@@ -7,5 +7,7 @@
         "supervisor.h\u0000rvisor.h": "c",
         "supervisor.h\u0000visor.h": "c"
     },
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.errorSquiggles": "Disabled"
 }
