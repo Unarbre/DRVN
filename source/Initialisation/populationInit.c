@@ -22,7 +22,8 @@ struct MU *generatePopulation(struct Land *land, int MusAmount, int *idMu, int s
         // initialise next MU in the startPopulation
         addElderChild(land, &startPopulation, idMu, MusAmount, squareSize, bestDna);
     }
-    free(bestDna);
+    if (bestDna != NULL)
+        free(bestDna);
     return startPopulation;
 }
 
@@ -50,6 +51,7 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
+    puts("life");
 }
 
 int *initialiseChildren()
@@ -81,9 +83,11 @@ tiny **initialiseDNA(tiny *bestDna)
             puts("ok");
 
             DNA[i][j] = thinkDNA(i, bestDna);
-            printf("DNA : %d\n", DNA[i][j]);
+            printf("DNA %d: %d\n", i, DNA[i][j]);
         }
     }
+    puts("ok1");
+
     return DNA;
 }
 

@@ -2,14 +2,21 @@
 
 void initiateUnivers(struct Univers *univers, int lastChildId, struct Population *population, struct Land *land)
 {
+
     univers->version = getVersion();
     univers->lastChildId = lastChildId;
     univers->age = 0;
     univers->perenity = 100;
+
     univers->universFilePath = createUniversFile(univers->version);
     univers->land = land;
+
     univers->population = population;
+    puts("zeg");
+
     univers->rules = initiateRules();
+    puts("zeg");
+
     FILE *fileCreator = fopen(univers->universFilePath, "w");
     fclose(fileCreator);
 }
@@ -28,7 +35,7 @@ char *createUniversFile(int version)
 int getVersion()
 {
     int count = 1;
-    DIR *dirp; 
+    DIR *dirp;
     struct dirent *dir;
     dirp = opendir("./UniversData");
     while ((dir = readdir(dirp)) != NULL)
