@@ -43,7 +43,7 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     // transform DNA to usable values
     newChild->capacity = initiateCapacity(newChild->DNA);
     newChild->lifePoints = initiateLifePoints(newChild->capacity[0]);
-    newChild->sexAppeal = newChild->capacity[1];
+    newChild->sexPreference = rand() % 12;
     newChild->languor = 0;
     newChild->birthDate = 0;
     // set nuùber of possible childrens to 50
@@ -80,7 +80,6 @@ tiny **initialiseDNA(tiny *bestDna)
         DNA[i][0] = expression;
         for (j = 1; j < 3; j++)
         {
-            puts("ok");
 
             DNA[i][j] = thinkDNA(i, bestDna);
             printf("DNA %d: %d\n", i, DNA[i][j]);

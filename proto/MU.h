@@ -12,8 +12,8 @@ struct MU
     int status;
     // MU's longevity and stamina
     int lifePoints;
-    // Mu's sex Appeal, determining the choice of reproductive partner
-    int sexAppeal;
+    // Mu's sex attread
+    int sexPreference;
     // "Boolean" determining if Mu can procreate or note
     int languor;
     // Turn when Mu has been generated

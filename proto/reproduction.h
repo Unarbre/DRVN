@@ -3,8 +3,8 @@
 int reproduction(struct Univers *univers);
 // Functions determining potentiel Sex partener
 struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int *partnerAmount);
-struct MU **orderedSexPartner(struct MU **SexPartner, int numPartner);
-struct MU **orderSexAppeal(struct MU **sexPartner, int numPartner);
+struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner, int sexPreference);
+struct MU **orderSexAttraid(struct MU **sexPartner, int numPartner, int sexPreference);
 int tryBreed(struct MU *mu);
 int luckBreedTest(int round);
 

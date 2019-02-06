@@ -16,7 +16,7 @@ int reproduction(struct Univers *univers)
 
             if (partnerAmount != 0)
             {
-                breedPartner = orderedSexPartner(breedPartner, partnerAmount);
+                breedPartner = orderedSexPartner(breedPartner, partnerAmount, currentMu->sexPreference);
                 for (i = 0; i < partnerAmount; i++)
                 {
                     if (breedPartner[i]->languor == 0 && currentMu->languor == 0)
@@ -94,7 +94,7 @@ struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int
     return closePartner;
 }
 
-struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner)
+struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner, int sexPreference)
 {
     struct MU **orderedSexP = malloc(sizeof(struct MU *) * numPartner);
     int i, j = 0;
@@ -108,11 +108,11 @@ struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner)
         }
     }
     free(sexPartner);
-    orderedSexP = orderSexAppeal(orderedSexP, numPartner);
+    orderedSexP = orderSexAttraid(orderedSexP, numPartner, sexPreference);
     return orderedSexP;
 }
 
-struct MU **orderSexAppeal(struct MU **sexPartner, int numPartner)
+struct MU **orderSexAttraid(struct MU **sexPartner, int numPartner, int sexPreference)
 {
     int i, j;
     struct MU *temp;
@@ -125,7 +125,7 @@ struct MU **orderSexAppeal(struct MU **sexPartner, int numPartner)
     {
         for (j = 1; j < numPartner; j++)
         {
-            if (sexPartner[i]->sexAppeal < sexPartner[j]->sexAppeal)
+            if (sexPartner[i]->capacity[sexPreference] < sexPartner[j]->capacity[sexPreference])
             {
                 temp = sexPartner[i];
                 sexPartner[i] = sexPartner[j];
@@ -155,9 +155,8 @@ void breed(struct MU *dad, struct MU *mom, struct Univers *univers)
     baby->idMu = univers->lastChildId++;
     baby->status = 1;
     baby->lifePoints = initiateLifePoints(baby->capacity[0]);
-    // baby->lifePoints = 1;
-    baby->sexAppeal = baby->capacity[1];
     baby->children = initialiseChildren();
+    baby->sexPreference = mom->sexPreference;
     affectChildren(baby->idMu, dad);
     affectChildren(baby->idMu, mom);
     dad->languor = 1;
