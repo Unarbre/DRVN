@@ -15,8 +15,6 @@ tiny thinkDNA(int strand, tiny *bestDna)
     {
         if (bestDna != NULL)
         {
-            printf("bestDNA %d : %d\n", i, bestDna[i]);
-            puts("ok");
 
             if (strand == bestDna[i])
             {

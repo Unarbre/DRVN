@@ -12,7 +12,6 @@ tiny *fetchBestDna()
         {
             multiversBestDNA[i] = eugenism(i + 1);
         }
-        printf("multivers = %d\n", multivers);
         return bestDnaEver(multivers, multiversBestDNA);
     }
 
@@ -22,7 +21,6 @@ tiny *fetchBestDna()
 tiny *eugenism(int multiversSelection)
 {
     char *multiversFileName = createUniversFile(multiversSelection);
-    printf("univers : %s\n", multiversFileName);
     int i = 0, j;
     struct GhostMu **ghosts = malloc(sizeof(struct GhostMu *) * 3);
     struct GhostMu *tmpGhost;
@@ -30,19 +28,16 @@ tiny *eugenism(int multiversSelection)
     if (fUni == NULL)
         return NULL;
 
-    puts("in!");
     while (!feof(fUni) && i < 3)
     {
         tmpGhost = initiateGhostMu();
         fscanf(fUni, "%d ", &(tmpGhost->id));
-        printf("tmpghost ID : %d\n", tmpGhost->id);
         for (j = 0; j < 12; j++)
         {
             fseek(fUni, 1, SEEK_CUR);
             fscanf(fUni, " %d %d ", &(tmpGhost->Dna[j][0]), &(tmpGhost->Dna[j][1]));
         }
         fscanf(fUni, "%d %d %d\n", &(tmpGhost->goodDay), &(tmpGhost->born), &(tmpGhost->death));
-        printf("goodDay : %d\n", tmpGhost->goodDay);
         // TEMPORARY : to be adapted to high tier survivors
         if (tmpGhost->goodDay >= 3)
         {
@@ -125,14 +120,12 @@ tiny *orderBestDna(struct GhostMu **ghosts)
     freeGhosts(ghosts);
     for (i = 0; i < 5; i++)
     {
-        printf("%d ", bestDna[i]);
     }
     return bestDna;
 }
 
 tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
 {
-    printf("multivers : %d", multivers);
     tiny *bestDna = malloc(sizeof(tiny) * 5);
     tiny points[12] = {0};
     int i, j, highAmount, index;
@@ -148,7 +141,6 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
         highAmount = 1;
         for (j = 0; j < 12; j++)
         {
-            printf("j : %d\n", points[j]);
             if (points[j] >= highAmount)
             {
                 highAmount = points[j];
@@ -156,7 +148,6 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
             }
         }
         bestDna[i] = index;
-        printf("%d\n", index);
         points[index] = 0;
     }
     return bestDna;

@@ -6,7 +6,6 @@ int sdlMenu()
 
     while ( SDL_PollEvent(&event) )
     {
-        printf("paillons\n");
         switch(event.type)
         {
             case SDL_WINDOWEVENT:

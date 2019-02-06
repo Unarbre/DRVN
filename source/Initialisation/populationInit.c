@@ -51,7 +51,6 @@ void addElderChild(struct Land *land, struct MU **startPopulation, int *idMu, in
     // Child inserted at the begining
     newChild->next = *(startPopulation);
     *startPopulation = newChild;
-    puts("life");
 }
 
 int *initialiseChildren()
@@ -82,10 +81,8 @@ tiny **initialiseDNA(tiny *bestDna)
         {
 
             DNA[i][j] = thinkDNA(i, bestDna);
-            printf("DNA %d: %d\n", i, DNA[i][j]);
         }
     }
-    puts("ok1");
 
     return DNA;
 }
@@ -120,7 +117,6 @@ int initiateLifePoints(tiny geneA)
 // Generate a position depending of the population and the space allowed.
 int *initialisePosition(int idMu, int squareSize, int population)
 {
-    printf("%d\n", idMu);
     int *position = malloc(sizeof(int) * 2);
 
     position[0] = idMu / squareSize;

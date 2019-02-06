@@ -10,8 +10,6 @@ int movement(struct Univers *univers)
         if (canMove(currentMu))
         {
             surrounding = searchSurrounding(currentMu, univers->land);
-            // printf("\n idMu : %d  ", currentMu->idMu);
-            // printf("position : %d %d   ", currentMu->position[0], currentMu->position[1]);
             // if it's in dying state, mofe to a safer place
             if (currentMu->status == 0)
                 moveToSurvive(currentMu, univers->land);
@@ -26,9 +24,6 @@ int movement(struct Univers *univers)
             else
                 moveAlea(currentMu, univers->land);
         }
-        // printf(" new position : %d ", currentMu->position[0]);
-        // printf(" %d  ", currentMu->position[1]);
-        // printf(" surrounding : %d ", surrounding);
         currentMu = currentMu->next;
     }
     return 1;

@@ -12,10 +12,8 @@ void initiateUnivers(struct Univers *univers, int lastChildId, struct Population
     univers->land = land;
 
     univers->population = population;
-    puts("zeg");
 
     univers->rules = initiateRules();
-    puts("zeg");
 
     FILE *fileCreator = fopen(univers->universFilePath, "w");
     fclose(fileCreator);

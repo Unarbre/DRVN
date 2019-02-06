@@ -192,7 +192,6 @@ void affectChildren(int idChildren, struct MU *parent)
     int i;
     for (i = 0; parent->children[i] != -1; i++)
     {
-        printf("not okay");
     }
     parent->children[i] = idChildren;
 }

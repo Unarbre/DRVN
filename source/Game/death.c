@@ -5,10 +5,8 @@ int death(struct Univers *univers)
 {
     struct MU *currentMu = univers->population->startPopulation;
 
-    printf("startPopulation %d\n", currentMu->idMu);
     while (currentMu != NULL)
     {
-        printf("\nidmu : %d lifepoints : %d ", currentMu->idMu, currentMu->lifePoints);
         if (currentMu->lifePoints <= 0)
         {
             univers->land->tiles[currentMu->position[0]][currentMu->position[1]].Mu = NULL;
@@ -25,7 +23,6 @@ int removeMu(struct Univers *univers, struct MU *currentMu)
     struct MU *startPopulation = univers->population->startPopulation;
     struct MU *population = startPopulation;
 
-    printf(" indexmu = %d ", currentMu->idMu);
     if (currentMu->idMu < 0)
         return -1;
     if (currentMu == startPopulation)
@@ -38,7 +35,6 @@ int removeMu(struct Univers *univers, struct MU *currentMu)
     toPosterity(currentMu, univers);
     freeMu(currentMu);
 
-    printf(" removed ");
     return 0;
 }
 
@@ -49,7 +45,6 @@ int removeFirst(struct Univers *univers)
 
     if (startPopulation == NULL)
         return -1;
-    printf("  test ");
     tmp = startPopulation->next;
     toPosterity(startPopulation, univers);
 
@@ -57,8 +52,6 @@ int removeFirst(struct Univers *univers)
 
     univers->population->startPopulation = tmp;
 
-    // printf(" %d %d", univers->population->startPopulation->idMu, univers->population->startPopulation->next->idMu);
-    printf(" removed ");
     return 0;
 }
 

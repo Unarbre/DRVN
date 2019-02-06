@@ -48,7 +48,6 @@ int simulation()
     initiateUnivers(univers, idMu, population, &land);
     graphGenerateWorld(univers);
 
-    printf("play\n");
     startGame(univers);
     genocide(univers);
     freeUnivers(univers);
