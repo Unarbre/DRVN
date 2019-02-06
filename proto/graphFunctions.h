@@ -15,4 +15,6 @@ struct GraphData
 int graphGenerateWorld(struct Univers *univers);
     int graphFillWorld(struct Univers *univers);
 int graphGenerateMenu();
+int printPause(struct GraphData *graphData);
+int printEndSimulation(struct GraphData *graphData);
 int loopEvent(struct Univers *univers);

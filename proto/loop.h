@@ -2,6 +2,8 @@
 
 // loop.c
 int startGame(struct Univers *univers);
+int loopEvent(struct Univers *univers);
+int endSimulation(struct Univers *univers);
 
 // survival.c
 int survival(struct Univers *univers);

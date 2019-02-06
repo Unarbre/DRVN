@@ -3,16 +3,20 @@
 int main(int argc, char **argv)
 {
     int wait = 1;
+    const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
+    SDL_Event event;
 
     graphGenerateMenu();
     while(wait != 0)
     {
         // SDL_Delay(1000);
+        SDL_FlushEvent(SDL_WINDOWEVENT_CLOSE);
+        SDL_FlushEvent(SDL_SCANCODE_ESCAPE);
         SDL_PumpEvents();
+        SDL_PollEvent(&event);
         {
-            const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
             // quit
-            if ( pKeyStates[SDL_SCANCODE_ESCAPE] )
+            if ( pKeyStates[SDL_SCANCODE_ESCAPE] || event.window.event == SDL_WINDOWEVENT_CLOSE)
             {
                 wait = 0;
             }
@@ -23,21 +27,8 @@ int main(int argc, char **argv)
             }
         }
         fprintf(stdout, "\n");
-        // Souris
-        {
-            int x = 0;
-            int y = 0;
-            // Uint32 boutons = SDL_GetMouseState(&x,&y);
-
-            // fprintf(stdout, "Position de la souris : %d;%d\n",x,y);
-            // fprintf(stdout, "Bouton de la souris : %d\n",boutons);
-
-            SDL_GetRelativeMouseState(&x, &y);
-            // fprintf(stdout, "Déplacement de la souris : %d;%d\n",x,y);
-        }
-        fprintf(stdout, "\n");
     }
-    // SDL_Quit();
+    SDL_Quit();
     return wait;
 }
 

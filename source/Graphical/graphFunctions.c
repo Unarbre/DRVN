@@ -21,16 +21,16 @@ int graphGenerateMenu()
             SDL_Renderer *pRendererMenu = SDL_CreateRenderer(pWindowMenu, -1, SDL_RENDERER_ACCELERATED); // Création d'un SDL_Renderer utilisant l'accélération matérielle
             if (pRendererMenu)
             {
-                SDL_Surface *sTiles = SDL_LoadBMP("assets/ground.bmp");
-                SDL_Surface *sMus = SDL_LoadBMP("assets/mu.bmp");
-                if (sTiles && sMus)
+                SDL_Surface *background = SDL_LoadBMP("assets/menu.bmp");
+                if (background)
                 {
-                    SDL_Texture *TileTextures = SDL_CreateTextureFromSurface(pRendererMenu, sTiles); // Préparation du sprite
-                    SDL_Texture *MuTextures = SDL_CreateTextureFromSurface(pRendererMenu, sMus);     // Préparation du sprite
-
-                    if (TileTextures && MuTextures)
+                    SDL_Texture *BGTextures = SDL_CreateTextureFromSurface(pRendererMenu, background); // Préparation du sprite
+                    if (BGTextures)
                     {
-                        // SDL_Delay(5000);              /* Attendre cinq secondes, que l'utilisateur voit la fenêtre */
+                        SDL_Rect dest = {0, 0, 640, 480};
+                        SDL_RenderCopy(pRendererMenu, BGTextures, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
+                        SDL_RenderPresent(pRendererMenu); // Affichage
+
                     }
                     else
                     {
@@ -137,5 +137,56 @@ int graphFillWorld(struct Univers *univers)
         pY += TSIZE;
     }
     SDL_RenderPresent(univers->graphData->pRenderer); // Affichage
+    return 0;
+}
+
+int printPause(struct GraphData *graphData)
+{
+    SDL_Surface * End = SDL_LoadBMP("assets/pause.bmp");
+    if (End)
+    {
+        SDL_Texture * tEnd = SDL_CreateTextureFromSurface(graphData->pRenderer, End);
+        if (tEnd)
+        {
+            SDL_Rect dest = {0, 0, 640, 480};
+            SDL_RenderCopy(graphData->pRenderer, tEnd, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
+            SDL_RenderPresent(graphData->pRenderer); // Affichage
+
+        }
+        else
+        {
+            fprintf(stdout, "Échec de création de la texture (%s)\n", SDL_GetError());
+        }
+    }
+    else
+    {
+        fprintf(stdout, "Échec de chargement du sprite (%s)\n", SDL_GetError());
+    }
+    return 0;
+}
+
+
+int printEndSimulation(struct GraphData *graphData)
+{
+    SDL_Surface * End = SDL_LoadBMP("assets/end.bmp");
+    if (End)
+    {
+        SDL_Texture * tEnd = SDL_CreateTextureFromSurface(graphData->pRenderer, End);
+        if (tEnd)
+        {
+            SDL_Rect dest = {0, 0, 640, 480};
+            SDL_RenderCopy(graphData->pRenderer, tEnd, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
+            SDL_RenderPresent(graphData->pRenderer); // Affichage
+
+        }
+        else
+        {
+            fprintf(stdout, "Échec de création de la texture (%s)\n", SDL_GetError());
+        }
+    }
+    else
+    {
+        fprintf(stdout, "Échec de chargement du sprite (%s)\n", SDL_GetError());
+    }
     return 0;
 }
