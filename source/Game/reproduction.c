@@ -42,11 +42,11 @@ int tryBreed(struct MU *mu)
     switch (mu->status)
     {
     case 0:
-        if (!luckBreedTest(15))
+        if (!luckBreedTest(8))
             return 0;
         break;
     case 1:
-        if (!luckBreedTest(7))
+        if (!luckBreedTest(4))
             return 0;
         break;
     default:;

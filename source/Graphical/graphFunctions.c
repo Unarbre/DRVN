@@ -12,8 +12,8 @@ int graphGenerateMenu()
         // Window generation
         SDL_Window *pWindowMenu = SDL_CreateWindow("Menu - Don't Riot Versus Nature", SDL_WINDOWPOS_CENTERED,
                                                SDL_WINDOWPOS_CENTERED,
-                                               640,
-                                               480,
+                                               1920,
+                                               1080,
                                                SDL_WINDOW_SHOWN);
 
         if (pWindowMenu)
@@ -27,7 +27,7 @@ int graphGenerateMenu()
                     SDL_Texture *BGTextures = SDL_CreateTextureFromSurface(pRendererMenu, background); // Préparation du sprite
                     if (BGTextures)
                     {
-                        SDL_Rect dest = {0, 0, 640, 480};
+                        SDL_Rect dest = {0, 0, 1920, 1080};
                         SDL_RenderCopy(pRendererMenu, BGTextures, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
                         SDL_RenderPresent(pRendererMenu); // Affichage
 
@@ -69,8 +69,8 @@ int graphGenerateWorld(struct Univers *univers)
         // Window generation
         graphData->pWindow = SDL_CreateWindow("Don't Riot Versus Nature", SDL_WINDOWPOS_CENTERED,
                                                SDL_WINDOWPOS_CENTERED,
-                                               640,
-                                               480,
+                                               1920,
+                                               1080,
                                                SDL_WINDOW_SHOWN);
 
         if (graphData->pWindow)
@@ -148,7 +148,7 @@ int printPause(struct GraphData *graphData)
         SDL_Texture * tEnd = SDL_CreateTextureFromSurface(graphData->pRenderer, End);
         if (tEnd)
         {
-            SDL_Rect dest = {0, 0, 640, 480};
+            SDL_Rect dest = {0, 0, 1920, 1080};
             SDL_RenderCopy(graphData->pRenderer, tEnd, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
             SDL_RenderPresent(graphData->pRenderer); // Affichage
 
@@ -174,7 +174,7 @@ int printEndSimulation(struct GraphData *graphData)
         SDL_Texture * tEnd = SDL_CreateTextureFromSurface(graphData->pRenderer, End);
         if (tEnd)
         {
-            SDL_Rect dest = {0, 0, 640, 480};
+            SDL_Rect dest = {0, 0, 1920, 1080};
             SDL_RenderCopy(graphData->pRenderer, tEnd, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
             SDL_RenderPresent(graphData->pRenderer); // Affichage
 

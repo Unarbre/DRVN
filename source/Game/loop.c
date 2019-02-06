@@ -12,7 +12,7 @@ int startGame(struct Univers *univers)
         currentMu = currentMu->next;
     }
 
-    while (loop && (univers->age < 5 && univers->population->startPopulation != NULL))
+    while (loop && (univers->age < 50 && univers->population->startPopulation != NULL))
     {
 // Reinitialize MUs Languor
         languorTime(univers);
