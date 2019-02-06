@@ -28,7 +28,7 @@ char *createUniversFile(int version)
 int getVersion()
 {
     int count = 1;
-    DIR *dirp;
+    DIR *dirp; 
     struct dirent *dir;
     dirp = opendir("./UniversData");
     while ((dir = readdir(dirp)) != NULL)

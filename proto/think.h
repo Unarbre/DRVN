@@ -5,9 +5,17 @@ struct Rules
     tiny *bestDna;
 };
 
+struct GhostMu
+{
+    int id;
+    int **Dna;
+    int goodDay;
+    int born;
+    int death;
+};
+
+// Initiate Rules Function
 struct Rules *initiateRules();
 
-// Eugenism functions
-tiny *fetchBestDna();
-tiny *foundFile(int multiversSelection);
-tiny *eugenism(struct dirent *dir);
+// Think functions
+tiny thinkDNA(int strand, tiny *bestDna);

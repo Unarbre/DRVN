@@ -4,83 +4,40 @@ struct Rules *initiateRules()
 {
     struct Rules *rules = malloc(sizeof(struct Rules));
     rules->bestDna = fetchBestDna();
+    int i;
+    for (i = 0; i < 5; i++)
+        printf("bestDna : %d\n", rules->bestDna[i]);
 
     return rules;
 }
 
-tiny *fetchBestDna()
+tiny thinkDNA(int strand, tiny *bestDna)
 {
     int i;
-    tiny **multiversBestDNA = NULL;
-    int multivers = getVersion() - 1;
-    if (multivers)
+    for (i = 0; i < 5; i++)
     {
-        multiversBestDNA = malloc(sizeof(tiny *) * multivers);
-        for (i = 0; i < multivers; i++)
+        printf("bestDNA %d : %d\n", i, bestDna[i]);
+        if (strand == bestDna[i])
         {
-            multiversBestDNA[i] = foundFile(i + 1);
+            switch (i)
+            {
+            case 0:
+                return (rand() % 160) + 40;
+                break;
+            case 1:
+                return (rand() % 2) ? 99 : 199;
+                break;
+            case 2:
+                return (rand() % 30) + 70;
+                break;
+            case 3:
+                return 60;
+                break;
+            default:
+                return 0;
+            }
         }
     }
-    else
-    {
-        // TEmporary
-        return NULL;
-    }
-    return NULL;
-}
 
-tiny *foundFile(int multiversSelection)
-{
-    int i;
-    printf("%d\n", multiversSelection);
-    tiny *bestDnas;
-    DIR *dirp;
-    struct dirent *dir;
-    dirp = opendir("./UniversData");
-    puts("ok ok");
-    // to dodge the '.' file
-    for (i = 0; i < 1 + multiversSelection; i++)
-    {
-        dir = readdir(dirp);
-    }
-    printf("%s\n", dir->d_name);
-    bestDnas = eugenism(dir);
-    //Temporary
-    return NULL;
-}
-
-tiny *eugenism(struct dirent *dir)
-{
-    int goodMus[10] = {0};
-    int i = 0;
-    int goodDay = 50;
-    tiny *bestAdns = malloc(sizeof(tiny) * 5);
-    printf("%s", dir->d_name);
-    FILE *fUni = fopen(dir->d_name, "r");
-    if (fUni == NULL)
-    {
-        return NULL;
-    }
-    rewind(fUni);
-    fscanf(fUni, "%d", &goodDay);
-    printf("%d\n", goodDay);
-    fseek(fUni, 112, SEEK_CUR);
-    puts("in!");
-    while (!feof(fUni) || i != 9)
-    {
-        fscanf(fUni, "%d", &goodDay);
-        // printf("%d\n", goodDay);
-        if (goodDay > 6)
-        {
-            fseek(fUni, -116, SEEK_CUR);
-            fscanf(fUni, "%d", &(goodMus[i++]));
-            fseek(fUni, 125 + 112, SEEK_CUR);
-        }
-        else
-        {
-            fseek(fUni, 125, SEEK_CUR);
-        }
-    }
-    printf("%d\n", goodMus[11]);
-    return NULL;
+    return rand() % 200;
 }
