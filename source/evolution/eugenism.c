@@ -12,7 +12,6 @@ tiny *fetchBestDna()
         {
             multiversBestDNA[i] = eugenism(i + 1);
         }
-        puts("oui oui oui");
         printf("multivers = %d\n", multivers);
         return bestDnaEver(multivers, multiversBestDNA);
     }
@@ -142,7 +141,6 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
         for (j = 0; j < 5; j++)
         {
             points[multiversBestDNA[i][j]]++;
-            printf("points : %d\n", points[multiversBestDNA[i][j]]);
         }
     }
     for (i = 0; i < 5; i++)
@@ -161,6 +159,5 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
         printf("%d\n", index);
         points[index] = 0;
     }
-    puts("wouf");
     return bestDna;
 }
