@@ -3,18 +3,17 @@
 int main(int argc, char **argv)
 {
     int wait = 1;
-    const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
     SDL_Event event;
 
     graphGenerateMenu();
     while(wait != 0)
     {
-        // SDL_Delay(1000);
         SDL_FlushEvent(SDL_WINDOWEVENT_CLOSE);
         SDL_FlushEvent(SDL_SCANCODE_ESCAPE);
         SDL_PumpEvents();
         SDL_PollEvent(&event);
         {
+            const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
             // quit
             if ( pKeyStates[SDL_SCANCODE_ESCAPE] || event.window.event == SDL_WINDOWEVENT_CLOSE)
             {

@@ -47,17 +47,16 @@ int loopEvent(struct Univers *univers)
 {
     int wait = 1;
     int breakSim = 1;
-
+    SDL_Event eventSim;
     
     if(wait == 1)
     {
         SDL_FlushEvent(SDL_WINDOWEVENT_CLOSE);
         SDL_FlushEvent(SDL_SCANCODE_ESCAPE);
         SDL_PumpEvents();
+        SDL_PollEvent(&eventSim);
         {
             const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
-            const Uint8* pKeyStatesBreak = SDL_GetKeyboardState(NULL);
-            SDL_Event eventSim;
 
             if ( pKeyStates[SDL_SCANCODE_ESCAPE] || eventSim.window.event == SDL_WINDOWEVENT_CLOSE)
             {
@@ -72,6 +71,8 @@ int loopEvent(struct Univers *univers)
                     SDL_FlushEvent(SDL_WINDOWEVENT_CLOSE);
                     SDL_FlushEvent(SDL_SCANCODE_ESCAPE);
                     SDL_PumpEvents();
+                    SDL_PollEvent(&eventSim);
+                    const Uint8* pKeyStatesBreak = SDL_GetKeyboardState(NULL);
                     if ( pKeyStates[SDL_SCANCODE_ESCAPE] || eventSim.window.event == SDL_WINDOWEVENT_CLOSE)
                     {
                         return 0;
@@ -100,7 +101,6 @@ void languorTime(struct Univers *univers)
 int endSimulation(struct Univers *univers)
 {
     int wait = 1;
-    const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
     SDL_Event eventSim;
 
     printEndSimulation(univers->graphData);
@@ -109,7 +109,9 @@ int endSimulation(struct Univers *univers)
         SDL_FlushEvent(SDL_WINDOWEVENT_CLOSE);
         SDL_FlushEvent(SDL_SCANCODE_ESCAPE);
         SDL_PumpEvents();
+        SDL_PollEvent(&eventSim);
         {
+            const Uint8* pKeyStates = SDL_GetKeyboardState(NULL);
             if ( pKeyStates[SDL_SCANCODE_ESCAPE] || eventSim.window.event == SDL_WINDOWEVENT_CLOSE)
             {
                 wait = 0;

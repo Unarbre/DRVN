@@ -44,7 +44,7 @@ tiny *eugenism(int multiversSelection)
         fscanf(fUni, "%d %d %d\n", &(tmpGhost->goodDay), &(tmpGhost->born), &(tmpGhost->death));
         printf("goodDay : %d\n", tmpGhost->goodDay);
         // TEMPORARY : to be adapted to high tier survivors
-        if (tmpGhost->goodDay >= 4)
+        if (tmpGhost->goodDay >= 3)
         {
             ghosts[i] = tmpGhost;
             i++;
