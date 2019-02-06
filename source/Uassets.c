@@ -22,7 +22,7 @@ void printMu(struct MU *Mu)
     }
 
     printf("Life Points : %d\n", Mu->lifePoints);
-    printf("sex Appeal : %d\n", Mu->sexAppeal);
+    printf("sex Preference : %d\n", Mu->sexPreference);
     printf("status : %d\n", Mu->status);
     printf("Languor : %d\n", Mu->languor);
 

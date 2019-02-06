@@ -8,31 +8,38 @@ struct Rules *initiateRules()
     return rules;
 }
 
-tiny *fetchBestDna()
+tiny thinkDNA(int strand, tiny *bestDna)
 {
     int i;
-    tiny **multiversBestDNA = NULL;
-    int multivers = getVersion() - 1;
-    if (multivers)
+    for (i = 0; i < 5; i++)
     {
-        multiversBestDNA = malloc(sizeof(tiny *) * multivers);
-        for (i = 0; i < multivers; i++)
+        if (bestDna != NULL)
         {
-            multiversBestDNA[i] = eugenism(i + 1);
+            printf("bestDNA %d : %d\n", i, bestDna[i]);
+            puts("ok");
+
+            if (strand == bestDna[i])
+            {
+                switch (i)
+                {
+                case 0:
+                    return (rand() % 160) + 40;
+                    break;
+                case 1:
+                    return (rand() % 2) ? 99 : 199;
+                    break;
+                case 2:
+                    return (rand() % 30) + 70;
+                    break;
+                case 3:
+                    return 60;
+                    break;
+                default:
+                    return 0;
+                }
+            }
         }
     }
-    else
-    {
-        return NULL;
-    }
-    return NULL;
-}
 
-tiny *eugenism(int multiversSlection)
-{
-    int i;
-    for (i = 0; i < multiversSlection; i++)
-    {
-    }
-    return NULL;
+    return rand() % 200;
 }

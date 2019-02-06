@@ -16,7 +16,7 @@ int reproduction(struct Univers *univers)
 
             if (partnerAmount != 0)
             {
-                breedPartner = orderedSexPartner(breedPartner, partnerAmount);
+                breedPartner = orderedSexPartner(breedPartner, partnerAmount, currentMu->sexPreference);
                 for (i = 0; i < partnerAmount; i++)
                 {
                     if (breedPartner[i]->languor == 0 && currentMu->languor == 0)
@@ -46,7 +46,7 @@ int tryBreed(struct MU *mu)
             return 0;
         break;
     case 1:
-        if (!luckBreedTest(4))
+        if (!luckBreedTest(7))
             return 0;
         break;
     default:;
@@ -94,7 +94,7 @@ struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int
     return closePartner;
 }
 
-struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner)
+struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner, int sexPreference)
 {
     struct MU **orderedSexP = malloc(sizeof(struct MU *) * numPartner);
     int i, j = 0;
@@ -108,11 +108,11 @@ struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner)
         }
     }
     free(sexPartner);
-    orderedSexP = orderSexAppeal(orderedSexP, numPartner);
+    orderedSexP = orderSexAttraid(orderedSexP, numPartner, sexPreference);
     return orderedSexP;
 }
 
-struct MU **orderSexAppeal(struct MU **sexPartner, int numPartner)
+struct MU **orderSexAttraid(struct MU **sexPartner, int numPartner, int sexPreference)
 {
     int i, j;
     struct MU *temp;
@@ -125,7 +125,7 @@ struct MU **orderSexAppeal(struct MU **sexPartner, int numPartner)
     {
         for (j = 1; j < numPartner; j++)
         {
-            if (sexPartner[i]->sexAppeal < sexPartner[j]->sexAppeal)
+            if (sexPartner[i]->capacity[sexPreference] < sexPartner[j]->capacity[sexPreference])
             {
                 temp = sexPartner[i];
                 sexPartner[i] = sexPartner[j];
@@ -155,9 +155,8 @@ void breed(struct MU *dad, struct MU *mom, struct Univers *univers)
     baby->idMu = univers->lastChildId++;
     baby->status = 1;
     baby->lifePoints = initiateLifePoints(baby->capacity[0]);
-    // baby->lifePoints = 1;
-    baby->sexAppeal = baby->capacity[1];
     baby->children = initialiseChildren();
+    baby->sexPreference = mom->sexPreference;
     affectChildren(baby->idMu, dad);
     affectChildren(baby->idMu, mom);
     dad->languor = 1;
@@ -171,6 +170,7 @@ void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom)
 {
     int i = 0;
     tiny expression = 'A';
+    char mutateCounter = (rand() % ('A' - 'Z')) + 'A';
     baby->DNA = malloc(sizeof(tiny *) * 13);
     while (expression <= 'L')
     {
@@ -179,6 +179,10 @@ void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom)
         baby->DNA[i][0] = expression++;
         baby->DNA[i][1] = dad->DNA[i][(rand() % 2) + 1];
         baby->DNA[i][2] = mom->DNA[i][(rand() % 2) + 1];
+        if (mutateCounter == expression - 1)
+        {
+            baby->DNA[i] = mutate(baby->DNA[i]);
+        }
         i++;
     }
 }
@@ -242,4 +246,15 @@ void freeBreedPartner(struct MU **sexPartners, int numPartner)
         sexPartners[i] = NULL;
         free(sexPartners[i]);
     }
+}
+
+tiny *mutate(tiny *DNA)
+{
+    DNA[0] += 50;
+    DNA[1] += 50;
+    if (DNA[0] > 200)
+        DNA[0] -= 100;
+    if (DNA[1] > 200)
+        DNA[1] -= 100;
+    return DNA;
 }
