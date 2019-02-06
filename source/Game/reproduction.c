@@ -46,7 +46,7 @@ int tryBreed(struct MU *mu)
             return 0;
         break;
     case 1:
-        if (!luckBreedTest(4))
+        if (!luckBreedTest(7))
             return 0;
         break;
     default:;
@@ -171,6 +171,7 @@ void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom)
 {
     int i = 0;
     tiny expression = 'A';
+    char mutateCounter = (rand() % ('A' - 'Z')) + 'A';
     baby->DNA = malloc(sizeof(tiny *) * 13);
     while (expression <= 'L')
     {
@@ -179,6 +180,10 @@ void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom)
         baby->DNA[i][0] = expression++;
         baby->DNA[i][1] = dad->DNA[i][(rand() % 2) + 1];
         baby->DNA[i][2] = mom->DNA[i][(rand() % 2) + 1];
+        if (mutateCounter == expression - 1)
+        {
+            baby->DNA[i] = mutate(baby->DNA[i]);
+        }
         i++;
     }
 }
@@ -242,4 +247,15 @@ void freeBreedPartner(struct MU **sexPartners, int numPartner)
         sexPartners[i] = NULL;
         free(sexPartners[i]);
     }
+}
+
+tiny *mutate(tiny *DNA)
+{
+    DNA[0] += 50;
+    DNA[1] += 50;
+    if (DNA[0] > 200)
+        DNA[0] -= 100;
+    if (DNA[1] > 200)
+        DNA[1] -= 100;
+    return DNA;
 }
