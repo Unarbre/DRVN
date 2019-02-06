@@ -1,6 +1,5 @@
 #include "../../proto/supervisor.h"
 
-
 tiny *fetchBestDna()
 {
     int i;
@@ -13,12 +12,13 @@ tiny *fetchBestDna()
         {
             multiversBestDNA[i] = eugenism(i + 1);
         }
+        puts("oui oui oui");
+        printf("multivers = %d\n", multivers);
         return bestDnaEver(multivers, multiversBestDNA);
     }
 
     return NULL;
 }
-
 
 tiny *eugenism(int multiversSelection)
 {
@@ -151,7 +151,7 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
         for (j = 0; j < 12; j++)
         {
             printf("j : %d\n", points[j]);
-            if (points[j] > highAmount)
+            if (points[j] >= highAmount)
             {
                 highAmount = points[j];
                 index = j;
@@ -161,6 +161,6 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
         printf("%d\n", index);
         points[index] = 0;
     }
-
+    puts("wouf");
     return bestDna;
 }
