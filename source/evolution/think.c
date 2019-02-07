@@ -1,13 +1,5 @@
 #include "../../proto/supervisor.h"
 
-struct Rules *initiateRules()
-{
-    struct Rules *rules = malloc(sizeof(struct Rules));
-    rules->bestDna = fetchBestDna();
-
-    return rules;
-}
-
 tiny thinkDNA(int strand, tiny *bestDna)
 {
     int i;
@@ -24,7 +16,7 @@ tiny thinkDNA(int strand, tiny *bestDna)
                     return (rand() % 110) + 40;
                     break;
                 case 1:
-                    return (rand() % 2) ? 40 : 140;
+                    return (rand() % 2) ? 40 : rand() % 40;
                     break;
                 case 2:
                     return (rand() % 70) + 30;
@@ -33,7 +25,7 @@ tiny thinkDNA(int strand, tiny *bestDna)
                     return rand() % 100 + 99;
                     break;
                 default:
-                    return 0;
+                    return rand() % 50;
                 }
             }
         }

@@ -30,6 +30,7 @@ char *createUniversFile(int version)
     return fileName;
 }
 
+// Obtain the version of the univers
 int getVersion()
 {
     int count = 1;
@@ -38,9 +39,18 @@ int getVersion()
     dirp = opendir("./UniversData");
     while ((dir = readdir(dirp)) != NULL)
     {
+        // Check if the file is not "." or ".."
         if (dir->d_type == DT_REG)
             count++;
     }
     closedir(dirp);
     return count;
+}
+
+struct Rules *initiateRules()
+{
+    struct Rules *rules = malloc(sizeof(struct Rules));
+    rules->bestDna = fetchBestDna();
+
+    return rules;
 }

@@ -38,5 +38,3 @@ struct Population
     // Amount on MU in the startPopulation chained list
     int density;
 };
-void procreateRound(struct Univers **univers);
-struct MU *addMU(struct MU *MUnivers, struct MU newMU, int *population);

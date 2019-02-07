@@ -126,9 +126,6 @@ tiny *orderBestDna(struct GhostMu **ghosts)
     }
 
     freeGhosts(ghosts);
-    for (i = 0; i < 5; i++)
-    {
-    }
     return bestDna;
 }
 

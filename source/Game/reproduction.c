@@ -12,15 +12,18 @@ int reproduction(struct Univers *univers)
         if (tryBreed(currentMu) && currentMu->languor == 0)
         {
             partnerAmount = 0;
+            // Allocate to breedPartner all close potential partner
             breedPartner = checkClosePartner(univers, currentMu, &partnerAmount);
 
             if (partnerAmount != 0)
             {
+                // Order the sex Partners depending of the sexual preference
                 breedPartner = orderedSexPartner(breedPartner, partnerAmount, currentMu->sexPreference);
                 for (i = 0; i < partnerAmount; i++)
                 {
                     if (breedPartner[i]->languor == 0 && currentMu->languor == 0)
                     {
+                        // reproduce
                         breed(currentMu, breedPartner[i], univers);
                     }
                 }
@@ -37,6 +40,7 @@ int reproduction(struct Univers *univers)
     return 0;
 }
 
+// Will try to breed, depending of the status of the MU
 int tryBreed(struct MU *mu)
 {
     switch (mu->status)
@@ -55,6 +59,7 @@ int tryBreed(struct MU *mu)
     return 1;
 }
 
+// Function simulating some probability
 int luckBreedTest(int round)
 {
     int i;
@@ -66,7 +71,7 @@ int luckBreedTest(int round)
     return 1;
 }
 
-// This function is amazing.
+// This function return all the close partner of the passed Current Mu
 struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int *partnerAmount)
 {
     int x = currentMu->position[0] - 1, y = currentMu->position[1] - 1;
@@ -74,6 +79,7 @@ struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int
     int xs[3] = {x, x + 1, x + 2};
     int ys[3] = {y, y + 1, y + 2};
     int i = 0;
+    // An array that will be filled with NULL or the close partner
     struct MU **closePartner = malloc(sizeof(struct MU *) * 9);
     for (; x <= xs[2]; x++)
     {
@@ -81,6 +87,7 @@ struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int
         for (; y <= ys[2]; y++)
         {
             closePartner[i] = NULL;
+            // This condition exclude the current Mu position, check if the consulted tiles is not out of the land, and if current Tile has a MU on it
             if ((x != xs[1] || y != ys[1]) && ((x >= 0 && x < univers->land->size) && (y >= 0 && y < univers->land->size)) && univers->land->tiles[x][y].Mu != NULL)
             {
                 (*partnerAmount)++;
@@ -94,6 +101,7 @@ struct MU **checkClosePartner(struct Univers *univers, struct MU *currentMu, int
     return closePartner;
 }
 
+// generate an MU array depending of the sexpartner, easiest to be used
 struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner, int sexPreference)
 {
     struct MU **orderedSexP = malloc(sizeof(struct MU *) * numPartner);
@@ -107,11 +115,13 @@ struct MU **orderedSexPartner(struct MU **sexPartner, int numPartner, int sexPre
             j++;
         }
     }
+    // Free the useless first array
     free(sexPartner);
-    orderedSexP = orderSexAttraid(orderedSexP, numPartner, sexPreference);
-    return orderedSexP;
+    // return the ordered sex partner
+    return orderSexAttraid(orderedSexP, numPartner, sexPreference);
 }
 
+// Function returning the sex partner ordered by sexpreference
 struct MU **orderSexAttraid(struct MU **sexPartner, int numPartner, int sexPreference)
 {
     int i, j;
@@ -120,7 +130,7 @@ struct MU **orderSexAttraid(struct MU **sexPartner, int numPartner, int sexPrefe
     {
         return sexPartner;
     }
-
+    // Simple algo ordering
     for (i = 0; i < numPartner - 1; i++)
     {
         for (j = 1; j < numPartner; j++)
@@ -187,6 +197,7 @@ void shareDNA(struct MU *baby, struct MU *dad, struct MU *mom)
     }
 }
 
+// Affect Children to his parents children array
 void affectChildren(int idChildren, struct MU *parent)
 {
     int i;
@@ -196,6 +207,7 @@ void affectChildren(int idChildren, struct MU *parent)
     parent->children[i] = idChildren;
 }
 
+// Insert child in the active population (he's a grown up, so cute)
 struct MU *insertChild(struct MU *child, struct Univers *univers)
 {
     struct MU *startPopulation = univers->population->startPopulation;
@@ -212,7 +224,7 @@ struct MU *insertChild(struct MU *child, struct Univers *univers)
     return startPopulation;
 }
 
-// This function check
+// This function check if an MU can be born on a position, and if so, place it on the position, depending of its mom's position
 int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *univers)
 {
     int x = parent->position[0] - 1, y = parent->position[1] - 1;
@@ -237,6 +249,7 @@ int checkAffectPosition(struct MU *parent, struct MU **child, struct Univers *un
     return 0;
 }
 
+// Free all partners
 void freeBreedPartner(struct MU **sexPartners, int numPartner)
 {
     int i;
@@ -245,6 +258,7 @@ void freeBreedPartner(struct MU **sexPartners, int numPartner)
         sexPartners[i] = NULL;
         free(sexPartners[i]);
     }
+    free(sexPartners);
 }
 
 // CHange a value, making it a mutation (random)

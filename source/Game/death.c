@@ -55,6 +55,7 @@ int removeFirst(struct Univers *univers)
     return 0;
 }
 
+// KILL EVERYBODY
 void genocide(struct Univers *univers)
 {
     struct MU *startPopulation = univers->population->startPopulation;
