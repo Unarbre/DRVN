@@ -1,5 +1,7 @@
 #include "../../proto/supervisor.h"
 
+
+// PRint MU in the apppropriated FIle 
 void toPosterity(struct MU *ghost, struct Univers *univers)
 {
     int i, goodLife;

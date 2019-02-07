@@ -7,14 +7,14 @@ void initiateUnivers(struct Univers *univers, int lastChildId, struct Population
     univers->lastChildId = lastChildId;
     univers->age = 0;
     univers->perenity = 100;
-
+    // Generate a string symbolizing the path to the univers memory File
     univers->universFilePath = createUniversFile(univers->version);
     univers->land = land;
 
     univers->population = population;
 
     univers->rules = initiateRules();
-
+    // Create the file so next include may be in "a" mode, facilitating its use
     FILE *fileCreator = fopen(univers->universFilePath, "w");
     fclose(fileCreator);
 }

@@ -247,13 +247,14 @@ void freeBreedPartner(struct MU **sexPartners, int numPartner)
     }
 }
 
+// CHange a value, making it a mutation (random)
 tiny *mutate(tiny *DNA)
 {
-    DNA[0] += 50;
-    DNA[1] += 50;
-    if (DNA[0] > 200)
-        DNA[0] -= 100;
+    DNA[1] += rand() % 50 + 50;
+    DNA[2] += rand() % 50 + 50;
     if (DNA[1] > 200)
         DNA[1] -= 100;
+    if (DNA[2] > 200)
+        DNA[2] -= 100;
     return DNA;
 }

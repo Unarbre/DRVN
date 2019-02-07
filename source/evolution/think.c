@@ -21,16 +21,16 @@ tiny thinkDNA(int strand, tiny *bestDna)
                 switch (i)
                 {
                 case 0:
-                    return (rand() % 160) + 40;
+                    return (rand() % 110) + 40;
                     break;
                 case 1:
-                    return (rand() % 2) ? 99 : 199;
+                    return (rand() % 2) ? 40 : 140;
                     break;
                 case 2:
-                    return (rand() % 30) + 70;
+                    return (rand() % 70) + 30;
                     break;
                 case 3:
-                    return 60;
+                    return rand() % 100 + 99;
                     break;
                 default:
                     return 0;

@@ -1,5 +1,6 @@
 #include "../../proto/supervisor.h"
 
+// fetch best DNA from all previous univers
 tiny *fetchBestDna()
 {
     int i;
@@ -18,6 +19,7 @@ tiny *fetchBestDna()
     return NULL;
 }
 
+// Fetch best DNA from a multiversSelection Univers
 tiny *eugenism(int multiversSelection)
 {
     char *multiversFileName = createUniversFile(multiversSelection);
@@ -27,7 +29,7 @@ tiny *eugenism(int multiversSelection)
     FILE *fUni = fopen(multiversFileName, "r");
     if (fUni == NULL)
         return NULL;
-
+    // While file is not a the end, or GoodMus are already filled
     while (!feof(fUni) && i < 3)
     {
         tmpGhost = initiateGhostMu();
@@ -50,9 +52,11 @@ tiny *eugenism(int multiversSelection)
         }
     }
     fclose(fUni);
+    // Return best dnas from best Mus
     return orderBestDna(ghosts);
 }
 
+// Initiate a ghost 
 struct GhostMu *initiateGhostMu()
 {
     int i;
@@ -66,6 +70,7 @@ struct GhostMu *initiateGhostMu()
     return ghost;
 }
 
+// Free ghost
 void freeGhost(struct GhostMu *ghost)
 {
     int i;
@@ -77,6 +82,7 @@ void freeGhost(struct GhostMu *ghost)
     free(ghost);
 }
 
+// Free last ghosts from the eugenism
 void freeGhosts(struct GhostMu **ghosts)
 {
     int i;
@@ -87,6 +93,7 @@ void freeGhosts(struct GhostMu **ghosts)
     free(ghosts);
 }
 
+// Order  DNA from one multivers and return its 5 best dna
 tiny *orderBestDna(struct GhostMu **ghosts)
 {
     tiny points[12] = {0};
@@ -97,11 +104,12 @@ tiny *orderBestDna(struct GhostMu **ghosts)
     {
         for (j = 0; j < 12; j++)
         {
+            // GIve points to DNA to order them after
             points[j] += ghosts[i]->Dna[j][0] > 99 ? (ghosts[i]->Dna[j][0] - 100) / 10 : ghosts[i]->Dna[j][0] / 10;
             points[j] += ghosts[i]->Dna[j][1] > 99 ? (ghosts[i]->Dna[j][1] - 100) / 10 : ghosts[i]->Dna[j][1] / 10;
         }
     }
-
+    // Simple algo to return best DNAs and fill the bestDna array with
     for (i = 0; i < 5; i++)
     {
         highAmount = 1;
@@ -124,6 +132,7 @@ tiny *orderBestDna(struct GhostMu **ghosts)
     return bestDna;
 }
 
+// Order best DNA from all precedent univers
 tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
 {
     tiny *bestDna = malloc(sizeof(tiny) * 5);
@@ -133,9 +142,11 @@ tiny *bestDnaEver(int multivers, tiny **multiversBestDNA)
     {
         for (j = 0; j < 5; j++)
         {
+            // give points to dna, depending of the whole univers results on the eugenism system
             points[multiversBestDNA[i][j]]++;
         }
     }
+    // Simple ordering algorithm
     for (i = 0; i < 5; i++)
     {
         highAmount = 1;
