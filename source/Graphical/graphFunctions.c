@@ -18,18 +18,18 @@ int graphGenerateMenu()
 
         if (pWindowMenu)
         {
-            SDL_Renderer *pRendererMenu = SDL_CreateRenderer(pWindowMenu, -1, SDL_RENDERER_ACCELERATED); // Création d'un SDL_Renderer utilisant l'accélération matérielle
+            SDL_Renderer *pRendererMenu = SDL_CreateRenderer(pWindowMenu, -1, SDL_RENDERER_ACCELERATED); // Initiate a rendered that will be next filled
             if (pRendererMenu)
             {
                 SDL_Surface *background = SDL_LoadBMP("assets/menu.bmp");
                 if (background)
                 {
-                    SDL_Texture *BGTextures = SDL_CreateTextureFromSurface(pRendererMenu, background); // Préparation du sprite
+                    SDL_Texture *BGTextures = SDL_CreateTextureFromSurface(pRendererMenu, background); // Sprite preparation
                     if (BGTextures)
                     {
                         SDL_Rect dest = {0, 0, 1920, 1080};
-                        SDL_RenderCopy(pRendererMenu, BGTextures, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
-                        SDL_RenderPresent(pRendererMenu); // Affichage
+                        SDL_RenderCopy(pRendererMenu, BGTextures, NULL, &dest); // sprite "printed" on the futur render
+                        SDL_RenderPresent(pRendererMenu); // Render
 
                     }
                     else
@@ -75,22 +75,21 @@ int graphGenerateWorld(struct Univers *univers)
 
         if (graphData->pWindow)
         {
-            graphData->pRenderer = SDL_CreateRenderer(graphData->pWindow, -1, SDL_RENDERER_ACCELERATED); // Création d'un SDL_Renderer utilisant l'accélération matérielle
+            graphData->pRenderer = SDL_CreateRenderer(graphData->pWindow, -1, SDL_RENDERER_ACCELERATED); // Initiate a rendered that will be next filled
             if (graphData->pRenderer)
             {
                 graphData->sTile = SDL_LoadBMP("assets/ground.bmp");
                 graphData->sMu = SDL_LoadBMP("assets/mu.bmp");
                 if (graphData->sTile && graphData->sMu)
                 {
-                    graphData->TileTexture = SDL_CreateTextureFromSurface(graphData->pRenderer, graphData->sTile); // Préparation du sprite
-                    graphData->MuTexture = SDL_CreateTextureFromSurface(graphData->pRenderer, graphData->sMu);     // Préparation du sprite
+                    graphData->TileTexture = SDL_CreateTextureFromSurface(graphData->pRenderer, graphData->sTile); // Sprite preparation
+                    graphData->MuTexture = SDL_CreateTextureFromSurface(graphData->pRenderer, graphData->sMu);     // Sprite preparation
 
                     univers->graphData = graphData;
 
                     if (graphData->TileTexture && graphData->MuTexture)
                     {
                         graphFillWorld(univers);
-                        // SDL_Delay(5000);              /* Attendre cinq secondes, que l'utilisateur voit la fenêtre */
                     }
                     else
                     {
@@ -126,17 +125,17 @@ int graphFillWorld(struct Univers *univers)
         for (j = 0; j < univers->land->size; j++)
         {
             SDL_Rect dest = {pX, pY, TSIZE, TSIZE};
-            SDL_RenderCopy(univers->graphData->pRenderer, univers->graphData->TileTexture, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
+            SDL_RenderCopy(univers->graphData->pRenderer, univers->graphData->TileTexture, NULL, &dest); // Sprite copy
             if (univers->land->tiles[i][j].Mu != NULL)
             {
                 SDL_Rect dest2 = {pX, pY, TSIZE, TSIZE};
-                SDL_RenderCopy(univers->graphData->pRenderer, univers->graphData->MuTexture, NULL, &dest2); // Copie du sprite grâce au SDL_Renderer
+                SDL_RenderCopy(univers->graphData->pRenderer, univers->graphData->MuTexture, NULL, &dest2); // sprite copy
             }
             pX += TSIZE;
         }
         pY += TSIZE;
     }
-    SDL_RenderPresent(univers->graphData->pRenderer); // Affichage
+    SDL_RenderPresent(univers->graphData->pRenderer); // render
     return 0;
 }
 
@@ -149,8 +148,8 @@ int printPause(struct GraphData *graphData)
         if (tEnd)
         {
             SDL_Rect dest = {0, 0, 1920, 1080};
-            SDL_RenderCopy(graphData->pRenderer, tEnd, NULL, &dest); // Copie du sprite grâce au SDL_Renderer
-            SDL_RenderPresent(graphData->pRenderer); // Affichage
+            SDL_RenderCopy(graphData->pRenderer, tEnd, NULL, &dest); // Copy sprite
+            SDL_RenderPresent(graphData->pRenderer); // Render
 
         }
         else
