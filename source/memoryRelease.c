@@ -28,10 +28,14 @@ void freeUnivers(struct Univers *univers)
     freeGraph(univers->graphData);
     freeLand(univers->land);
     freePopulation(univers->population);
+
+    // Free specific univers caracteristics
+    free(univers->universFilePath);
+    free(univers->rules->bestDna);
     free(univers);
 }
 
-void freeGraph(struct GraphData* graphData)
+void freeGraph(struct GraphData *graphData)
 {
     freeGraphTexture(graphData);
     freeGraphSprite(graphData);
@@ -40,18 +44,18 @@ void freeGraph(struct GraphData* graphData)
     free(graphData);
 }
 
-void freeGraphRenderer(struct GraphData* graphData)
+void freeGraphRenderer(struct GraphData *graphData)
 {
     SDL_DestroyRenderer(graphData->pRenderer); // Libération de la mémoire du SDL_Renderer
 }
 
-void freeGraphTexture(struct GraphData* graphData)
+void freeGraphTexture(struct GraphData *graphData)
 {
     SDL_DestroyTexture(graphData->TileTexture); // Libération de la mémoire associée à la texture
     SDL_DestroyTexture(graphData->MuTexture);
 }
 
-void freeGraphSprite(struct GraphData* graphData)
+void freeGraphSprite(struct GraphData *graphData)
 {
     SDL_FreeSurface(graphData->sTile); // Libération de la ressource occupée par le sprite
     SDL_FreeSurface(graphData->sMu);   // Libération de la ressource occupée par le sprite
@@ -61,7 +65,7 @@ void freeGraphSprite(struct GraphData* graphData)
 void freePopulation(struct Population *population)
 {
     struct MU *inter;
-    int i =0;
+    int i = 0;
     while (population->startPopulation != NULL)
     {
         inter = population->startPopulation;
@@ -81,17 +85,17 @@ void freeMu(struct MU *Mu)
 {
     if (Mu != NULL)
     {
-        
+
         int i = 0;
 
         // Free DNA's array
         while (Mu->DNA[i][0] <= 12)
         {
-            if(Mu->DNA[i] != NULL)
+            if (Mu->DNA[i] != NULL)
                 free(Mu->DNA[i]);
             i++;
         }
-        
+
         // Free DNA
         if (Mu->DNA != NULL)
             free(Mu->DNA);
